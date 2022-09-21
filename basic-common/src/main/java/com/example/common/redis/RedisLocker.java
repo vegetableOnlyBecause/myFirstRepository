@@ -1,9 +1,12 @@
 package com.example.common.redis;
 
+import lombok.extern.slf4j.Slf4j;
 import redis.clients.jedis.params.SetParams;
 
 import java.util.Collections;
+import java.util.concurrent.TimeUnit;
 
+@Slf4j
 public class RedisLocker {
     /**
      * 加锁成功
@@ -31,23 +34,28 @@ public class RedisLocker {
      * @return boolean
      **/
     public static boolean lock(String key, long expireTime) throws InterruptedException {
-        int count = 0;
-        int countMax = 3;
-        while (count < countMax){
-            SetParams params = new SetParams();
-            // NX表示仅在key不存在时才能设置成功
-            params.nx();
-            // EX表示单位是秒，PX表示单位是毫秒
-            params.px(expireTime);
-            if (LOCK_SUCCESS.equals(JedisUtil.jedis.set(key, LOCK_VALUE, params))) {
-                return true;
+//        int count = 0;
+//        int countMax = 3;
+//        while (count < countMax){
+//            SetParams params = new SetParams();
+//            // NX表示仅在key不存在时才能设置成功
+//            params.nx();
+//            // EX表示单位是秒，PX表示单位是毫秒
+//            params.px(expireTime);
+//            if (LOCK_SUCCESS.equals(JedisUtil.jedis.set(key, LOCK_VALUE, params))) {
+//                return true;
 //            }else{
 //                // 如果没有拿到锁,每10ms重试一次,最多重试3次
 //                TimeUnit.MILLISECONDS.sleep(DEFAULT_ACQUIRY_RETRY_MILLIS);
 //                count++;
-            }
-        }
-        return false;
+//            }
+//        }
+        SetParams params = new SetParams();
+        // NX表示仅在key不存在时才能设置成功
+        params.nx();
+        // EX表示单位是秒，PX表示单位是毫秒
+        params.px(expireTime);
+        return LOCK_SUCCESS.equals(JedisUtil.jedis.set(key, LOCK_VALUE, params));
     }
 
     /**

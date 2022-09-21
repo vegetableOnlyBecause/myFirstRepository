@@ -23,12 +23,7 @@
             <artifactId>guava</artifactId>
             <version>29.0-jre</version>
         </dependency>
-
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <optional>true</optional>
-        </dependency>
+        
 
         <!-- 引入 redis 依赖 -->
         <dependency>
