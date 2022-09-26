@@ -1,4 +1,4 @@
-package com.example.exception;
+package com.example.exception.handler;
 
 import com.example.response.OperationResult;
 import lombok.extern.slf4j.Slf4j;
@@ -29,7 +29,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(value = Exception.class)
     public OperationResult exceptionHandler(HttpServletRequest request, Exception e) {
         log.error("服务错误:", e);
-        return OperationResult.fail("其他错误", request.getRequestURI());
+        return OperationResult.fail("其他错误,url=" +request.getRequestURI(), e.getMessage());
     }
 
 //    /**

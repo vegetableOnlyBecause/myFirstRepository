@@ -1,6 +1,6 @@
-package com.example.cache.aop;
+package com.example.aop;
 
-import com.example.model.Cup;
+import com.example.user.dto.UserDTO;
 
 /**
  * @title: 数据库查询操作枚举
@@ -10,8 +10,7 @@ import com.example.model.Cup;
  */
 
 public enum CacheAopEnums {
-    GET_CUP_BY_ID(Cup.class, "object"),
-    LIST_CUP_BY_NAME(Cup.class, "list"),
+    GET_USER_BY_ID(UserDTO.class, "object"),
     ;
 
     private Class<?> clazz; // 相应的类信息

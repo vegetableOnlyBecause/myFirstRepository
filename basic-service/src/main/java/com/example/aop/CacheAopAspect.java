@@ -1,4 +1,4 @@
-package com.example.cache.aop;
+package com.example.aop;
 
 import com.alibaba.fastjson.JSON;
 import com.example.common.cache.GuavaCache;
@@ -32,7 +32,7 @@ public class CacheAopAspect {
     private final String symbol = "#";
     private final String info_type_list="list";
 
-    @Pointcut("@annotation(com.example.cache.aop.CacheAop)")
+    @Pointcut("@annotation(com.example.aop.CacheAop)")
     public void cacheAopPointCut(){}
 
     @Around("cacheAopPointCut() && @annotation(cacheAop)")

@@ -21,7 +21,7 @@
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
-            <version>29.0-jre</version>
+            <version>${guava.version}</version>
         </dependency>
         
 
@@ -29,12 +29,12 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-redis</artifactId>
-            <version>1.5.7.RELEASE</version>
+            <version>${spring-boot-starter-data-redis.version}</version>
         </dependency>
         <dependency>
             <groupId>redis.clients</groupId>
             <artifactId>jedis</artifactId>
-            <version>3.2.0</version>
+            <version>${jedis.version}</version>
         </dependency>
 
         <!-- 切面 -->
@@ -59,12 +59,12 @@
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-collections4</artifactId>
-            <version>4.3</version>
+            <version>${commons-collections4.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
-            <version>3.9</version>
+            <version>${commons-lang3.version}</version>
         </dependency>
 
     </dependencies>

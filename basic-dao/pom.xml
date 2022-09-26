@@ -32,18 +32,18 @@
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>druid-spring-boot-starter</artifactId>
-            <version>1.1.9</version>
+            <version>${druid-spring-boot-starter.version}</version>
         </dependency>
         <!-- mybatis -->
         <dependency>
             <groupId>org.mybatis.spring.boot</groupId>
             <artifactId>mybatis-spring-boot-starter</artifactId>
-            <version>2.0.1</version>
+            <version>${mybatis-spring-boot-starter.version}</version>
         </dependency>
         <dependency>
             <groupId>com.github.pagehelper</groupId>
             <artifactId>pagehelper-spring-boot-starter</artifactId>
-            <version>1.4.1</version>
+            <version>${pagehelper-spring-boot-starter.version}</version>
         </dependency>
     </dependencies>
 
@@ -52,7 +52,7 @@
             <plugin>
                 <groupId>org.mybatis.generator</groupId>
                 <artifactId>mybatis-generator-maven-plugin</artifactId>
-                <version>1.4.0</version>
+                <version>${mybatis-generator-maven-plugin.version}</version>
                 <executions>
                     <execution>
                         <id>Generate MyBatis Artifacts</id>

@@ -21,9 +21,24 @@
         <module>basic-web</module>
     </modules>
 
+
     <description>Demo project for Spring Boot</description>
     <properties>
+        <!-- common -->
         <java.version>1.8</java.version>
+        <spring-boot-starter-data-redis.version>1.5.7.RELEASE</spring-boot-starter-data-redis.version>
+        <jedis.version>3.2.0</jedis.version>
+        <commons-collections4.version>4.3</commons-collections4.version>
+        <guava.version>29.0-jre</guava.version>
+        <commons-lang3.version>3.9</commons-lang3.version>
+        <!-- dao -->
+        <druid-spring-boot-starter.version>1.1.9</druid-spring-boot-starter.version>
+        <mybatis-spring-boot-starter.version>2.0.1</mybatis-spring-boot-starter.version>
+        <pagehelper-spring-boot-starter.version>1.4.1</pagehelper-spring-boot-starter.version>
+        <mybatis-generator-maven-plugin.version>1.4.0</mybatis-generator-maven-plugin.version>
+        <!-- web -->
+        <spring-boot-starter-web.version>2.0.5.RELEASE</spring-boot-starter-web.version>
+
     </properties>
     <dependencies>
         <dependency>
