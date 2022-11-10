@@ -46,8 +46,9 @@
 
         <!-- ============================================================================== -->
         <!--domainObjectName="User"-->
-        <table  tableName="common_user" domainObjectName="CommonUserDO">
-        </table>
+<!--        <table  tableName="commodity" domainObjectName="CommodityDO"/>-->
+        <table  tableName="commodity_category" domainObjectName="CommodityCategoryDO"/>
+<!--        <table  tableName="common_user" domainObjectName="CommonUserDO"/>-->
         <!-- ============================================================================= -->
     </context>
 </generatorConfiguration>

@@ -9,7 +9,7 @@
     <result column="nick_name" jdbcType="VARCHAR" property="nickName" />
     <result column="phone_number" jdbcType="VARCHAR" property="phoneNumber" />
     <result column="birthday" jdbcType="TIMESTAMP" property="birthday" />
-    <result column="email" jdbcType="TIMESTAMP" property="email" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
     <result column="register_time" jdbcType="TIMESTAMP" property="registerTime" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
   </resultMap>
@@ -112,7 +112,7 @@
       update_time)
     values (#{id,jdbcType=BIGINT}, #{userId,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, 
       #{password,jdbcType=VARCHAR}, #{nickName,jdbcType=VARCHAR}, #{phoneNumber,jdbcType=VARCHAR}, 
-      #{birthday,jdbcType=TIMESTAMP}, #{email,jdbcType=TIMESTAMP}, #{registerTime,jdbcType=TIMESTAMP}, 
+      #{birthday,jdbcType=TIMESTAMP}, #{email,jdbcType=VARCHAR}, #{registerTime,jdbcType=TIMESTAMP}, 
       #{updateTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.example.model.CommonUserDO">
@@ -172,7 +172,7 @@
         #{birthday,jdbcType=TIMESTAMP},
       </if>
       <if test="email != null">
-        #{email,jdbcType=TIMESTAMP},
+        #{email,jdbcType=VARCHAR},
       </if>
       <if test="registerTime != null">
         #{registerTime,jdbcType=TIMESTAMP},
@@ -213,7 +213,7 @@
         birthday = #{record.birthday,jdbcType=TIMESTAMP},
       </if>
       <if test="record.email != null">
-        email = #{record.email,jdbcType=TIMESTAMP},
+        email = #{record.email,jdbcType=VARCHAR},
       </if>
       <if test="record.registerTime != null">
         register_time = #{record.registerTime,jdbcType=TIMESTAMP},
@@ -235,7 +235,7 @@
       nick_name = #{record.nickName,jdbcType=VARCHAR},
       phone_number = #{record.phoneNumber,jdbcType=VARCHAR},
       birthday = #{record.birthday,jdbcType=TIMESTAMP},
-      email = #{record.email,jdbcType=TIMESTAMP},
+      email = #{record.email,jdbcType=VARCHAR},
       register_time = #{record.registerTime,jdbcType=TIMESTAMP},
       update_time = #{record.updateTime,jdbcType=TIMESTAMP}
     <if test="_parameter != null">
@@ -264,7 +264,7 @@
         birthday = #{birthday,jdbcType=TIMESTAMP},
       </if>
       <if test="email != null">
-        email = #{email,jdbcType=TIMESTAMP},
+        email = #{email,jdbcType=VARCHAR},
       </if>
       <if test="registerTime != null">
         register_time = #{registerTime,jdbcType=TIMESTAMP},
@@ -283,7 +283,7 @@
       nick_name = #{nickName,jdbcType=VARCHAR},
       phone_number = #{phoneNumber,jdbcType=VARCHAR},
       birthday = #{birthday,jdbcType=TIMESTAMP},
-      email = #{email,jdbcType=TIMESTAMP},
+      email = #{email,jdbcType=VARCHAR},
       register_time = #{registerTime,jdbcType=TIMESTAMP},
       update_time = #{updateTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=BIGINT}

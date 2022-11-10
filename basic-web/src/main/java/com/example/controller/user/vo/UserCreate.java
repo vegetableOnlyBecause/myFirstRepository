@@ -29,5 +29,5 @@ public class UserCreate implements Serializable {
 
     private Date birthday;
 
-    private Date email;
+    private String email;
 }

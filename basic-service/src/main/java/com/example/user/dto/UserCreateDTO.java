@@ -27,5 +27,9 @@ public class UserCreateDTO implements Serializable {
 
     private Date birthday;
 
-    private Date email;
+    private String email;
+
+    private Date registerTime = new Date();
+
+    private Date updateTime = new Date();
 }

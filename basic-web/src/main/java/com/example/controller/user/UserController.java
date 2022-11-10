@@ -1,6 +1,6 @@
 package com.example.controller.user;
 
-import com.example.utils.UserUtil;
+import com.example.controller.user.util.UserTransUtils;
 import com.example.controller.user.vo.UserCreate;
 import com.example.response.OperationResult;
 import com.example.user.UserService;
@@ -10,7 +10,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import java.io.IOException;
 
 @Slf4j
 @RestController
@@ -21,8 +20,8 @@ public class UserController {
     private UserService userService;
 
     @RequestMapping(value="/create", method = RequestMethod.POST)
-    public OperationResult<Object> create(@Validated @RequestBody UserCreate create) throws IOException {
-        userService.saveUserInfo(UserUtil.vo2dto(create));
+    public OperationResult<Object> create(@Validated @RequestBody UserCreate create) {
+        userService.save(UserTransUtils.vo2dto(create));
         return OperationResult.succ(null);
     }
 
@@ -30,7 +29,7 @@ public class UserController {
     @RequestMapping(value="/{userId}", method = RequestMethod.GET)
     public OperationResult<Object> getUserById(@Validated @PathVariable(name = "userId") String userId)  {
         UserDTO dto = userService.getUserById(userId);
-        return OperationResult.succ(UserUtil.dto2vo(dto));
+        return OperationResult.succ(UserTransUtils.dto2vo(dto));
     }
 
 

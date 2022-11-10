@@ -29,5 +29,4 @@ public interface CommonUserDOMapper {
     int updateByPrimaryKeySelective(CommonUserDO record);
 
     int updateByPrimaryKey(CommonUserDO record);
-
 }

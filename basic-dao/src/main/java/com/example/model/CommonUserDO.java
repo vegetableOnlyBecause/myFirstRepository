@@ -17,7 +17,7 @@ public class CommonUserDO {
 
     private Date birthday;
 
-    private Date email;
+    private String email;
 
     private Date registerTime;
 
@@ -79,12 +79,12 @@ public class CommonUserDO {
         this.birthday = birthday;
     }
 
-    public Date getEmail() {
+    public String getEmail() {
         return email;
     }
 
-    public void setEmail(Date email) {
-        this.email = email;
+    public void setEmail(String email) {
+        this.email = email == null ? null : email.trim();
     }
 
     public Date getRegisterTime() {

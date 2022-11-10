@@ -15,21 +15,19 @@ import java.util.Map;
  */
 public interface UserService {
 
-    int saveUserInfo(UserCreateDTO create) throws IOException;
+    void save(UserCreateDTO create);
 
     /**
      * 根据用户Id查询用户信息
      * @param userId 用户Id
-     * @return
      */
     UserDTO getUserById(String userId);
 
     /**
      * 根据用户Id删除用户
      * @param userId 用户Id
-     * @return
      */
-    int deleteUserById(String userId);
+    void delUserById(String userId);
 
     /**
      * 批量查询用户信息

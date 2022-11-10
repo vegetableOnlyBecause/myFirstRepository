@@ -585,52 +585,62 @@ public class CommonUserDOExample {
             return (Criteria) this;
         }
 
-        public Criteria andEmailEqualTo(Date value) {
+        public Criteria andEmailEqualTo(String value) {
             addCriterion("email =", value, "email");
             return (Criteria) this;
         }
 
-        public Criteria andEmailNotEqualTo(Date value) {
+        public Criteria andEmailNotEqualTo(String value) {
             addCriterion("email <>", value, "email");
             return (Criteria) this;
         }
 
-        public Criteria andEmailGreaterThan(Date value) {
+        public Criteria andEmailGreaterThan(String value) {
             addCriterion("email >", value, "email");
             return (Criteria) this;
         }
 
-        public Criteria andEmailGreaterThanOrEqualTo(Date value) {
+        public Criteria andEmailGreaterThanOrEqualTo(String value) {
             addCriterion("email >=", value, "email");
             return (Criteria) this;
         }
 
-        public Criteria andEmailLessThan(Date value) {
+        public Criteria andEmailLessThan(String value) {
             addCriterion("email <", value, "email");
             return (Criteria) this;
         }
 
-        public Criteria andEmailLessThanOrEqualTo(Date value) {
+        public Criteria andEmailLessThanOrEqualTo(String value) {
             addCriterion("email <=", value, "email");
             return (Criteria) this;
         }
 
-        public Criteria andEmailIn(List<Date> values) {
+        public Criteria andEmailLike(String value) {
+            addCriterion("email like", value, "email");
+            return (Criteria) this;
+        }
+
+        public Criteria andEmailNotLike(String value) {
+            addCriterion("email not like", value, "email");
+            return (Criteria) this;
+        }
+
+        public Criteria andEmailIn(List<String> values) {
             addCriterion("email in", values, "email");
             return (Criteria) this;
         }
 
-        public Criteria andEmailNotIn(List<Date> values) {
+        public Criteria andEmailNotIn(List<String> values) {
             addCriterion("email not in", values, "email");
             return (Criteria) this;
         }
 
-        public Criteria andEmailBetween(Date value1, Date value2) {
+        public Criteria andEmailBetween(String value1, String value2) {
             addCriterion("email between", value1, value2, "email");
             return (Criteria) this;
         }
 
-        public Criteria andEmailNotBetween(Date value1, Date value2) {
+        public Criteria andEmailNotBetween(String value1, String value2) {
             addCriterion("email not between", value1, value2, "email");
             return (Criteria) this;
         }

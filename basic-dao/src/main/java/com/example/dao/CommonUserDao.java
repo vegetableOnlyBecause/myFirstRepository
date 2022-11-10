@@ -22,24 +22,19 @@ import java.util.Map;
  */
 @Repository
 public class CommonUserDao {
-    private static final int zero = 0;
 
     @Resource
     private CommonUserDOMapper mapper;
 
-    public int saveUserInfo(CommonUserDO userDO){
-        if (null != userDO) return mapper.insertSelective(userDO);
-       return zero;
+    public void save(CommonUserDO userDO){
+        mapper.insertSelective(userDO);
     }
 
-    public int deleteUserById(String userId){
-        if (StringUtils.isBlank(userId)){
-            return zero;
-        }
+    public void del(String userId){
         CommonUserDOExample example = new CommonUserDOExample();
         CommonUserDOExample.Criteria criteria = example.createCriteria();
         criteria.andUserIdEqualTo(userId);
-        return mapper.deleteByExample(example);
+        mapper.deleteByExample(example);
     }
 
 
