@@ -1,4 +1,4 @@
-package com.example.controller.user.utils;
+package com.example.utils;
 
 import com.example.controller.user.vo.UserCreate;
 import com.example.controller.user.vo.UserVO;

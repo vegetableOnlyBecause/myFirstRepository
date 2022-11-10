@@ -29,8 +29,8 @@ public class CacheAopAspect {
     @Resource
     GuavaCache guavaCache;
 
-    private final String symbol = "#";
-    private final String info_type_list="list";
+    private static final String symbol = "#";
+    private static final String info_type_list="list";
 
     @Pointcut("@annotation(com.example.aop.CacheAop)")
     public void cacheAopPointCut(){}

@@ -1,6 +1,8 @@
 package com.example.user.dto;
 
 import lombok.Data;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.elasticsearch.annotations.Document;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -12,9 +14,10 @@ import java.util.Date;
  * @description:
  */
 @Data
+@Document(indexName = "book",createIndex = true)
 public class UserDTO implements Serializable {
     private static final long serialVersionUID = -2625741234379947045L;
-
+    @Id
     private String userId;
 
     private String userName;

@@ -1,9 +1,9 @@
 package com.example;
 
-import com.google.common.collect.*;
-import com.google.common.eventbus.Subscribe;
-
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
+import java.util.List;
 
 public class TTT {
 
@@ -18,9 +18,12 @@ public class TTT {
         return result;
     }
     public static void main(String[] args) {
-        Set<String> set = new HashSet<>();
-        set.add("1");
-        set.add("1");
-        System.out.println(set);
+        List<String> list = new ArrayList<>();
+        list.add("D");
+        list.add("物");
+        list.add("A");
+
+        Collections.sort(list);
+        System.out.println(list);
     }
 }

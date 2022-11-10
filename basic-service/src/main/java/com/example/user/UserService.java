@@ -4,6 +4,7 @@ import com.example.user.dto.UserCreateDTO;
 import com.example.user.dto.UserDTO;
 import com.github.pagehelper.PageInfo;
 
+import java.io.IOException;
 import java.util.Map;
 
 /**
@@ -14,7 +15,7 @@ import java.util.Map;
  */
 public interface UserService {
 
-    void saveUserInfo(UserCreateDTO create);
+    int saveUserInfo(UserCreateDTO create) throws IOException;
 
     /**
      * 根据用户Id查询用户信息
@@ -22,6 +23,13 @@ public interface UserService {
      * @return
      */
     UserDTO getUserById(String userId);
+
+    /**
+     * 根据用户Id删除用户
+     * @param userId 用户Id
+     * @return
+     */
+    int deleteUserById(String userId);
 
     /**
      * 批量查询用户信息

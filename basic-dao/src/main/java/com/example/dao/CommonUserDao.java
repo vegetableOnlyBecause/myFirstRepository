@@ -7,6 +7,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.collections4.MapUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Repository;
 
 import javax.annotation.Resource;
@@ -30,6 +31,17 @@ public class CommonUserDao {
         if (null != userDO) return mapper.insertSelective(userDO);
        return zero;
     }
+
+    public int deleteUserById(String userId){
+        if (StringUtils.isBlank(userId)){
+            return zero;
+        }
+        CommonUserDOExample example = new CommonUserDOExample();
+        CommonUserDOExample.Criteria criteria = example.createCriteria();
+        criteria.andUserIdEqualTo(userId);
+        return mapper.deleteByExample(example);
+    }
+
 
     public CommonUserDO getUserById(String userId){
         CommonUserDOExample example = new CommonUserDOExample();

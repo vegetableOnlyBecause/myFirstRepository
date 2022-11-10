@@ -37,6 +37,12 @@
             <version>${jedis.version}</version>
         </dependency>
 
+        <!-- es -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-elasticsearch</artifactId>
+        </dependency>
+
         <!-- 切面 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>

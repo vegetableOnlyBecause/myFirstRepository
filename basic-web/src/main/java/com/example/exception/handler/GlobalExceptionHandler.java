@@ -2,6 +2,8 @@ package com.example.exception.handler;
 
 import com.example.response.OperationResult;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -17,7 +19,20 @@ import javax.servlet.http.HttpServletRequest;
 @Slf4j
 @ControllerAdvice
 public class GlobalExceptionHandler {
-//    private static final Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);
+    /**
+     * 处理参数异常
+     * @param request 请求信息
+     * @param e 异常信息
+     * @return
+     */
+    @ResponseBody
+    @ExceptionHandler(value = MethodArgumentNotValidException.class)
+    public OperationResult methodArgumentNotValidExceptionHandler(HttpServletRequest request, MethodArgumentNotValidException e) {
+        log.error("url={}", request.getRequestURI(), e);
+        FieldError fieldError = (FieldError) e.getBindingResult().getAllErrors().get(0);
+        String message = fieldError.getDefaultMessage();
+        return OperationResult.fail(message);
+    }
 
     /**
      * 处理 Exception
@@ -28,21 +43,8 @@ public class GlobalExceptionHandler {
     @ResponseBody
     @ExceptionHandler(value = Exception.class)
     public OperationResult exceptionHandler(HttpServletRequest request, Exception e) {
-        log.error("服务错误:", e);
-        return OperationResult.fail("其他错误,url=" +request.getRequestURI(), e.getMessage());
+        log.error("url={}", request.getRequestURI(), e);
+        return OperationResult.fail("其他错误");
     }
 
-//    /**
-//     * 处理 BusinessException 异常
-//     *
-//     * @param httpServletRequest httpServletRequest
-//     * @param e                  异常
-//     * @return
-//     */
-//    @ResponseBody
-//    @ExceptionHandler(value = BusinessException.class)
-//    public ResponseEntity businessExceptionHandler(HttpServletRequest httpServletRequest, BusinessException e) {
-//        log.info("业务异常。code:" + e.getCode() + "msg:" + e.getMsg());
-//        return new ResponseEntity(e.getCode(), e.getMsg());
-//    }
 }

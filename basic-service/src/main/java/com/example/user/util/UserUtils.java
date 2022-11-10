@@ -4,6 +4,7 @@ import com.example.model.CommonUserDO;
 import com.example.user.dto.UserCreateDTO;
 import com.example.user.dto.UserDTO;
 import org.apache.commons.collections4.CollectionUtils;
+import org.springframework.util.DigestUtils;
 
 import java.util.*;
 
@@ -14,6 +15,8 @@ import java.util.*;
  * @description:
  */
 public class UserUtils {
+
+    private static final String slat = "luan_ma";
 
     public static UserDTO do2Dto(CommonUserDO userDO){
         if (null == userDO) return null;
@@ -50,8 +53,7 @@ public class UserUtils {
         CommonUserDO userDO = new CommonUserDO();
         userDO.setUserId(userId);
         userDO.setUserName(dto.getUserName());
-        // todo: 加密
-        userDO.setPassword(dto.getPassword());
+        userDO.setPassword(DigestUtils.md5DigestAsHex((dto.getPassword() + slat).getBytes()));
         userDO.setNickName(dto.getNickName());
         userDO.setPhoneNumber(dto.getPhoneNumber());
         userDO.setBirthday(dto.getBirthday());

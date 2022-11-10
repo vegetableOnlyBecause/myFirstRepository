@@ -39,12 +39,12 @@ public class OperationResult<T> implements Serializable {
         return new OperationResult(Boolean.TRUE, resData);
     }
 
-    public static OperationResult fail(String errCode, String errMessage){
+    public static  OperationResult fail(String errCode, String errMessage){
         return new OperationResult(Boolean.FALSE, errCode, errMessage);
     }
 
     public static OperationResult fail(String errCode){
-        return fail(errCode, "");
+        return fail(errCode, errCode);
     }
 
     public boolean isFlag() {
