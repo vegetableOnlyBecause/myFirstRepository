@@ -7,7 +7,6 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.collections4.MapUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Repository;
 
 import javax.annotation.Resource;
@@ -24,17 +23,17 @@ import java.util.Map;
 public class CommonUserDao {
 
     @Resource
-    private CommonUserDOMapper mapper;
+    private CommonUserDOMapper commonUserDOMapper;
 
     public void save(CommonUserDO userDO){
-        mapper.insertSelective(userDO);
+        commonUserDOMapper.insertSelective(userDO);
     }
 
     public void del(String userId){
         CommonUserDOExample example = new CommonUserDOExample();
         CommonUserDOExample.Criteria criteria = example.createCriteria();
         criteria.andUserIdEqualTo(userId);
-        mapper.deleteByExample(example);
+        commonUserDOMapper.deleteByExample(example);
     }
 
 
@@ -42,20 +41,20 @@ public class CommonUserDao {
         CommonUserDOExample example = new CommonUserDOExample();
         CommonUserDOExample.Criteria criteria = example.createCriteria();
         criteria.andUserIdEqualTo(userId);
-        List<CommonUserDO> dos = mapper.selectByExample(example);
+        List<CommonUserDO> dos = commonUserDOMapper.selectByExample(example);
         return CollectionUtils.isNotEmpty(dos) ? dos.get(0) : null;
     }
 
-    public PageInfo<CommonUserDO> listUserByConditions(Map<String, Object> conditions, int page, int pageSize){
+    public PageInfo<CommonUserDO> listUserByConditions(Map<String, String> conditions, int page, int pageSize){
         CommonUserDOExample example = new CommonUserDOExample();
         CommonUserDOExample.Criteria criteria = example.createCriteria();
         if (MapUtils.isNotEmpty(conditions)){
             if (null != conditions.get("nickName")){
-                criteria.andNickNameEqualTo(String.valueOf(conditions.get("nickName")));
+                criteria.andNickNameEqualTo(conditions.get("nickName"));
             }
         }
         PageHelper.startPage(page, pageSize);
-        List<CommonUserDO> dos = mapper.selectByExample(example);
+        List<CommonUserDO> dos = commonUserDOMapper.selectByExample(example);
         return new PageInfo<>(dos);
     }
 

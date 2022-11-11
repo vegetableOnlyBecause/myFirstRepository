@@ -36,5 +36,5 @@ public interface UserService {
      * @param pageSize 页面大小
      * @return
      */
-    PageInfo<UserDTO> listUserByConditions(Map<String, Object> condition, int page, int pageSize);
+    PageInfo<UserDTO> listUserByConditions(Map<String, String> condition, int page, int pageSize);
 }

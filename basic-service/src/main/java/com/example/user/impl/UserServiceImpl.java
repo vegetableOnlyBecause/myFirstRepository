@@ -59,7 +59,7 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public PageInfo<UserDTO> listUserByConditions(Map<String, Object> condition, int page, int pageSize){
+    public PageInfo<UserDTO> listUserByConditions(Map<String, String> condition, int page, int pageSize){
         PageInfo<CommonUserDO> doPage = commonUserDao.listUserByConditions(condition, page, pageSize);
         List<CommonUserDO> dos = doPage.getList();
         List<UserDTO> dtos = UserUtils.dos2Dtos(dos);

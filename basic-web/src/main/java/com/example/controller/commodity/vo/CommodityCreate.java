@@ -20,7 +20,7 @@ public class CommodityCreate implements Serializable {
     @NotBlank(message = "商品名称不能为空")
     private String commodityName;
 
-    @NotBlank(message = "商品类目不能为空")
+    @NotBlank(message = "类目不能为空")
     private String categoryId;
 
     @NotNull(message = "原始价格不能为空")

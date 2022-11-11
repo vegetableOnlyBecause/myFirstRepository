@@ -32,7 +32,7 @@ public class CommodityController {
     }
 
     @RequestMapping(value="/{categoryId}", method = RequestMethod.GET)
-    public OperationResult<Object> create(@Validated @PathVariable(name = "categoryId") String categoryId) {
+    public OperationResult<Object> listInfo(@Validated @PathVariable(name = "categoryId") String categoryId) {
         List<CommodityDTO> dtos = commodityService.listByCategoryId(categoryId);
         return OperationResult.succ(CommodityTransUtils.dtos2vos(dtos));
     }

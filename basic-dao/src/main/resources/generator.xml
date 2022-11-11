@@ -47,7 +47,7 @@
         <!-- ============================================================================== -->
         <!--domainObjectName="User"-->
 <!--        <table  tableName="commodity" domainObjectName="CommodityDO"/>-->
-        <table  tableName="commodity_category" domainObjectName="CommodityCategoryDO"/>
+        <table  tableName="category" domainObjectName="CategoryDO"/>
 <!--        <table  tableName="common_user" domainObjectName="CommonUserDO"/>-->
         <!-- ============================================================================= -->
     </context>
