@@ -11,8 +11,10 @@ import org.apache.commons.collections4.MapUtils;
 import org.springframework.stereotype.Repository;
 
 import javax.annotation.Resource;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 /**
  * @title: 用户查询类
@@ -57,7 +59,7 @@ public class CommonUserDao {
         condition.initPageInfo();
         PageHelper.startPage(condition.getPage(), condition.getPageSize());
         List<CommonUserDO> dos = commonUserDOMapper.selectByExample(example);
-        return new PageInfo<>(dos);
+        return new PageInfo<>(Optional.ofNullable(dos).orElse(Collections.emptyList()));
     }
 
 

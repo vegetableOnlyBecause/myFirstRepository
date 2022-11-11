@@ -3,14 +3,10 @@ package com.example.controller.commodity;
 import com.alibaba.fastjson.JSON;
 import com.example.commodity.CategoryService;
 import com.example.commodity.dto.CategoryDTO;
-import com.example.commodity.dto.CommodityDTO;
-import com.example.commodity.util.CategoryUtils;
 import com.example.commodity.util.PageInfoUtils;
 import com.example.condition.CategoryCondition;
 import com.example.controller.commodity.util.CategoryTransUtils;
-import com.example.controller.commodity.util.CommodityTransUtils;
 import com.example.controller.commodity.vo.CategoryCreate;
-import com.example.controller.commodity.vo.CommodityCreate;
 import com.example.response.OperationResult;
 import com.github.pagehelper.PageInfo;
 import lombok.extern.slf4j.Slf4j;
@@ -18,7 +14,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import java.util.List;
 import java.util.Map;
 
 /**
