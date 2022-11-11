@@ -5,6 +5,7 @@ import com.example.mapper.CategoryDOMapper;
 import com.example.model.CategoryDO;
 import com.example.model.CategoryDOExample;
 import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Repository;
 
@@ -42,18 +43,18 @@ public class CategoryDao {
         return Optional.ofNullable(dos.get(0)).orElse(null);
     }
 
-    public List<CategoryDO> listInfo(CategoryCondition condition) {
+    public PageInfo<CategoryDO> listInfo(CategoryCondition condition) {
         CategoryDOExample example = new CategoryDOExample();
         CategoryDOExample.Criteria criteria = example.createCriteria();
         if (StringUtils.isNotBlank(condition.getCategoryName())) {
-            criteria.andCategoryNameLike(condition.getCategoryName());
+            criteria.andCategoryNameLike("%" + condition.getCategoryName() + "%");
         }
         example.setOrderByClause(condition.getSortField()
                 + " " + condition.getSortType());
         condition.initPageInfo();
         PageHelper.startPage(condition.getPage(), condition.getPageSize());
         List<CategoryDO> dos = categoryDOMapper.selectByExample(example);
-        return Optional.ofNullable(dos).orElse(Collections.emptyList());
+        return new PageInfo<>(Optional.ofNullable(dos).orElse(Collections.emptyList()));
     }
 
     public String save(CategoryDO categoryDO) {

@@ -4,8 +4,11 @@ import com.example.commodity.CategoryService;
 import com.example.commodity.dto.CategoryCreateDTO;
 import com.example.commodity.dto.CategoryDTO;
 import com.example.commodity.util.CategoryUtils;
+import com.example.commodity.util.PageInfoUtils;
 import com.example.condition.CategoryCondition;
 import com.example.dao.CategoryDao;
+import com.example.model.CategoryDO;
+import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -31,7 +34,8 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public List<CategoryDTO> listInfo(CategoryCondition condition) {
-        return CategoryUtils.dos2dtos(categoryDao.listInfo(condition));
+    public PageInfo<CategoryDTO> listInfo(CategoryCondition condition) {
+        PageInfo<CategoryDO> result = categoryDao.listInfo(condition);
+        return PageInfoUtils.pageInfoTrans(result, CategoryUtils::do2dto);
     }
 }

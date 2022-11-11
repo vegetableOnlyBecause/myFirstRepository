@@ -2,6 +2,8 @@ package com.example.commodity;
 
 import com.example.commodity.dto.CommodityCreateDTO;
 import com.example.commodity.dto.CommodityDTO;
+import com.example.condition.CommodityCondition;
+import com.github.pagehelper.PageInfo;
 
 import java.util.List;
 
@@ -13,7 +15,7 @@ import java.util.List;
  */
 public interface CommodityService {
 
-    List<CommodityDTO> listByCategoryId(String categoryId);
+    PageInfo<CommodityDTO> listInfo(CommodityCondition condition);
 
     String save(CommodityCreateDTO dto);
 }

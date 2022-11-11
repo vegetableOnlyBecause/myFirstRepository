@@ -1,16 +1,20 @@
 package com.example.controller.commodity;
 
+import com.alibaba.fastjson.JSON;
 import com.example.commodity.CommodityService;
 import com.example.commodity.dto.CommodityDTO;
+import com.example.commodity.util.PageInfoUtils;
+import com.example.condition.CommodityCondition;
 import com.example.controller.commodity.util.CommodityTransUtils;
 import com.example.controller.commodity.vo.CommodityCreate;
 import com.example.response.OperationResult;
+import com.github.pagehelper.PageInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import java.util.List;
+import java.util.Map;
 
 /**
  * @title: 商品Controller
@@ -31,9 +35,13 @@ public class CommodityController {
         return OperationResult.succ(commodityService.save(CommodityTransUtils.vo2dto(create)));
     }
 
-    @RequestMapping(value="/{categoryId}", method = RequestMethod.GET)
-    public OperationResult<Object> listInfo(@Validated @PathVariable(name = "categoryId") String categoryId) {
-        List<CommodityDTO> dtos = commodityService.listByCategoryId(categoryId);
-        return OperationResult.succ(CommodityTransUtils.dtos2vos(dtos));
+    @RequestMapping(method = RequestMethod.GET)
+    public OperationResult<Object> listInfo(@RequestParam Map<String, String> param) {
+        CommodityCondition condition = JSON.parseObject(JSON.toJSONString(param), CommodityCondition.class);
+        if (null == condition) {
+            condition = new CommodityCondition();
+        }
+        PageInfo<CommodityDTO> dtos = commodityService.listInfo(condition);
+        return OperationResult.succ(PageInfoUtils.pageInfoTrans(dtos, CommodityTransUtils::dto2vo));
     }
 }

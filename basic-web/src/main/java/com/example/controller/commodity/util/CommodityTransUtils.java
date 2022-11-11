@@ -37,18 +37,4 @@ public class CommodityTransUtils {
         BeanUtils.copyProperties(dto, vo);
         return vo;
     }
-
-    public static List<CommodityVO> dtos2vos(List<CommodityDTO> dtos) {
-        if (CollectionUtils.isEmpty(dtos)) {
-            return Collections.emptyList();
-        }
-        List<CommodityVO> vos = new ArrayList<>();
-        for (CommodityDTO dto : dtos) {
-            CommodityVO vo = dto2vo(dto);
-            if (null != vo) {
-                vos.add(vo);
-            }
-        }
-        return vos;
-    }
 }

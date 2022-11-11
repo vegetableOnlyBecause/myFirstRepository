@@ -1,5 +1,6 @@
 package com.example.dao;
 
+import com.example.condition.UserCondition;
 import com.example.mapper.CommonUserDOMapper;
 import com.example.model.CommonUserDO;
 import com.example.model.CommonUserDOExample;
@@ -45,15 +46,16 @@ public class CommonUserDao {
         return CollectionUtils.isNotEmpty(dos) ? dos.get(0) : null;
     }
 
-    public PageInfo<CommonUserDO> listUserByConditions(Map<String, String> conditions, int page, int pageSize){
+    public PageInfo<CommonUserDO> listInfo(UserCondition condition){
         CommonUserDOExample example = new CommonUserDOExample();
         CommonUserDOExample.Criteria criteria = example.createCriteria();
-        if (MapUtils.isNotEmpty(conditions)){
-            if (null != conditions.get("nickName")){
-                criteria.andNickNameEqualTo(conditions.get("nickName"));
-            }
+        if (null != condition.getNickName()){
+            criteria.andNickNameEqualTo(condition.getNickName());
         }
-        PageHelper.startPage(page, pageSize);
+        example.setOrderByClause(condition.getSortField()
+                + " " + condition.getSortType());
+        condition.initPageInfo();
+        PageHelper.startPage(condition.getPage(), condition.getPageSize());
         List<CommonUserDO> dos = commonUserDOMapper.selectByExample(example);
         return new PageInfo<>(dos);
     }

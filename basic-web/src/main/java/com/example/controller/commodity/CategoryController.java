@@ -4,12 +4,15 @@ import com.alibaba.fastjson.JSON;
 import com.example.commodity.CategoryService;
 import com.example.commodity.dto.CategoryDTO;
 import com.example.commodity.dto.CommodityDTO;
+import com.example.commodity.util.CategoryUtils;
+import com.example.commodity.util.PageInfoUtils;
 import com.example.condition.CategoryCondition;
 import com.example.controller.commodity.util.CategoryTransUtils;
 import com.example.controller.commodity.util.CommodityTransUtils;
 import com.example.controller.commodity.vo.CategoryCreate;
 import com.example.controller.commodity.vo.CommodityCreate;
 import com.example.response.OperationResult;
+import com.github.pagehelper.PageInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -39,7 +42,11 @@ public class CategoryController {
     @RequestMapping(method = RequestMethod.GET)
     public OperationResult<Object> listInfo(@RequestParam Map<String, String> param) {
         CategoryCondition condition = JSON.parseObject(JSON.toJSONString(param), CategoryCondition.class);
-        List<CategoryDTO> dtos = categoryService.listInfo(condition);
-        return OperationResult.succ(CategoryTransUtils.dtos2vos(dtos));
+        if (null == condition) {
+            condition = new CategoryCondition();
+        }
+        PageInfo<CategoryDTO> dtos = categoryService.listInfo(condition);
+        return OperationResult.succ(
+                PageInfoUtils.pageInfoTrans(dtos, CategoryTransUtils::dto2vo));
     }
 }

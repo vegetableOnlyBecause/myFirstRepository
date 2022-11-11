@@ -3,6 +3,7 @@ package com.example.user.impl;
 import com.example.aop.CacheAop;
 import com.example.aop.CacheAopEnums;
 import com.example.common.redis.RedisOperator;
+import com.example.condition.UserCondition;
 import com.example.dao.CommonUserDao;
 import com.example.model.CommonUserDO;
 import com.example.user.UserService;
@@ -57,10 +58,9 @@ public class UserServiceImpl implements UserService {
         return UserUtils.do2Dto(userDO);
     }
 
-
     @Override
-    public PageInfo<UserDTO> listUserByConditions(Map<String, String> condition, int page, int pageSize){
-        PageInfo<CommonUserDO> doPage = commonUserDao.listUserByConditions(condition, page, pageSize);
+    public PageInfo<UserDTO> listInfo(UserCondition condition){
+        PageInfo<CommonUserDO> doPage = commonUserDao.listInfo(condition);
         List<CommonUserDO> dos = doPage.getList();
         List<UserDTO> dtos = UserUtils.dos2Dtos(dos);
         return new PageInfo<>(dtos);

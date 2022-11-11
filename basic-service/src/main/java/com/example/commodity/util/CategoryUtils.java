@@ -3,14 +3,19 @@ package com.example.commodity.util;
 import com.example.commodity.dto.CategoryCreateDTO;
 import com.example.commodity.dto.CategoryDTO;
 import com.example.model.CategoryDO;
+import com.github.pagehelper.PageInfo;
 import lombok.Data;
 import org.apache.commons.collections4.CollectionUtils;
 import org.checkerframework.checker.units.qual.C;
 import org.springframework.beans.BeanUtils;
+import org.springframework.context.annotation.Bean;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 /**
  * @title:
@@ -42,6 +47,8 @@ public class CategoryUtils {
         }
         return dtos;
     }
+
+
 
     public static CategoryDO dto2do(CategoryCreateDTO dto) {
         if (null == dto) {

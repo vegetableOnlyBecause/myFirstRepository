@@ -4,6 +4,7 @@ import com.example.commodity.dto.CategoryCreateDTO;
 import com.example.commodity.dto.CategoryDTO;
 import com.example.controller.commodity.vo.CategoryCreate;
 import com.example.controller.commodity.vo.CategoryVO;
+import com.github.pagehelper.PageInfo;
 import org.apache.commons.collections4.CollectionUtils;
 import org.checkerframework.checker.units.qual.C;
 import org.springframework.beans.BeanUtils;
@@ -27,20 +28,6 @@ public class CategoryTransUtils {
         CategoryVO vo = new CategoryVO();
         BeanUtils.copyProperties(dto, vo);
         return vo;
-    }
-
-    public static List<CategoryVO> dtos2vos(List<CategoryDTO> dtos) {
-        if (CollectionUtils.isEmpty(dtos)) {
-            return Collections.emptyList();
-        }
-        List<CategoryVO> vos = new ArrayList<>();
-        for (CategoryDTO dto : dtos) {
-            CategoryVO vo = dto2vo(dto);
-            if (null != vo) {
-                vos.add(vo);
-            }
-        }
-        return vos;
     }
 
     public static CategoryCreateDTO vo2dto(CategoryCreate create) {

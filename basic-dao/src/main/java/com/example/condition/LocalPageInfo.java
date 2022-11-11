@@ -9,7 +9,7 @@ import lombok.Data;
  * @description:
  */
 @Data
-public class PageInfo {
+public class LocalPageInfo {
 
     private Integer page;
 

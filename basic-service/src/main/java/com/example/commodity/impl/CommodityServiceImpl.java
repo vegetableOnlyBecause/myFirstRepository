@@ -4,8 +4,11 @@ import com.example.commodity.CommodityService;
 import com.example.commodity.dto.CommodityCreateDTO;
 import com.example.commodity.dto.CommodityDTO;
 import com.example.commodity.util.CommodityUtils;
+import com.example.commodity.util.PageInfoUtils;
+import com.example.condition.CommodityCondition;
 import com.example.dao.CommodityDao;
 import com.example.model.CommodityDO;
+import com.github.pagehelper.PageInfo;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
@@ -26,11 +29,9 @@ public class CommodityServiceImpl implements CommodityService {
     private CommodityDao commodityDao;
 
     @Override
-    public List<CommodityDTO> listByCategoryId(String categoryId) {
-        if (StringUtils.isBlank(categoryId)) {
-            return Collections.emptyList();
-        }
-        return CommodityUtils.dos2dtos(commodityDao.listByCategoryId(categoryId));
+    public PageInfo<CommodityDTO> listInfo(CommodityCondition condition) {
+        PageInfo<CommodityDO> dos = commodityDao.listInfo(condition);
+        return PageInfoUtils.pageInfoTrans(dos, CommodityUtils::do2dto);
     }
 
     @Override

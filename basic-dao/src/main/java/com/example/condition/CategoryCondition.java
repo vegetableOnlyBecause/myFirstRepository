@@ -9,7 +9,7 @@ import lombok.Data;
  * @description:
  */
 @Data
-public class CategoryCondition extends PageInfo{
+public class CategoryCondition extends LocalPageInfo {
 
     private String categoryName;
 

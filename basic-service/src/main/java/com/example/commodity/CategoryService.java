@@ -3,6 +3,7 @@ package com.example.commodity;
 import com.example.commodity.dto.CategoryCreateDTO;
 import com.example.commodity.dto.CategoryDTO;
 import com.example.condition.CategoryCondition;
+import com.github.pagehelper.PageInfo;
 
 import java.util.List;
 import java.util.Map;
@@ -17,5 +18,5 @@ public interface CategoryService {
 
     String save(CategoryCreateDTO create);
 
-    List<CategoryDTO> listInfo(CategoryCondition condition);
+    PageInfo<CategoryDTO> listInfo(CategoryCondition condition);
 }

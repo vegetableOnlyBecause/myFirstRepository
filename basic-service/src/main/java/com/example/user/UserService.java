@@ -1,5 +1,6 @@
 package com.example.user;
 
+import com.example.condition.UserCondition;
 import com.example.user.dto.UserCreateDTO;
 import com.example.user.dto.UserDTO;
 import com.github.pagehelper.PageInfo;
@@ -32,9 +33,7 @@ public interface UserService {
     /**
      * 批量查询用户信息
      * @param condition 查询条件
-     * @param page 页数
-     * @param pageSize 页面大小
      * @return
      */
-    PageInfo<UserDTO> listUserByConditions(Map<String, String> condition, int page, int pageSize);
+    PageInfo<UserDTO> listInfo(UserCondition condition);
 }
