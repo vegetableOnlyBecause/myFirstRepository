@@ -21,16 +21,13 @@ public class UserController {
 
     @RequestMapping(value="/create", method = RequestMethod.POST)
     public OperationResult<Object> create(@Validated @RequestBody UserCreate create) {
-        userService.save(UserTransUtils.vo2dto(create));
-        return OperationResult.succ(null);
+        return OperationResult.succ(userService.save(UserTransUtils.vo2dto(create)));
     }
-
 
     @RequestMapping(value="/{userId}", method = RequestMethod.GET)
     public OperationResult<Object> getUserById(@Validated @PathVariable(name = "userId") String userId)  {
         UserDTO dto = userService.getUserById(userId);
         return OperationResult.succ(UserTransUtils.dto2vo(dto));
     }
-
 
 }

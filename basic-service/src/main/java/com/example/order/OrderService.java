@@ -1,6 +1,7 @@
 package com.example.order;
 
 import com.example.condition.OrderCondition;
+import com.example.order.dto.OrderCreateDTO;
 import com.example.order.dto.OrderDTO;
 import com.github.pagehelper.PageInfo;
 
@@ -11,6 +12,14 @@ import com.github.pagehelper.PageInfo;
  * @description:
  */
 public interface OrderService {
+
+    String save(OrderCreateDTO dto);
+
+    void cancel(String orderId);
+
+    void deliver(String orderId);
+
+    void pay(String orderId);
 
     PageInfo<OrderDTO> listInfo(OrderCondition condition);
 }

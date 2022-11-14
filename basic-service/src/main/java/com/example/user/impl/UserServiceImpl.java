@@ -34,12 +34,13 @@ public class UserServiceImpl implements UserService {
     private static final String symbol = "#";
 
     @Override
-    public void save(UserCreateDTO create) {
+    public String save(UserCreateDTO create) {
         CommonUserDO userDO = UserUtils.dto2do(create);
         if (null == userDO){
             // 抛错;
         }
         commonUserDao.save(userDO);
+        return userDO.getUserId();
     }
 
     @Override

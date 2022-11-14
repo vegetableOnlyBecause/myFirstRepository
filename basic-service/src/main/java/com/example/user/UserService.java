@@ -16,7 +16,7 @@ import java.util.Map;
  */
 public interface UserService {
 
-    void save(UserCreateDTO create);
+    String save(UserCreateDTO create);
 
     /**
      * 根据用户Id查询用户信息

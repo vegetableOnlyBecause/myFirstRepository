@@ -14,7 +14,7 @@ public enum OrderStatusEnums {
     /**
      * 已发货
      */
-    Shipped,
+    Delivered,
     /**
      * 未付款
      */
@@ -22,6 +22,10 @@ public enum OrderStatusEnums {
     /**
      * 已付款
      */
-    paid,
+    Paid,
+    /**
+     * 已取消
+     */
+    Cancel,
     ;
 }

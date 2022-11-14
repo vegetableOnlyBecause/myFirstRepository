@@ -29,6 +29,12 @@ public class CommodityServiceImpl implements CommodityService {
     private CommodityDao commodityDao;
 
     @Override
+    public CommodityDTO getById(String commodityId) {
+        CommodityDO commodity = commodityDao.getById(commodityId);
+        return CommodityUtils.do2dto(commodity);
+    }
+
+    @Override
     public PageInfo<CommodityDTO> listInfo(CommodityCondition condition) {
         PageInfo<CommodityDO> dos = commodityDao.listInfo(condition);
         return PageInfoUtils.pageInfoTrans(dos, CommodityUtils::do2dto);

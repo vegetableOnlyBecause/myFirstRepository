@@ -14,6 +14,7 @@ import javax.annotation.Resource;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 /**
  * @title: 订单持久层操作类
@@ -57,5 +58,28 @@ public class OrderDao {
         PageHelper.startPage(condition.getPage(), condition.getPageSize());
         List<OrderDO> dos = orderDOMapper.selectByExample(example);
         return new PageInfo<>(Optional.ofNullable(dos).orElse(Collections.emptyList()));
+    }
+
+    public OrderDO getById(String orderId) {
+        OrderDOExample example = new OrderDOExample();
+        OrderDOExample.Criteria criteria = example.createCriteria();
+        criteria.andOrderIdEqualTo(orderId);
+        List<OrderDO> dos = orderDOMapper.selectByExample(example);
+        return Optional.ofNullable(dos.get(0)).orElse(null);
+    }
+
+    public String save(OrderDO orderDO) {
+        orderDO.setOrderId(UUID.randomUUID().toString());
+        orderDOMapper.insertSelective(orderDO);
+        return orderDO.getOrderId();
+    }
+
+    public void updateStatus(String orderId, String status) {
+        OrderDO order = getById(orderId);
+        order.setOrderStatus(status);
+        OrderDOExample example = new OrderDOExample();
+        OrderDOExample.Criteria criteria = example.createCriteria();
+        criteria.andOrderIdEqualTo(orderId);
+        orderDOMapper.updateByExampleSelective(order, example);
     }
 }

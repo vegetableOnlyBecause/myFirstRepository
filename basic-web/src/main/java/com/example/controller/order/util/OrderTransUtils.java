@@ -1,7 +1,9 @@
 package com.example.controller.order.util;
 
+import com.example.controller.order.vo.OrderCreate;
 import com.example.controller.order.vo.OrderVO;
 import com.example.controller.user.util.UserTransUtils;
+import com.example.order.dto.OrderCreateDTO;
 import com.example.order.dto.OrderDTO;
 import org.springframework.beans.BeanUtils;
 
@@ -22,5 +24,14 @@ public class OrderTransUtils {
         vo.setBuyer(UserTransUtils.dto2vo(dto.getBuyer()));
         vo.setSeller(UserTransUtils.dto2vo(dto.getSeller()));
         return vo;
+    }
+
+    public static OrderCreateDTO vo2dto(OrderCreate vo) {
+        if (null == vo) {
+            return null;
+        }
+        OrderCreateDTO dto = new OrderCreateDTO();
+        BeanUtils.copyProperties(vo, dto);
+        return dto;
     }
 }

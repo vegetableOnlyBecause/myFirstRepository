@@ -14,6 +14,7 @@ import java.util.List;
  * @description:
  */
 public interface CommodityService {
+    CommodityDTO getById(String commodityId);
 
     PageInfo<CommodityDTO> listInfo(CommodityCondition condition);
 
