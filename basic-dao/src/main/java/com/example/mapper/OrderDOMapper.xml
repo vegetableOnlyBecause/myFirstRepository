@@ -4,7 +4,8 @@
   <resultMap id="BaseResultMap" type="com.example.model.OrderDO">
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="order_id" jdbcType="VARCHAR" property="orderId" />
-    <result column="user_id" jdbcType="VARCHAR" property="userId" />
+    <result column="buyer_user_id" jdbcType="VARCHAR" property="buyerUserId" />
+    <result column="seller_user_id" jdbcType="VARCHAR" property="sellerUserId" />
     <result column="goods_id" jdbcType="VARCHAR" property="goodsId" />
     <result column="goods_num" jdbcType="INTEGER" property="goodsNum" />
     <result column="total_amount" jdbcType="DECIMAL" property="totalAmount" />
@@ -75,8 +76,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, order_id, user_id, goods_id, goods_num, total_amount, pay_amount, order_status, 
-    order_type, pay_time, create_time, update_time, ext
+    id, order_id, buyer_user_id, seller_user_id, goods_id, goods_num, total_amount, pay_amount, 
+    order_status, order_type, pay_time, create_time, update_time, ext
   </sql>
   <select id="selectByExample" parameterType="com.example.model.OrderDOExample" resultMap="BaseResultMap">
     select
@@ -109,16 +110,16 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.example.model.OrderDO">
-    insert into family_order (id, order_id, user_id, 
-      goods_id, goods_num, total_amount, 
-      pay_amount, order_status, order_type, 
-      pay_time, create_time, update_time, 
-      ext)
-    values (#{id,jdbcType=BIGINT}, #{orderId,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, 
-      #{goodsId,jdbcType=VARCHAR}, #{goodsNum,jdbcType=INTEGER}, #{totalAmount,jdbcType=DECIMAL}, 
-      #{payAmount,jdbcType=DECIMAL}, #{orderStatus,jdbcType=VARCHAR}, #{orderType,jdbcType=VARCHAR}, 
-      #{payTime,jdbcType=TIMESTAMP}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
-      #{ext,jdbcType=VARCHAR})
+    insert into family_order (id, order_id, buyer_user_id, 
+      seller_user_id, goods_id, goods_num, 
+      total_amount, pay_amount, order_status, 
+      order_type, pay_time, create_time, 
+      update_time, ext)
+    values (#{id,jdbcType=BIGINT}, #{orderId,jdbcType=VARCHAR}, #{buyerUserId,jdbcType=VARCHAR}, 
+      #{sellerUserId,jdbcType=VARCHAR}, #{goodsId,jdbcType=VARCHAR}, #{goodsNum,jdbcType=INTEGER}, 
+      #{totalAmount,jdbcType=DECIMAL}, #{payAmount,jdbcType=DECIMAL}, #{orderStatus,jdbcType=VARCHAR}, 
+      #{orderType,jdbcType=VARCHAR}, #{payTime,jdbcType=TIMESTAMP}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{ext,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.example.model.OrderDO">
     insert into family_order
@@ -129,8 +130,11 @@
       <if test="orderId != null">
         order_id,
       </if>
-      <if test="userId != null">
-        user_id,
+      <if test="buyerUserId != null">
+        buyer_user_id,
+      </if>
+      <if test="sellerUserId != null">
+        seller_user_id,
       </if>
       <if test="goodsId != null">
         goods_id,
@@ -170,8 +174,11 @@
       <if test="orderId != null">
         #{orderId,jdbcType=VARCHAR},
       </if>
-      <if test="userId != null">
-        #{userId,jdbcType=VARCHAR},
+      <if test="buyerUserId != null">
+        #{buyerUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="sellerUserId != null">
+        #{sellerUserId,jdbcType=VARCHAR},
       </if>
       <if test="goodsId != null">
         #{goodsId,jdbcType=VARCHAR},
@@ -220,8 +227,11 @@
       <if test="record.orderId != null">
         order_id = #{record.orderId,jdbcType=VARCHAR},
       </if>
-      <if test="record.userId != null">
-        user_id = #{record.userId,jdbcType=VARCHAR},
+      <if test="record.buyerUserId != null">
+        buyer_user_id = #{record.buyerUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sellerUserId != null">
+        seller_user_id = #{record.sellerUserId,jdbcType=VARCHAR},
       </if>
       <if test="record.goodsId != null">
         goods_id = #{record.goodsId,jdbcType=VARCHAR},
@@ -262,7 +272,8 @@
     update family_order
     set id = #{record.id,jdbcType=BIGINT},
       order_id = #{record.orderId,jdbcType=VARCHAR},
-      user_id = #{record.userId,jdbcType=VARCHAR},
+      buyer_user_id = #{record.buyerUserId,jdbcType=VARCHAR},
+      seller_user_id = #{record.sellerUserId,jdbcType=VARCHAR},
       goods_id = #{record.goodsId,jdbcType=VARCHAR},
       goods_num = #{record.goodsNum,jdbcType=INTEGER},
       total_amount = #{record.totalAmount,jdbcType=DECIMAL},
@@ -283,8 +294,11 @@
       <if test="orderId != null">
         order_id = #{orderId,jdbcType=VARCHAR},
       </if>
-      <if test="userId != null">
-        user_id = #{userId,jdbcType=VARCHAR},
+      <if test="buyerUserId != null">
+        buyer_user_id = #{buyerUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="sellerUserId != null">
+        seller_user_id = #{sellerUserId,jdbcType=VARCHAR},
       </if>
       <if test="goodsId != null">
         goods_id = #{goodsId,jdbcType=VARCHAR},
@@ -322,7 +336,8 @@
   <update id="updateByPrimaryKey" parameterType="com.example.model.OrderDO">
     update family_order
     set order_id = #{orderId,jdbcType=VARCHAR},
-      user_id = #{userId,jdbcType=VARCHAR},
+      buyer_user_id = #{buyerUserId,jdbcType=VARCHAR},
+      seller_user_id = #{sellerUserId,jdbcType=VARCHAR},
       goods_id = #{goodsId,jdbcType=VARCHAR},
       goods_num = #{goodsNum,jdbcType=INTEGER},
       total_amount = #{totalAmount,jdbcType=DECIMAL},

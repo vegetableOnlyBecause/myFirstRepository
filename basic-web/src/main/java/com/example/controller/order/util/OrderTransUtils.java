@@ -1,6 +1,7 @@
 package com.example.controller.order.util;
 
 import com.example.controller.order.vo.OrderVO;
+import com.example.controller.user.util.UserTransUtils;
 import com.example.order.dto.OrderDTO;
 import org.springframework.beans.BeanUtils;
 
@@ -18,6 +19,8 @@ public class OrderTransUtils {
         }
         OrderVO vo = new OrderVO();
         BeanUtils.copyProperties(dto, vo);
+        vo.setBuyer(UserTransUtils.dto2vo(dto.getBuyer()));
+        vo.setSeller(UserTransUtils.dto2vo(dto.getSeller()));
         return vo;
     }
 }

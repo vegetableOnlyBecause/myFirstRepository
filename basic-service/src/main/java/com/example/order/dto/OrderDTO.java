@@ -1,5 +1,6 @@
 package com.example.order.dto;
 
+import com.example.user.dto.UserDTO;
 import lombok.Data;
 
 import java.util.Date;
@@ -16,6 +17,10 @@ public class OrderDTO {
     private String orderId;
 
     private String goodsId;
+
+    private UserDTO buyer;
+
+    private UserDTO seller;
 
     private Integer goodsNum;
 

@@ -16,7 +16,9 @@ public class OrderCondition extends LocalPageInfo{
 
     private String orderId;
 
-    private String userId;
+    private String buyerUserId;
+
+    private String sellerUserId;
 
     private List<String> orderStatus;
 

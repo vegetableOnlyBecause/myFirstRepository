@@ -235,73 +235,143 @@ public class OrderDOExample {
             return (Criteria) this;
         }
 
-        public Criteria andUserIdIsNull() {
-            addCriterion("user_id is null");
+        public Criteria andBuyerUserIdIsNull() {
+            addCriterion("buyer_user_id is null");
             return (Criteria) this;
         }
 
-        public Criteria andUserIdIsNotNull() {
-            addCriterion("user_id is not null");
+        public Criteria andBuyerUserIdIsNotNull() {
+            addCriterion("buyer_user_id is not null");
             return (Criteria) this;
         }
 
-        public Criteria andUserIdEqualTo(String value) {
-            addCriterion("user_id =", value, "userId");
+        public Criteria andBuyerUserIdEqualTo(String value) {
+            addCriterion("buyer_user_id =", value, "buyerUserId");
             return (Criteria) this;
         }
 
-        public Criteria andUserIdNotEqualTo(String value) {
-            addCriterion("user_id <>", value, "userId");
+        public Criteria andBuyerUserIdNotEqualTo(String value) {
+            addCriterion("buyer_user_id <>", value, "buyerUserId");
             return (Criteria) this;
         }
 
-        public Criteria andUserIdGreaterThan(String value) {
-            addCriterion("user_id >", value, "userId");
+        public Criteria andBuyerUserIdGreaterThan(String value) {
+            addCriterion("buyer_user_id >", value, "buyerUserId");
             return (Criteria) this;
         }
 
-        public Criteria andUserIdGreaterThanOrEqualTo(String value) {
-            addCriterion("user_id >=", value, "userId");
+        public Criteria andBuyerUserIdGreaterThanOrEqualTo(String value) {
+            addCriterion("buyer_user_id >=", value, "buyerUserId");
             return (Criteria) this;
         }
 
-        public Criteria andUserIdLessThan(String value) {
-            addCriterion("user_id <", value, "userId");
+        public Criteria andBuyerUserIdLessThan(String value) {
+            addCriterion("buyer_user_id <", value, "buyerUserId");
             return (Criteria) this;
         }
 
-        public Criteria andUserIdLessThanOrEqualTo(String value) {
-            addCriterion("user_id <=", value, "userId");
+        public Criteria andBuyerUserIdLessThanOrEqualTo(String value) {
+            addCriterion("buyer_user_id <=", value, "buyerUserId");
             return (Criteria) this;
         }
 
-        public Criteria andUserIdLike(String value) {
-            addCriterion("user_id like", value, "userId");
+        public Criteria andBuyerUserIdLike(String value) {
+            addCriterion("buyer_user_id like", value, "buyerUserId");
             return (Criteria) this;
         }
 
-        public Criteria andUserIdNotLike(String value) {
-            addCriterion("user_id not like", value, "userId");
+        public Criteria andBuyerUserIdNotLike(String value) {
+            addCriterion("buyer_user_id not like", value, "buyerUserId");
             return (Criteria) this;
         }
 
-        public Criteria andUserIdIn(List<String> values) {
-            addCriterion("user_id in", values, "userId");
+        public Criteria andBuyerUserIdIn(List<String> values) {
+            addCriterion("buyer_user_id in", values, "buyerUserId");
             return (Criteria) this;
         }
 
-        public Criteria andUserIdNotIn(List<String> values) {
-            addCriterion("user_id not in", values, "userId");
+        public Criteria andBuyerUserIdNotIn(List<String> values) {
+            addCriterion("buyer_user_id not in", values, "buyerUserId");
             return (Criteria) this;
         }
 
-        public Criteria andUserIdBetween(String value1, String value2) {
-            addCriterion("user_id between", value1, value2, "userId");
+        public Criteria andBuyerUserIdBetween(String value1, String value2) {
+            addCriterion("buyer_user_id between", value1, value2, "buyerUserId");
             return (Criteria) this;
         }
 
-        public Criteria andUserIdNotBetween(String value1, String value2) {
-            addCriterion("user_id not between", value1, value2, "userId");
+        public Criteria andBuyerUserIdNotBetween(String value1, String value2) {
+            addCriterion("buyer_user_id not between", value1, value2, "buyerUserId");
+            return (Criteria) this;
+        }
+
+        public Criteria andSellerUserIdIsNull() {
+            addCriterion("seller_user_id is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSellerUserIdIsNotNull() {
+            addCriterion("seller_user_id is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSellerUserIdEqualTo(String value) {
+            addCriterion("seller_user_id =", value, "sellerUserId");
+            return (Criteria) this;
+        }
+
+        public Criteria andSellerUserIdNotEqualTo(String value) {
+            addCriterion("seller_user_id <>", value, "sellerUserId");
+            return (Criteria) this;
+        }
+
+        public Criteria andSellerUserIdGreaterThan(String value) {
+            addCriterion("seller_user_id >", value, "sellerUserId");
+            return (Criteria) this;
+        }
+
+        public Criteria andSellerUserIdGreaterThanOrEqualTo(String value) {
+            addCriterion("seller_user_id >=", value, "sellerUserId");
+            return (Criteria) this;
+        }
+
+        public Criteria andSellerUserIdLessThan(String value) {
+            addCriterion("seller_user_id <", value, "sellerUserId");
+            return (Criteria) this;
+        }
+
+        public Criteria andSellerUserIdLessThanOrEqualTo(String value) {
+            addCriterion("seller_user_id <=", value, "sellerUserId");
+            return (Criteria) this;
+        }
+
+        public Criteria andSellerUserIdLike(String value) {
+            addCriterion("seller_user_id like", value, "sellerUserId");
+            return (Criteria) this;
+        }
+
+        public Criteria andSellerUserIdNotLike(String value) {
+            addCriterion("seller_user_id not like", value, "sellerUserId");
+            return (Criteria) this;
+        }
+
+        public Criteria andSellerUserIdIn(List<String> values) {
+            addCriterion("seller_user_id in", values, "sellerUserId");
+            return (Criteria) this;
+        }
+
+        public Criteria andSellerUserIdNotIn(List<String> values) {
+            addCriterion("seller_user_id not in", values, "sellerUserId");
+            return (Criteria) this;
+        }
+
+        public Criteria andSellerUserIdBetween(String value1, String value2) {
+            addCriterion("seller_user_id between", value1, value2, "sellerUserId");
+            return (Criteria) this;
+        }
+
+        public Criteria andSellerUserIdNotBetween(String value1, String value2) {
+            addCriterion("seller_user_id not between", value1, value2, "sellerUserId");
             return (Criteria) this;
         }
 

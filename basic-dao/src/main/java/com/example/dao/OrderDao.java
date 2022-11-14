@@ -33,8 +33,11 @@ public class OrderDao {
         if (StringUtils.isNotBlank(condition.getOrderId())) {
             criteria.andOrderIdEqualTo(condition.getOrderId());
         }
-        if (StringUtils.isNotBlank(condition.getUserId())) {
-            criteria.andUserIdEqualTo(condition.getUserId());
+        if (StringUtils.isNotBlank(condition.getBuyerUserId())) {
+            criteria.andBuyerUserIdEqualTo(condition.getBuyerUserId());
+        }
+        if (StringUtils.isNotBlank(condition.getSellerUserId())) {
+            criteria.andSellerUserIdEqualTo(condition.getSellerUserId());
         }
         if (CollectionUtils.isNotEmpty(condition.getOrderStatus())) {
             criteria.andOrderStatusIn(condition.getOrderStatus());

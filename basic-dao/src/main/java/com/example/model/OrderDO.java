@@ -3,12 +3,13 @@ package com.example.model;
 import java.util.Date;
 
 public class OrderDO {
-
     private Long id;
 
     private String orderId;
 
-    private String userId;
+    private String buyerUserId;
+
+    private String sellerUserId;
 
     private String goodsId;
 
@@ -46,12 +47,20 @@ public class OrderDO {
         this.orderId = orderId == null ? null : orderId.trim();
     }
 
-    public String getUserId() {
-        return userId;
+    public String getBuyerUserId() {
+        return buyerUserId;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId == null ? null : userId.trim();
+    public void setBuyerUserId(String buyerUserId) {
+        this.buyerUserId = buyerUserId == null ? null : buyerUserId.trim();
+    }
+
+    public String getSellerUserId() {
+        return sellerUserId;
+    }
+
+    public void setSellerUserId(String sellerUserId) {
+        this.sellerUserId = sellerUserId == null ? null : sellerUserId.trim();
     }
 
     public String getGoodsId() {

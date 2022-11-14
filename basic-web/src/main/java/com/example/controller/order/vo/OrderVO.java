@@ -1,5 +1,6 @@
 package com.example.controller.order.vo;
 
+import com.example.controller.user.vo.UserVO;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -18,6 +19,10 @@ public class OrderVO implements Serializable {
     private String orderId;
 
     private String goodsId;
+
+    private UserVO buyer;
+
+    private UserVO seller;
 
     private Integer goodsNum;
 

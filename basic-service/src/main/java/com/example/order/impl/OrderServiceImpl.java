@@ -7,6 +7,7 @@ import com.example.model.OrderDO;
 import com.example.order.OrderService;
 import com.example.order.dto.OrderDTO;
 import com.example.order.util.OrderUtils;
+import com.example.user.UserService;
 import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +24,9 @@ public class OrderServiceImpl implements OrderService {
 
     @Resource
     private OrderDao orderDao;
+
+    @Resource
+    private UserService userService;
 
     @Override
     public PageInfo<OrderDTO> listInfo(OrderCondition condition) {
