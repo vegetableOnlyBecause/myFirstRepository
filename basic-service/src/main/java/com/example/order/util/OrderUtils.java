@@ -22,9 +22,9 @@ public class OrderUtils {
         OrderDTO dto = new OrderDTO();
         BeanUtils.copyProperties(order, dto);
         UserDTO buyer = new UserDTO();
-        buyer.setUserId(order.getBuyerUserId());
+//        buyer.setId(order.getBuyerUserId());
         UserDTO seller = new UserDTO();
-        seller.setUserId(order.getSellerUserId());
+//        seller.setId(order.getSellerUserId());
         return dto;
     }
 

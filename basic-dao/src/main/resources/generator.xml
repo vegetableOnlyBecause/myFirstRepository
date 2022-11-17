@@ -46,10 +46,10 @@
 
         <!-- ============================================================================== -->
         <!--domainObjectName="User"-->
-<!--        <table  tableName="common_user" domainObjectName="CommonUserDO"/>-->
+        <table  tableName="common_user" domainObjectName="UserDO"/>
 <!--        <table  tableName="commodity" domainObjectName="CommodityDO"/>-->
 <!--        <table  tableName="category" domainObjectName="CategoryDO"/>-->
-            <table  tableName="family_order" domainObjectName="OrderDO"/>
+<!--            <table  tableName="family_order" domainObjectName="OrderDO"/>-->
 
         <!-- ============================================================================= -->
     </context>

@@ -1,6 +1,8 @@
 package com.example.controller.user.vo;
 
 import lombok.Data;
+import org.hibernate.validator.constraints.Length;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
@@ -15,17 +17,21 @@ import java.util.Date;
 @Data
 public class UserVO implements Serializable {
 
-    private String userId;
+    private Integer id;
 
-    private String userName;
+    private String username;
 
-    private String nickName;
+    private String phone;
 
-    private String phoneNumber;
+    private String qq;
 
-    private Date birthday;
+    private Date createTime;
 
-    private String email;
+    private Integer goodsNum = 0;
 
-    private Date registerTime;
+    private Integer power;
+
+    private float coin;
+
+    private float credit = 5;
 }

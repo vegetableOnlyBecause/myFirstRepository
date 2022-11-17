@@ -17,17 +17,23 @@ import java.util.Date;
 public class UserDTO implements Serializable {
     private static final long serialVersionUID = -2625741234379947045L;
 
-    private String userId;
+    private Integer id;
 
     private String userName;
 
-    private String nickName;
+    private String password;
 
-    private String phoneNumber;
+    private String phone;
 
-    private Date birthday;
+    private String qq;
 
-    private String email;
+    private Integer goodsNum;
 
-    private Date registerTime;
+    private Integer power;
+
+    private Float coin;
+
+    private Float credit;
+
+    private Date createTime;
 }

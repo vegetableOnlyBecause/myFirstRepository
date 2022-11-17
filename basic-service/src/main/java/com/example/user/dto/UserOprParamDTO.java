@@ -13,23 +13,25 @@ import java.util.Date;
  * @description:
  */
 @Data
-public class UserCreateDTO implements Serializable {
+public class UserOprParamDTO implements Serializable {
 
     private static final long serialVersionUID = 229156637375701790L;
+
+    private Integer id;
 
     private String userName;
 
     private String password;
 
-    private String nickName;
+    private String phone;
 
-    private String phoneNumber;
+    private Integer power;
 
-    private Date birthday;
+    private String qq;
 
-    private String email;
+    private Float coin;
 
-    private Date registerTime = new Date();
+    private Integer goodsNum;
 
-    private Date updateTime = new Date();
+    private Float credit;
 }

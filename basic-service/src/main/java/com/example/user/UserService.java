@@ -1,12 +1,9 @@
 package com.example.user;
 
 import com.example.condition.UserCondition;
-import com.example.user.dto.UserCreateDTO;
+import com.example.user.dto.UserOprParamDTO;
 import com.example.user.dto.UserDTO;
 import com.github.pagehelper.PageInfo;
-
-import java.io.IOException;
-import java.util.Map;
 
 /**
  * @title: 用户信息查询接口
@@ -16,19 +13,27 @@ import java.util.Map;
  */
 public interface UserService {
 
-    String save(UserCreateDTO create);
-
-    /**
-     * 根据用户Id查询用户信息
-     * @param userId 用户Id
-     */
-    UserDTO getUserById(String userId);
+    Integer save(UserOprParamDTO create);
 
     /**
      * 根据用户Id删除用户
      * @param userId 用户Id
      */
-    void delUserById(String userId);
+    void delUserById(Integer userId);
+
+    boolean update(UserOprParamDTO param);
+
+    /**
+     * 根据用户Id查询用户信息
+     * @param userId 用户Id
+     */
+    UserDTO getUserById(Integer userId);
+
+    UserDTO getUserByUserName(String userName);
+
+
+
+
 
     /**
      * 批量查询用户信息

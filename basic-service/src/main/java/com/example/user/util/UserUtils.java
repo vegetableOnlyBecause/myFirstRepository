@@ -1,10 +1,11 @@
 package com.example.user.util;
 
 import com.example.common.utils.MD5Utils;
-import com.example.model.CommonUserDO;
-import com.example.user.dto.UserCreateDTO;
+import com.example.model.UserDO;
+import com.example.user.dto.UserOprParamDTO;
 import com.example.user.dto.UserDTO;
 import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 
 import java.util.*;
@@ -17,9 +18,9 @@ import java.util.*;
  */
 public class UserUtils {
 
-    private static final String slat = "luan_ma";
+    public static final String slat = "luan_ma";
 
-    public static UserDTO do2Dto(CommonUserDO userDO){
+    public static UserDTO do2Dto(UserDO userDO){
         if (null == userDO) {
             return null;
         }
@@ -28,12 +29,12 @@ public class UserUtils {
         return dto;
     }
 
-    public static List<UserDTO> dos2Dtos(List<CommonUserDO> dos){
+    public static List<UserDTO> dos2Dtos(List<UserDO> dos){
         if (CollectionUtils.isEmpty(dos)){
             return Collections.emptyList();
         }
         List<UserDTO> dtos = new ArrayList<>();
-        for (CommonUserDO userDO : dos){
+        for (UserDO userDO : dos){
             UserDTO dto = do2Dto(userDO);
             if (null != dto){
                 dtos.add(dto);
@@ -42,17 +43,19 @@ public class UserUtils {
         return dtos;
     }
 
-    public static CommonUserDO dto2do(UserCreateDTO dto){
+    public static UserDO dto2do(UserOprParamDTO dto){
         if (null == dto) {
             return null;
         }
-        String userId = UUID.randomUUID().toString();
-        CommonUserDO userDO = new CommonUserDO();
+        UserDO userDO = new UserDO();
         BeanUtils.copyProperties(dto, userDO);
-        userDO.setUserId(userId);
-        userDO.setPassword(MD5Utils.convertMD5(dto.getPassword() + slat));
-        userDO.setRegisterTime(new Date());
-        userDO.setUpdateTime(new Date());
+        if (null == userDO.getId()) {
+            int userId = (int) ((Math.random() * 9 + 1) * Math.pow(10, 10));
+            userDO.setId(userId);
+        }
+        if (StringUtils.isNotBlank(dto.getPassword())) {
+            userDO.setPassword(MD5Utils.string2MD5(dto.getPassword() + slat));
+        }
         return userDO;
     }
 

@@ -13,21 +13,24 @@ import java.util.Date;
  * @description:
  */
 @Data
-public class UserCreate implements Serializable {
+public class UserOprParam implements Serializable {
     private static final long serialVersionUID = 1046459142254988930L;
 
-    @NotBlank(message = "用户名不能为空")
-    private String userName;
+    private Integer id;
 
-    @NotBlank(message = "密码不能为空")
+    private String username;
+
     private String password;
 
-    @NotBlank(message = "昵称不能为空")
-    private String nickName;
+    private String phone;
 
-    private String phoneNumber;
+    private Integer power;
 
-    private Date birthday;
+    private String qq;
 
-    private String email;
+    private Float coin;
+
+    private Integer goodsNum;
+
+    private Float credit;
 }

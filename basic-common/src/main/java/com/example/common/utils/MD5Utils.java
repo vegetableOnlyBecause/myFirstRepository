@@ -61,7 +61,6 @@ public class MD5Utils {
      * @return
      */
     public static boolean passwordIsTrue(String inputPassword,String md5DB) {
-
         String md5 = string2MD5(inputPassword);
         return md5DB.equals(md5);
     }

@@ -68,8 +68,8 @@ public class OrderController {
         PageInfo<OrderDTO> dtos = orderService.listInfo(condition);
         List<OrderDTO> list = dtos.getList();
         list.forEach(dto -> {
-            dto.setBuyer(userService.getUserById(dto.getBuyer().getUserId()));
-            dto.setSeller(userService.getUserById(dto.getSeller().getUserId()));
+            dto.setBuyer(userService.getUserById(dto.getBuyer().getId()));
+            dto.setSeller(userService.getUserById(dto.getSeller().getId()));
         });
         return OperationResult.succ(
                 PageInfoUtils.pageInfoTrans(dtos, OrderTransUtils::dto2vo));

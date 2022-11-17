@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.example.mapper.CommonUserDOMapper">
-  <resultMap id="BaseResultMap" type="com.example.model.CommonUserDO">
-    <id column="id" jdbcType="BIGINT" property="id" />
-    <result column="user_id" jdbcType="VARCHAR" property="userId" />
+<mapper namespace="com.example.mapper.UserDOMapper">
+  <resultMap id="BaseResultMap" type="com.example.model.UserDO">
+    <id column="id" jdbcType="INTEGER" property="id" />
     <result column="user_name" jdbcType="VARCHAR" property="userName" />
     <result column="password" jdbcType="VARCHAR" property="password" />
-    <result column="nick_name" jdbcType="VARCHAR" property="nickName" />
-    <result column="phone_number" jdbcType="VARCHAR" property="phoneNumber" />
-    <result column="birthday" jdbcType="TIMESTAMP" property="birthday" />
-    <result column="email" jdbcType="VARCHAR" property="email" />
-    <result column="register_time" jdbcType="TIMESTAMP" property="registerTime" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="qq" jdbcType="VARCHAR" property="qq" />
+    <result column="goods_num" jdbcType="INTEGER" property="goodsNum" />
+    <result column="power" jdbcType="INTEGER" property="power" />
+    <result column="coin" jdbcType="REAL" property="coin" />
+    <result column="credit" jdbcType="REAL" property="credit" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
   </resultMap>
   <sql id="Example_Where_Clause">
@@ -72,10 +73,10 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, user_id, user_name, password, nick_name, phone_number, birthday, email, register_time, 
+    id, user_name, password, phone, qq, goods_num, power, coin, credit, create_time, 
     update_time
   </sql>
-  <select id="selectByExample" parameterType="com.example.model.CommonUserDOExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.example.model.UserDOExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
@@ -89,40 +90,37 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from common_user
-    where id = #{id,jdbcType=BIGINT}
+    where id = #{id,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from common_user
-    where id = #{id,jdbcType=BIGINT}
+    where id = #{id,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.example.model.CommonUserDOExample">
+  <delete id="deleteByExample" parameterType="com.example.model.UserDOExample">
     delete from common_user
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.example.model.CommonUserDO">
-    insert into common_user (id, user_id, user_name, 
-      password, nick_name, phone_number, 
-      birthday, email, register_time, 
+  <insert id="insert" parameterType="com.example.model.UserDO">
+    insert into common_user (id, user_name, password, 
+      phone, qq, goods_num, 
+      power, coin, credit, create_time, 
       update_time)
-    values (#{id,jdbcType=BIGINT}, #{userId,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, 
-      #{password,jdbcType=VARCHAR}, #{nickName,jdbcType=VARCHAR}, #{phoneNumber,jdbcType=VARCHAR}, 
-      #{birthday,jdbcType=TIMESTAMP}, #{email,jdbcType=VARCHAR}, #{registerTime,jdbcType=TIMESTAMP}, 
+    values (#{id,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      #{phone,jdbcType=VARCHAR}, #{qq,jdbcType=VARCHAR}, #{goodsNum,jdbcType=INTEGER}, 
+      #{power,jdbcType=INTEGER}, #{coin,jdbcType=REAL}, #{credit,jdbcType=REAL}, #{createTime,jdbcType=TIMESTAMP}, 
       #{updateTime,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" parameterType="com.example.model.CommonUserDO">
+  <insert id="insertSelective" parameterType="com.example.model.UserDO">
     insert into common_user
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
         id,
-      </if>
-      <if test="userId != null">
-        user_id,
       </if>
       <if test="userName != null">
         user_name,
@@ -130,20 +128,26 @@
       <if test="password != null">
         password,
       </if>
-      <if test="nickName != null">
-        nick_name,
+      <if test="phone != null">
+        phone,
       </if>
-      <if test="phoneNumber != null">
-        phone_number,
+      <if test="qq != null">
+        qq,
       </if>
-      <if test="birthday != null">
-        birthday,
+      <if test="goodsNum != null">
+        goods_num,
       </if>
-      <if test="email != null">
-        email,
+      <if test="power != null">
+        power,
       </if>
-      <if test="registerTime != null">
-        register_time,
+      <if test="coin != null">
+        coin,
+      </if>
+      <if test="credit != null">
+        credit,
+      </if>
+      <if test="createTime != null">
+        create_time,
       </if>
       <if test="updateTime != null">
         update_time,
@@ -151,10 +155,7 @@
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
-        #{id,jdbcType=BIGINT},
-      </if>
-      <if test="userId != null">
-        #{userId,jdbcType=VARCHAR},
+        #{id,jdbcType=INTEGER},
       </if>
       <if test="userName != null">
         #{userName,jdbcType=VARCHAR},
@@ -162,27 +163,33 @@
       <if test="password != null">
         #{password,jdbcType=VARCHAR},
       </if>
-      <if test="nickName != null">
-        #{nickName,jdbcType=VARCHAR},
+      <if test="phone != null">
+        #{phone,jdbcType=VARCHAR},
       </if>
-      <if test="phoneNumber != null">
-        #{phoneNumber,jdbcType=VARCHAR},
+      <if test="qq != null">
+        #{qq,jdbcType=VARCHAR},
       </if>
-      <if test="birthday != null">
-        #{birthday,jdbcType=TIMESTAMP},
+      <if test="goodsNum != null">
+        #{goodsNum,jdbcType=INTEGER},
       </if>
-      <if test="email != null">
-        #{email,jdbcType=VARCHAR},
+      <if test="power != null">
+        #{power,jdbcType=INTEGER},
       </if>
-      <if test="registerTime != null">
-        #{registerTime,jdbcType=TIMESTAMP},
+      <if test="coin != null">
+        #{coin,jdbcType=REAL},
+      </if>
+      <if test="credit != null">
+        #{credit,jdbcType=REAL},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
       </if>
       <if test="updateTime != null">
         #{updateTime,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.example.model.CommonUserDOExample" resultType="java.lang.Long">
+  <select id="countByExample" parameterType="com.example.model.UserDOExample" resultType="java.lang.Long">
     select count(*) from common_user
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
@@ -192,10 +199,7 @@
     update common_user
     <set>
       <if test="record.id != null">
-        id = #{record.id,jdbcType=BIGINT},
-      </if>
-      <if test="record.userId != null">
-        user_id = #{record.userId,jdbcType=VARCHAR},
+        id = #{record.id,jdbcType=INTEGER},
       </if>
       <if test="record.userName != null">
         user_name = #{record.userName,jdbcType=VARCHAR},
@@ -203,20 +207,26 @@
       <if test="record.password != null">
         password = #{record.password,jdbcType=VARCHAR},
       </if>
-      <if test="record.nickName != null">
-        nick_name = #{record.nickName,jdbcType=VARCHAR},
+      <if test="record.phone != null">
+        phone = #{record.phone,jdbcType=VARCHAR},
       </if>
-      <if test="record.phoneNumber != null">
-        phone_number = #{record.phoneNumber,jdbcType=VARCHAR},
+      <if test="record.qq != null">
+        qq = #{record.qq,jdbcType=VARCHAR},
       </if>
-      <if test="record.birthday != null">
-        birthday = #{record.birthday,jdbcType=TIMESTAMP},
+      <if test="record.goodsNum != null">
+        goods_num = #{record.goodsNum,jdbcType=INTEGER},
       </if>
-      <if test="record.email != null">
-        email = #{record.email,jdbcType=VARCHAR},
+      <if test="record.power != null">
+        power = #{record.power,jdbcType=INTEGER},
       </if>
-      <if test="record.registerTime != null">
-        register_time = #{record.registerTime,jdbcType=TIMESTAMP},
+      <if test="record.coin != null">
+        coin = #{record.coin,jdbcType=REAL},
+      </if>
+      <if test="record.credit != null">
+        credit = #{record.credit,jdbcType=REAL},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
       </if>
       <if test="record.updateTime != null">
         update_time = #{record.updateTime,jdbcType=TIMESTAMP},
@@ -228,64 +238,69 @@
   </update>
   <update id="updateByExample" parameterType="map">
     update common_user
-    set id = #{record.id,jdbcType=BIGINT},
-      user_id = #{record.userId,jdbcType=VARCHAR},
+    set id = #{record.id,jdbcType=INTEGER},
       user_name = #{record.userName,jdbcType=VARCHAR},
       password = #{record.password,jdbcType=VARCHAR},
-      nick_name = #{record.nickName,jdbcType=VARCHAR},
-      phone_number = #{record.phoneNumber,jdbcType=VARCHAR},
-      birthday = #{record.birthday,jdbcType=TIMESTAMP},
-      email = #{record.email,jdbcType=VARCHAR},
-      register_time = #{record.registerTime,jdbcType=TIMESTAMP},
+      phone = #{record.phone,jdbcType=VARCHAR},
+      qq = #{record.qq,jdbcType=VARCHAR},
+      goods_num = #{record.goodsNum,jdbcType=INTEGER},
+      power = #{record.power,jdbcType=INTEGER},
+      coin = #{record.coin,jdbcType=REAL},
+      credit = #{record.credit,jdbcType=REAL},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
       update_time = #{record.updateTime,jdbcType=TIMESTAMP}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.example.model.CommonUserDO">
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.model.UserDO">
     update common_user
     <set>
-      <if test="userId != null">
-        user_id = #{userId,jdbcType=VARCHAR},
-      </if>
       <if test="userName != null">
         user_name = #{userName,jdbcType=VARCHAR},
       </if>
       <if test="password != null">
         password = #{password,jdbcType=VARCHAR},
       </if>
-      <if test="nickName != null">
-        nick_name = #{nickName,jdbcType=VARCHAR},
+      <if test="phone != null">
+        phone = #{phone,jdbcType=VARCHAR},
       </if>
-      <if test="phoneNumber != null">
-        phone_number = #{phoneNumber,jdbcType=VARCHAR},
+      <if test="qq != null">
+        qq = #{qq,jdbcType=VARCHAR},
       </if>
-      <if test="birthday != null">
-        birthday = #{birthday,jdbcType=TIMESTAMP},
+      <if test="goodsNum != null">
+        goods_num = #{goodsNum,jdbcType=INTEGER},
       </if>
-      <if test="email != null">
-        email = #{email,jdbcType=VARCHAR},
+      <if test="power != null">
+        power = #{power,jdbcType=INTEGER},
       </if>
-      <if test="registerTime != null">
-        register_time = #{registerTime,jdbcType=TIMESTAMP},
+      <if test="coin != null">
+        coin = #{coin,jdbcType=REAL},
+      </if>
+      <if test="credit != null">
+        credit = #{credit,jdbcType=REAL},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
       </if>
       <if test="updateTime != null">
         update_time = #{updateTime,jdbcType=TIMESTAMP},
       </if>
     </set>
-    where id = #{id,jdbcType=BIGINT}
+    where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.example.model.CommonUserDO">
+  <update id="updateByPrimaryKey" parameterType="com.example.model.UserDO">
     update common_user
-    set user_id = #{userId,jdbcType=VARCHAR},
-      user_name = #{userName,jdbcType=VARCHAR},
+    set user_name = #{userName,jdbcType=VARCHAR},
       password = #{password,jdbcType=VARCHAR},
-      nick_name = #{nickName,jdbcType=VARCHAR},
-      phone_number = #{phoneNumber,jdbcType=VARCHAR},
-      birthday = #{birthday,jdbcType=TIMESTAMP},
-      email = #{email,jdbcType=VARCHAR},
-      register_time = #{registerTime,jdbcType=TIMESTAMP},
+      phone = #{phone,jdbcType=VARCHAR},
+      qq = #{qq,jdbcType=VARCHAR},
+      goods_num = #{goodsNum,jdbcType=INTEGER},
+      power = #{power,jdbcType=INTEGER},
+      coin = #{coin,jdbcType=REAL},
+      credit = #{credit,jdbcType=REAL},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
       update_time = #{updateTime,jdbcType=TIMESTAMP}
-    where id = #{id,jdbcType=BIGINT}
+    where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>
