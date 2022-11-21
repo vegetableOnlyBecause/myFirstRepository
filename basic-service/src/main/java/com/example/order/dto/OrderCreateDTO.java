@@ -19,7 +19,7 @@ public class OrderCreateDTO {
 
     private String sellerUserId;
 
-    private String goodsId;
+    private Integer goodsId;
 
     private Integer goodsNum;
 

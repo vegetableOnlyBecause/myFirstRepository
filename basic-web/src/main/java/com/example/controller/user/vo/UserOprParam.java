@@ -14,6 +14,7 @@ import java.util.Date;
  */
 @Data
 public class UserOprParam implements Serializable {
+
     private static final long serialVersionUID = 1046459142254988930L;
 
     private Integer id;

@@ -1,8 +1,8 @@
 package com.example.order.impl;
 
-import com.example.commodity.CommodityService;
-import com.example.commodity.dto.CommodityDTO;
-import com.example.commodity.util.PageInfoUtils;
+import com.example.good.GoodService;
+import com.example.good.dto.GoodDTO;
+import com.example.good.util.PageInfoUtils;
 import com.example.condition.OrderCondition;
 import com.example.dao.OrderDao;
 import com.example.enums.OrderStatusEnums;
@@ -28,12 +28,12 @@ public class OrderServiceImpl implements OrderService {
     @Resource
     private OrderDao orderDao;
     @Resource
-    private CommodityService commodityService;
+    private GoodService goodService;
 
 
     @Override
     public String save(OrderCreateDTO dto) {
-        CommodityDTO good = commodityService.getById(dto.getGoodsId());
+        GoodDTO good = goodService.getById(dto.getGoodsId());
         // todo:如果商品不存在则抛错
         OrderDO orderDO = OrderUtils.dto2do(dto, good);
         return orderDao.save(orderDO);

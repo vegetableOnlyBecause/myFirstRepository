@@ -22,6 +22,7 @@ public class UserTransUtils {
         }
         UserVO vo = new UserVO();
         BeanUtils.copyProperties(dto, vo);
+        vo.setUsername(dto.getUserName());
         return vo;
     }
 

@@ -46,9 +46,9 @@
 
         <!-- ============================================================================== -->
         <!--domainObjectName="User"-->
-        <table  tableName="common_user" domainObjectName="UserDO"/>
-<!--        <table  tableName="commodity" domainObjectName="CommodityDO"/>-->
-<!--        <table  tableName="category" domainObjectName="CategoryDO"/>-->
+<!--        <table  tableName="common_user" domainObjectName="UserDO"/>-->
+<!--        <table  tableName="goods" domainObjectName="GoodDO"/>-->
+        <table  tableName="type" domainObjectName="TypeDO"/>
 <!--            <table  tableName="family_order" domainObjectName="OrderDO"/>-->
 
         <!-- ============================================================================= -->

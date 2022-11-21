@@ -1,10 +1,8 @@
 package com.example.controller.order;
 
 import com.alibaba.fastjson.JSON;
-import com.example.commodity.util.PageInfoUtils;
+import com.example.good.util.PageInfoUtils;
 import com.example.condition.OrderCondition;
-import com.example.controller.commodity.util.CommodityTransUtils;
-import com.example.controller.commodity.vo.CommodityCreate;
 import com.example.controller.order.util.OrderTransUtils;
 import com.example.controller.order.vo.OrderCreate;
 import com.example.order.OrderService;

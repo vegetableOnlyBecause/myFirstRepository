@@ -34,7 +34,7 @@ public class UserController {
      * @return Result
      */
     @PostMapping(value = "/sign-up")
-    public Result singUp(@Valid UserOprParam param) {
+    public Result register(@Valid UserOprParam param) {
         if (null != userService.getUserByUserName(param.getUsername())) {
             return ResultUtil.error(ResultEnum.USER_DUPLICATE);
         }

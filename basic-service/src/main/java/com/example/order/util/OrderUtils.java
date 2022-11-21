@@ -1,6 +1,6 @@
 package com.example.order.util;
 
-import com.example.commodity.dto.CommodityDTO;
+import com.example.good.dto.GoodDTO;
 import com.example.model.OrderDO;
 import com.example.order.dto.OrderCreateDTO;
 import com.example.order.dto.OrderDTO;
@@ -28,11 +28,11 @@ public class OrderUtils {
         return dto;
     }
 
-    public static OrderDO dto2do(OrderCreateDTO dto, CommodityDTO good) {
+    public static OrderDO dto2do(OrderCreateDTO dto, GoodDTO good) {
         OrderDO order = new OrderDO();
         BeanUtils.copyProperties(dto, order);
-        order.setTotalAmount(dto.getGoodsNum() * good.getOriginalPrice());
-        order.setTotalAmount(dto.getGoodsNum() * good.getSalePrice());
+//        order.setTotalAmount(dto.getGoodsNum() * good.getPrice());
+//        order.setTotalAmount(dto.getGoodsNum() * good.getRealPrice());
         return order;
     }
 }
