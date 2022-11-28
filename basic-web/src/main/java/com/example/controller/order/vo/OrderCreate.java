@@ -15,11 +15,9 @@ public class OrderCreate implements Serializable {
 
     private static final long serialVersionUID = -2952314692695919661L;
 
-    private String buyerUserId;
+    private Integer salerId;
 
-    private String sellerUserId;
+    private Integer buyerId;
 
-    private String goodsId;
-
-    private Integer goodsNum;
+    private Integer goodsId;
 }

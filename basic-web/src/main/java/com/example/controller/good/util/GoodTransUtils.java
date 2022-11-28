@@ -1,10 +1,15 @@
 package com.example.controller.good.util;
 
-import com.example.good.dto.GoodCreateDTO;
+import com.example.good.dto.GoodOprDTO;
 import com.example.good.dto.GoodDTO;
 import com.example.controller.good.vo.GoodCreate;
 import com.example.controller.good.vo.GoodVO;
+import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.BeanUtils;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * @title: 商品vo转换类
@@ -14,13 +19,12 @@ import org.springframework.beans.BeanUtils;
  */
 public class GoodTransUtils {
 
-    public static GoodCreateDTO vo2dto(GoodCreate create) {
+    public static GoodOprDTO vo2dto(GoodCreate create) {
         if (null == create) {
             return null;
         }
-        GoodCreateDTO dto = new GoodCreateDTO();
+        GoodOprDTO dto = new GoodOprDTO();
         BeanUtils.copyProperties(create, dto);
-//        dto.setId(Integer.parseInt(create.getId()));
         return dto;
     }
 
@@ -30,6 +34,23 @@ public class GoodTransUtils {
         }
         GoodVO vo = new GoodVO();
         BeanUtils.copyProperties(dto, vo);
+        vo.setEndTime(CommentTransUtils.date2String(dto.getEndTime()));
+        vo.setCreateTime(CommentTransUtils.date2String(dto.getCreateTime()));
+        vo.setUpdateTime(CommentTransUtils.date2String(dto.getUpdateTime()));
         return vo;
+    }
+
+    public static List<GoodVO> dtos2vos(List<GoodDTO> dtos) {
+        if (CollectionUtils.isEmpty(dtos)) {
+            return Collections.emptyList();
+        }
+        List<GoodVO> vos = new ArrayList<>();
+        for (GoodDTO dto : dtos) {
+            GoodVO vo = dto2vo(dto);
+            if (null != vo) {
+                vos.add(vo);
+            }
+        }
+        return vos;
     }
 }

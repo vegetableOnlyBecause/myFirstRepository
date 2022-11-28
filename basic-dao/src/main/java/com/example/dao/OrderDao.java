@@ -31,20 +31,14 @@ public class OrderDao {
     public PageInfo<OrderDO> listInfo(OrderCondition condition) {
         OrderDOExample example = new OrderDOExample();
         OrderDOExample.Criteria criteria = example.createCriteria();
-        if (StringUtils.isNotBlank(condition.getOrderId())) {
-            criteria.andOrderIdEqualTo(condition.getOrderId());
+        if (null != condition.getOrderId()) {
+            criteria.andBuyerIdEqualTo(condition.getOrderId());
         }
-        if (StringUtils.isNotBlank(condition.getBuyerUserId())) {
-            criteria.andBuyerUserIdEqualTo(condition.getBuyerUserId());
+        if (null != condition.getBuyerId()) {
+            criteria.andBuyerIdEqualTo(condition.getBuyerId());
         }
-        if (StringUtils.isNotBlank(condition.getSellerUserId())) {
-            criteria.andSellerUserIdEqualTo(condition.getSellerUserId());
-        }
-        if (CollectionUtils.isNotEmpty(condition.getOrderStatus())) {
-            criteria.andOrderStatusIn(condition.getOrderStatus());
-        }
-        if (CollectionUtils.isNotEmpty(condition.getOrderType())) {
-            criteria.andOrderTypeIn(condition.getOrderType());
+        if (null != condition.getSalerId()) {
+            criteria.andSalerIdEqualTo(condition.getSalerId());
         }
         if (null != condition.getStartTime()) {
             criteria.andCreateTimeGreaterThanOrEqualTo(condition.getStartTime());
@@ -57,29 +51,21 @@ public class OrderDao {
         condition.initPageInfo();
         PageHelper.startPage(condition.getPage(), condition.getPageSize());
         List<OrderDO> dos = orderDOMapper.selectByExample(example);
-        return new PageInfo<>(Optional.ofNullable(dos).orElse(Collections.emptyList()));
+//        return new PageInfo<>(Optional.ofNullable(dos).orElse(Collections.emptyList()));
+        return new PageInfo<>(CollectionUtils.isNotEmpty(dos) ? dos : Collections.emptyList());
     }
 
-    public OrderDO getById(String orderId) {
+    public OrderDO getById(Integer orderId) {
         OrderDOExample example = new OrderDOExample();
         OrderDOExample.Criteria criteria = example.createCriteria();
-        criteria.andOrderIdEqualTo(orderId);
+        criteria.andIdEqualTo(orderId);
         List<OrderDO> dos = orderDOMapper.selectByExample(example);
         return Optional.ofNullable(dos.get(0)).orElse(null);
     }
 
-    public String save(OrderDO orderDO) {
-        orderDO.setOrderId(UUID.randomUUID().toString());
+    public Integer save(OrderDO orderDO) {
         orderDOMapper.insertSelective(orderDO);
-        return orderDO.getOrderId();
+        return orderDO.getId();
     }
 
-    public void updateStatus(String orderId, String status) {
-        OrderDO order = getById(orderId);
-        order.setOrderStatus(status);
-        OrderDOExample example = new OrderDOExample();
-        OrderDOExample.Criteria criteria = example.createCriteria();
-        criteria.andOrderIdEqualTo(orderId);
-        orderDOMapper.updateByExampleSelective(order, example);
-    }
 }

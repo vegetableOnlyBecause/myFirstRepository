@@ -1,6 +1,6 @@
 package com.example.good;
 
-import com.example.good.dto.GoodCreateDTO;
+import com.example.good.dto.GoodOprDTO;
 import com.example.good.dto.GoodDTO;
 import com.example.condition.GoodCondition;
 import com.github.pagehelper.PageInfo;
@@ -14,7 +14,11 @@ import com.github.pagehelper.PageInfo;
 public interface GoodService {
     GoodDTO getById(Integer id);
 
+    void delById(Integer id);
+
     PageInfo<GoodDTO> listInfo(GoodCondition condition);
 
-    Integer save(GoodCreateDTO dto);
+    Integer save(GoodOprDTO dto);
+
+    void update(GoodOprDTO dto);
 }

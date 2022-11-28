@@ -3,120 +3,56 @@ package com.example.model;
 import java.util.Date;
 
 public class OrderDO {
-    private Long id;
+    private Integer id;
 
-    private String orderId;
+    private Integer salerId;
 
-    private String buyerUserId;
+    private Integer buyerId;
 
-    private String sellerUserId;
+    private Integer goodsId;
 
-    private String goodsId;
-
-    private Integer goodsNum;
-
-    private Long totalAmount;
-
-    private Long payAmount;
-
-    private String orderStatus;
-
-    private String orderType;
-
-    private Date payTime;
+    private Integer status;
 
     private Date createTime;
 
-    private Date updateTime;
-
-    private String ext;
-
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public String getOrderId() {
-        return orderId;
+    public Integer getSalerId() {
+        return salerId;
     }
 
-    public void setOrderId(String orderId) {
-        this.orderId = orderId == null ? null : orderId.trim();
+    public void setSalerId(Integer salerId) {
+        this.salerId = salerId;
     }
 
-    public String getBuyerUserId() {
-        return buyerUserId;
+    public Integer getBuyerId() {
+        return buyerId;
     }
 
-    public void setBuyerUserId(String buyerUserId) {
-        this.buyerUserId = buyerUserId == null ? null : buyerUserId.trim();
+    public void setBuyerId(Integer buyerId) {
+        this.buyerId = buyerId;
     }
 
-    public String getSellerUserId() {
-        return sellerUserId;
-    }
-
-    public void setSellerUserId(String sellerUserId) {
-        this.sellerUserId = sellerUserId == null ? null : sellerUserId.trim();
-    }
-
-    public String getGoodsId() {
+    public Integer getGoodsId() {
         return goodsId;
     }
 
-    public void setGoodsId(String goodsId) {
-        this.goodsId = goodsId == null ? null : goodsId.trim();
+    public void setGoodsId(Integer goodsId) {
+        this.goodsId = goodsId;
     }
 
-    public Integer getGoodsNum() {
-        return goodsNum;
+    public Integer getStatus() {
+        return status;
     }
 
-    public void setGoodsNum(Integer goodsNum) {
-        this.goodsNum = goodsNum;
-    }
-
-    public Long getTotalAmount() {
-        return totalAmount;
-    }
-
-    public void setTotalAmount(Long totalAmount) {
-        this.totalAmount = totalAmount;
-    }
-
-    public Long getPayAmount() {
-        return payAmount;
-    }
-
-    public void setPayAmount(Long payAmount) {
-        this.payAmount = payAmount;
-    }
-
-    public String getOrderStatus() {
-        return orderStatus;
-    }
-
-    public void setOrderStatus(String orderStatus) {
-        this.orderStatus = orderStatus == null ? null : orderStatus.trim();
-    }
-
-    public String getOrderType() {
-        return orderType;
-    }
-
-    public void setOrderType(String orderType) {
-        this.orderType = orderType == null ? null : orderType.trim();
-    }
-
-    public Date getPayTime() {
-        return payTime;
-    }
-
-    public void setPayTime(Date payTime) {
-        this.payTime = payTime;
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 
     public Date getCreateTime() {
@@ -125,21 +61,5 @@ public class OrderDO {
 
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
-    }
-
-    public Date getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
-    }
-
-    public String getExt() {
-        return ext;
-    }
-
-    public void setExt(String ext) {
-        this.ext = ext == null ? null : ext.trim();
     }
 }

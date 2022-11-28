@@ -1,8 +1,9 @@
 package com.example.good.util;
 
-import com.example.good.dto.GoodCreateDTO;
+import com.example.good.dto.GoodOprDTO;
 import com.example.good.dto.GoodDTO;
 import com.example.model.GoodDO;
+import com.example.user.util.UserUtils;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.BeanUtils;
 
@@ -41,14 +42,15 @@ public class GoodUtils {
         return dtos;
     }
 
-    public static GoodDO dto2do(GoodCreateDTO dto) {
+    public static GoodDO dto2do(GoodOprDTO dto) {
         if (null == dto) {
             return null;
         }
         GoodDO good = new GoodDO();
         BeanUtils.copyProperties(dto, good);
-        int id = (int) ((Math.random() * 9 + 1) * Math.pow(10, 10));
-        good.setId(id);
+        if (null == good.getId()) {
+            good.setId(UserUtils.initId());
+        }
         return good;
     }
 }

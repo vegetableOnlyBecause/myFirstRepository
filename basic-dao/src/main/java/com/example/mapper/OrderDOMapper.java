@@ -10,7 +10,7 @@ public interface OrderDOMapper {
 
     int deleteByExample(OrderDOExample example);
 
-    int deleteByPrimaryKey(Long id);
+    int deleteByPrimaryKey(Integer id);
 
     int insert(OrderDO record);
 
@@ -18,7 +18,7 @@ public interface OrderDOMapper {
 
     List<OrderDO> selectByExample(OrderDOExample example);
 
-    OrderDO selectByPrimaryKey(Long id);
+    OrderDO selectByPrimaryKey(Integer id);
 
     int updateByExampleSelective(@Param("record") OrderDO record, @Param("example") OrderDOExample example);
 

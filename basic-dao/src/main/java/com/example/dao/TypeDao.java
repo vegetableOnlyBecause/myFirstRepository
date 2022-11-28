@@ -6,6 +6,7 @@ import com.example.model.TypeDO;
 import com.example.model.TypeDOExample;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Repository;
 
@@ -32,7 +33,7 @@ public class TypeDao {
         TypeDOExample.Criteria criteria = example.createCriteria();
         criteria.andIdEqualTo(id);
         List<TypeDO> dos = typeDOMapper.selectByExample(example);
-        return Optional.ofNullable(dos.get(0)).orElse(null);
+        return CollectionUtils.isNotEmpty(dos) ? dos.get(0) : null;
     }
 
     public TypeDO getByName(String name) {
@@ -40,7 +41,7 @@ public class TypeDao {
         TypeDOExample.Criteria criteria = example.createCriteria();
         criteria.andNameEqualTo(name);
         List<TypeDO> dos = typeDOMapper.selectByExample(example);
-        return Optional.ofNullable(dos.get(0)).orElse(null);
+        return CollectionUtils.isNotEmpty(dos) ? dos.get(0) : null;
     }
 
     public PageInfo<TypeDO> listInfo(TypeCondition condition) {
@@ -59,12 +60,16 @@ public class TypeDao {
     public List<TypeDO> all(){
         TypeDOExample example = new TypeDOExample();
         List<TypeDO> dos = typeDOMapper.selectByExample(example);
-        return Optional.ofNullable(dos).orElse(Collections.emptyList());
+        return CollectionUtils.isNotEmpty(dos) ? dos : Collections.emptyList();
     }
 
     public Integer save(TypeDO typeDO) {
         typeDOMapper.insertSelective(typeDO);
         return typeDO.getId();
+    }
+
+    public void update(TypeDO typeDO) {
+        typeDOMapper.updateByPrimaryKeySelective(typeDO);
     }
 
     public void delById(Integer id) {

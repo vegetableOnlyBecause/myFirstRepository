@@ -1,6 +1,5 @@
 package com.example.controller.user;
 
-import com.example.common.utils.MD5Utils;
 import com.example.controller.user.util.UserTransUtils;
 import com.example.controller.user.vo.UserOprParam;
 import com.example.controller.user.vo.UserVO;
@@ -10,7 +9,6 @@ import com.example.response.ResultUtil;
 import com.example.user.UserService;
 import com.example.user.dto.UserDTO;
 import com.example.user.dto.UserOprParamDTO;
-import com.example.user.util.UserUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.transaction.annotation.Transactional;

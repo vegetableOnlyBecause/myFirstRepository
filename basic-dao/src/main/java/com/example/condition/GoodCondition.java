@@ -11,8 +11,10 @@ import lombok.Data;
 @Data
 public class GoodCondition extends LocalPageInfo {
 
-    private String goodName;
+    private Integer userId;
 
     private Integer typeId;
+
+    private String name;
 
 }

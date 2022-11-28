@@ -69,6 +69,6 @@ public class UserDao {
         condition.initPageInfo();
         PageHelper.startPage(condition.getPage(), condition.getPageSize());
         List<UserDO> dos = userDOMapper.selectByExample(example);
-        return new PageInfo<>(Optional.ofNullable(dos).orElse(Collections.emptyList()));
+        return new PageInfo<>(CollectionUtils.isNotEmpty(dos) ? dos : Collections.emptyList());
     }
 }

@@ -35,6 +35,8 @@ public class GoodDTO {
 
     private Integer status;
 
+    private String description;
+
     private Date createTime;
 
     private Date updateTime;

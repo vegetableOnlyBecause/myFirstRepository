@@ -16,21 +16,15 @@ public interface GoodDOMapper {
 
     int insertSelective(GoodDO record);
 
-    List<GoodDO> selectByExampleWithBLOBs(GoodDOExample example);
-
     List<GoodDO> selectByExample(GoodDOExample example);
 
     GoodDO selectByPrimaryKey(Integer id);
 
     int updateByExampleSelective(@Param("record") GoodDO record, @Param("example") GoodDOExample example);
 
-    int updateByExampleWithBLOBs(@Param("record") GoodDO record, @Param("example") GoodDOExample example);
-
     int updateByExample(@Param("record") GoodDO record, @Param("example") GoodDOExample example);
 
     int updateByPrimaryKeySelective(GoodDO record);
-
-    int updateByPrimaryKeyWithBLOBs(GoodDO record);
 
     int updateByPrimaryKey(GoodDO record);
 }

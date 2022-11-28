@@ -13,13 +13,7 @@ import com.github.pagehelper.PageInfo;
  */
 public interface OrderService {
 
-    String save(OrderCreateDTO dto);
-
-    void cancel(String orderId);
-
-    void deliver(String orderId);
-
-    void pay(String orderId);
+    Integer save(OrderCreateDTO dto);
 
     PageInfo<OrderDTO> listInfo(OrderCondition condition);
 }

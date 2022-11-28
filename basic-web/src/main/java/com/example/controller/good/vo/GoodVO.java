@@ -31,13 +31,15 @@ public class GoodVO implements Serializable {
 
 //    private Date polishTime;
 
-//    private Date endTime;
+    private String endTime;
 
     private Integer commentNum;
 
     private Integer status;
 
-//    private Date createTime;
+    private String description;
 
-//    private Date updateTime;
+    private String createTime;
+
+    private String updateTime;
 }

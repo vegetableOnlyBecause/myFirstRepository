@@ -48,8 +48,11 @@
         <!--domainObjectName="User"-->
 <!--        <table  tableName="common_user" domainObjectName="UserDO"/>-->
 <!--        <table  tableName="goods" domainObjectName="GoodDO"/>-->
-        <table  tableName="type" domainObjectName="TypeDO"/>
-<!--            <table  tableName="family_order" domainObjectName="OrderDO"/>-->
+<!--        <table  tableName="type" domainObjectName="TypeDO"/>-->
+<!--        <table  tableName="family_order" domainObjectName="OrderDO"/>-->
+        <table  tableName="comments" domainObjectName="CommentDO"/>
+<!--        <table  tableName="cart" domainObjectName="CartDO"/>-->
+<!--        <table  tableName="trade" domainObjectName="OrderDO"/>-->
 
         <!-- ============================================================================= -->
     </context>

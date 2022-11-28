@@ -8,7 +8,7 @@ CREATE TABLE `goods` (
         `real_price` float(11,2) DEFAULT NULL COMMENT '真实价格',
         `polish_time` timestamp NULL COMMENT '擦亮时间，按该时间进行查询，精确到时分秒',
         `end_time` timestamp NOT NULL DEFAULT NOW() COMMENT '下架时间',
-        `description` text COMMENT '详细信息',
+        `description` varchar(4096) DEFAULT NULL COMMENT '详细信息',
         `comment_num` int(11) DEFAULT NULL,
         `status` int(11) DEFAULT '1',
         `create_time` timestamp NOT NULL DEFAULT NOW() COMMENT '发布时间',

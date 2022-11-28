@@ -21,6 +21,8 @@ public class GoodDO {
 
     private Date endTime;
 
+    private String description;
+
     private Integer commentNum;
 
     private Integer status;
@@ -28,8 +30,6 @@ public class GoodDO {
     private Date createTime;
 
     private Date updateTime;
-
-    private String description;
 
     public Integer getId() {
         return id;
@@ -103,6 +103,14 @@ public class GoodDO {
         this.endTime = endTime;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description == null ? null : description.trim();
+    }
+
     public Integer getCommentNum() {
         return commentNum;
     }
@@ -133,13 +141,5 @@ public class GoodDO {
 
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description == null ? null : description.trim();
     }
 }

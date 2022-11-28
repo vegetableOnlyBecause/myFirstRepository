@@ -14,27 +14,15 @@ import java.util.Date;
 @Data
 public class OrderDTO {
 
-    private String orderId;
+    private Integer id;
 
-    private String goodsId;
+    private Integer salerId;
 
-    private UserDTO buyer;
+    private Integer buyerId;
 
-    private UserDTO seller;
+    private Integer goodsId;
 
-    private Integer goodsNum;
-
-    private Long totalAmount;
-
-    private Long payAmount;
-
-    private String orderStatus;
-
-    private String orderType;
-
-    private Date payTime;
+    private Integer status;
 
     private Date createTime;
-
-    private Date updateTime;
 }

@@ -11,13 +11,11 @@
     <result column="real_price" jdbcType="REAL" property="realPrice" />
     <result column="polish_time" jdbcType="TIMESTAMP" property="polishTime" />
     <result column="end_time" jdbcType="TIMESTAMP" property="endTime" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
     <result column="comment_num" jdbcType="INTEGER" property="commentNum" />
     <result column="status" jdbcType="INTEGER" property="status" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
-  </resultMap>
-  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.example.model.GoodDO">
-    <result column="description" jdbcType="LONGVARCHAR" property="description" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -78,28 +76,9 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, name, type_id, user_id, price, img_url, real_price, polish_time, end_time, comment_num, 
-    status, create_time, update_time
+    id, name, type_id, user_id, price, img_url, real_price, polish_time, end_time, description, 
+    comment_num, status, create_time, update_time
   </sql>
-  <sql id="Blob_Column_List">
-    description
-  </sql>
-  <select id="selectByExampleWithBLOBs" parameterType="com.example.model.GoodDOExample" resultMap="ResultMapWithBLOBs">
-    select
-    <if test="distinct">
-      distinct
-    </if>
-    <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
-    from goods
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null">
-      order by ${orderByClause}
-    </if>
-  </select>
   <select id="selectByExample" parameterType="com.example.model.GoodDOExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
@@ -114,11 +93,9 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
     from goods
     where id = #{id,jdbcType=INTEGER}
   </select>
@@ -136,13 +113,13 @@
     insert into goods (id, name, type_id, 
       user_id, price, img_url, 
       real_price, polish_time, end_time, 
-      comment_num, status, create_time, 
-      update_time, description)
+      description, comment_num, status, 
+      create_time, update_time)
     values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{typeId,jdbcType=INTEGER}, 
       #{userId,jdbcType=INTEGER}, #{price,jdbcType=REAL}, #{imgUrl,jdbcType=VARCHAR}, 
       #{realPrice,jdbcType=REAL}, #{polishTime,jdbcType=TIMESTAMP}, #{endTime,jdbcType=TIMESTAMP}, 
-      #{commentNum,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
-      #{updateTime,jdbcType=TIMESTAMP}, #{description,jdbcType=LONGVARCHAR})
+      #{description,jdbcType=VARCHAR}, #{commentNum,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.example.model.GoodDO">
     insert into goods
@@ -174,6 +151,9 @@
       <if test="endTime != null">
         end_time,
       </if>
+      <if test="description != null">
+        description,
+      </if>
       <if test="commentNum != null">
         comment_num,
       </if>
@@ -185,9 +165,6 @@
       </if>
       <if test="updateTime != null">
         update_time,
-      </if>
-      <if test="description != null">
-        description,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -218,6 +195,9 @@
       <if test="endTime != null">
         #{endTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
       <if test="commentNum != null">
         #{commentNum,jdbcType=INTEGER},
       </if>
@@ -229,9 +209,6 @@
       </if>
       <if test="updateTime != null">
         #{updateTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="description != null">
-        #{description,jdbcType=LONGVARCHAR},
       </if>
     </trim>
   </insert>
@@ -271,6 +248,9 @@
       <if test="record.endTime != null">
         end_time = #{record.endTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="record.description != null">
+        description = #{record.description,jdbcType=VARCHAR},
+      </if>
       <if test="record.commentNum != null">
         comment_num = #{record.commentNum,jdbcType=INTEGER},
       </if>
@@ -283,30 +263,7 @@
       <if test="record.updateTime != null">
         update_time = #{record.updateTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="record.description != null">
-        description = #{record.description,jdbcType=LONGVARCHAR},
-      </if>
     </set>
-    <if test="_parameter != null">
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByExampleWithBLOBs" parameterType="map">
-    update goods
-    set id = #{record.id,jdbcType=INTEGER},
-      name = #{record.name,jdbcType=VARCHAR},
-      type_id = #{record.typeId,jdbcType=INTEGER},
-      user_id = #{record.userId,jdbcType=INTEGER},
-      price = #{record.price,jdbcType=REAL},
-      img_url = #{record.imgUrl,jdbcType=VARCHAR},
-      real_price = #{record.realPrice,jdbcType=REAL},
-      polish_time = #{record.polishTime,jdbcType=TIMESTAMP},
-      end_time = #{record.endTime,jdbcType=TIMESTAMP},
-      comment_num = #{record.commentNum,jdbcType=INTEGER},
-      status = #{record.status,jdbcType=INTEGER},
-      create_time = #{record.createTime,jdbcType=TIMESTAMP},
-      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
-      description = #{record.description,jdbcType=LONGVARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -322,6 +279,7 @@
       real_price = #{record.realPrice,jdbcType=REAL},
       polish_time = #{record.polishTime,jdbcType=TIMESTAMP},
       end_time = #{record.endTime,jdbcType=TIMESTAMP},
+      description = #{record.description,jdbcType=VARCHAR},
       comment_num = #{record.commentNum,jdbcType=INTEGER},
       status = #{record.status,jdbcType=INTEGER},
       create_time = #{record.createTime,jdbcType=TIMESTAMP},
@@ -357,6 +315,9 @@
       <if test="endTime != null">
         end_time = #{endTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="description != null">
+        description = #{description,jdbcType=VARCHAR},
+      </if>
       <if test="commentNum != null">
         comment_num = #{commentNum,jdbcType=INTEGER},
       </if>
@@ -369,27 +330,7 @@
       <if test="updateTime != null">
         update_time = #{updateTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="description != null">
-        description = #{description,jdbcType=LONGVARCHAR},
-      </if>
     </set>
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.example.model.GoodDO">
-    update goods
-    set name = #{name,jdbcType=VARCHAR},
-      type_id = #{typeId,jdbcType=INTEGER},
-      user_id = #{userId,jdbcType=INTEGER},
-      price = #{price,jdbcType=REAL},
-      img_url = #{imgUrl,jdbcType=VARCHAR},
-      real_price = #{realPrice,jdbcType=REAL},
-      polish_time = #{polishTime,jdbcType=TIMESTAMP},
-      end_time = #{endTime,jdbcType=TIMESTAMP},
-      comment_num = #{commentNum,jdbcType=INTEGER},
-      status = #{status,jdbcType=INTEGER},
-      create_time = #{createTime,jdbcType=TIMESTAMP},
-      update_time = #{updateTime,jdbcType=TIMESTAMP},
-      description = #{description,jdbcType=LONGVARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.example.model.GoodDO">
@@ -402,6 +343,7 @@
       real_price = #{realPrice,jdbcType=REAL},
       polish_time = #{polishTime,jdbcType=TIMESTAMP},
       end_time = #{endTime,jdbcType=TIMESTAMP},
+      description = #{description,jdbcType=VARCHAR},
       comment_num = #{commentNum,jdbcType=INTEGER},
       status = #{status,jdbcType=INTEGER},
       create_time = #{createTime,jdbcType=TIMESTAMP},

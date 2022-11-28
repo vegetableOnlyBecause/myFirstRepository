@@ -51,11 +51,17 @@ public class TypeController {
                 PageInfoUtils.pageInfoTrans(dtos, TypeTransUtils::dto2vo));
     }
 
-    @GetMapping(value = "/types")
-    public Result<List<String>> getAllTypes(){
+    @GetMapping(value = "/types/name")
+    public Result<List<String>> getAllTypesName(){
         List<TypeDTO> all = typeService.all();
         List<String> allTypeNames = all.stream().map(x -> x.getName()).collect(Collectors.toList());
         return ResultUtil.success(ResultEnum.GET_TYPES, allTypeNames);
+    }
+
+    @GetMapping(value = "/types")
+    public Result<List<TypeVO>> getAllTypes(){
+        List<TypeDTO> all = typeService.all();
+        return ResultUtil.success(ResultEnum.GET_TYPES, TypeTransUtils.dtos2vos(all));
     }
 
     @GetMapping(value = "/count/{type}")

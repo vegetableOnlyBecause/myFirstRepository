@@ -14,15 +14,13 @@ import java.util.List;
 @Data
 public class OrderCondition extends LocalPageInfo{
 
-    private String orderId;
+    private Integer orderId;
 
-    private String buyerUserId;
+    private Integer buyerId;
 
-    private String sellerUserId;
+    private Integer salerId;
 
-    private List<String> orderStatus;
-
-    private List<String> orderType;
+    private List<Integer> orderStatus;
 
     private Date startTime;
 

@@ -1,16 +1,19 @@
 package com.example.controller.good;
 
 import com.alibaba.fastjson.JSON;
-import com.example.condition.TypeCondition;
+import com.example.condition.GoodCondition;
+import com.example.condition.OrderCondition;
+import com.example.controller.good.util.GoodTransUtils;
+import com.example.controller.good.vo.GoodCreate;
 import com.example.controller.good.vo.GoodVO;
 import com.example.good.GoodService;
 import com.example.good.TypeService;
 import com.example.good.dto.GoodDTO;
+import com.example.good.dto.GoodOprDTO;
 import com.example.good.dto.TypeDTO;
 import com.example.good.util.PageInfoUtils;
-import com.example.condition.GoodCondition;
-import com.example.controller.good.util.GoodTransUtils;
-import com.example.controller.good.vo.GoodCreate;
+import com.example.order.OrderService;
+import com.example.order.dto.OrderDTO;
 import com.example.response.OperationResult;
 import com.example.response.Result;
 import com.example.response.ResultEnum;
@@ -24,6 +27,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -42,11 +46,19 @@ public class GoodController {
     private GoodService goodService;
     @Resource
     private TypeService typeService;
+    @Resource
+    private OrderService orderService;
 
     @PostMapping(value="/add")
     public Result<Object> add(@Validated @RequestBody GoodCreate params) {
         Integer id = goodService.save(GoodTransUtils.vo2dto(params));
         return ResultUtil.success(ResultEnum.ADD_GOODS, id);
+    }
+
+    @PostMapping(value = "/delete/{id}")
+    public Result deleteGoodsById(@PathVariable("id") Integer id){
+        goodService.delById(id);
+        return ResultUtil.success(ResultEnum.DELETE_GOODS);
     }
 
     @RequestMapping(method = RequestMethod.GET)
@@ -78,20 +90,56 @@ public class GoodController {
     @GetMapping("/{type}/{page}")
     public Result<List<GoodVO>> getGoodsListByType(@PathVariable("type") String type,
                                                   @PathVariable("page") int page) {
-
         GoodCondition condition = new GoodCondition();
         condition.setPage(page);
         condition.setPageSize(10);
         TypeDTO typeDTO = typeService.getByName(type);
-        condition.setTypeId(typeDTO.getId());
-        PageInfo<GoodDTO> dtos = goodService.listInfo(condition);
-        PageInfo<GoodVO> vos = PageInfoUtils.pageInfoTrans(dtos, GoodTransUtils::dto2vo);
-        return ResultUtil.success(ResultEnum.GET_GOODS_INFO_LIST, vos.getList());
+        List<GoodVO> goods = new ArrayList<>();
+        if (null != typeDTO) {
+            condition.setTypeId(typeDTO.getId());
+            PageInfo<GoodDTO> dtos = goodService.listInfo(condition);
+            PageInfo<GoodVO> vos = PageInfoUtils.pageInfoTrans(dtos, GoodTransUtils::dto2vo);
+            goods = vos.getList();
+        }
+
+        return ResultUtil.success(ResultEnum.GET_GOODS_INFO_LIST, goods);
     }
 
     @GetMapping(value = "/content/{goodsId}")
     public Result<GoodVO> getOneGoodsById(@PathVariable("goodsId") Integer goodsId){
         GoodDTO good = goodService.getById(goodsId);
         return ResultUtil.success(ResultEnum.GET_GOODS_DETAIL,GoodTransUtils.dto2vo(good));
+    }
+
+    /* 通过用户 ID 获取用户发布的所有闲置商品 */
+    @GetMapping(value = "/user/{userId}")
+    public Result<List<GoodVO>> getGoodsListByUserId(@PathVariable("userId") Integer userId){
+        GoodCondition condition = new GoodCondition();
+        condition.setUserId(userId);
+        PageInfo<GoodDTO> dtoPageInfo = goodService.listInfo(condition);
+        return ResultUtil.success(ResultEnum.GET_USER_GOODS_LIST,GoodTransUtils.dtos2vos(dtoPageInfo.getList()));
+    }
+
+
+    @PostMapping(value = "/change/status/{goodsId}")
+    public Result changeGoodsStatus(@PathVariable("goodsId") Integer goodsId){
+        GoodDTO good = goodService.getById(goodsId);
+        GoodOprDTO opr = new GoodOprDTO();
+        opr.setId(goodsId);
+        opr.setStatus(good.getStatus() == 0 ? 1 : 0);
+        goodService.update(opr);
+        return ResultUtil.success(ResultEnum.UPDATE_GOODS);
+    }
+
+    @GetMapping(value = "/search/{key}/{page}")
+    public Result<List<GoodVO>> searchGoodsByKey(@PathVariable("key") String key,
+                                                @PathVariable("page") int page){
+        GoodCondition condition = new GoodCondition();
+        condition.setPage(page);
+        condition.setPageSize(10);
+        condition.setName(key);
+        PageInfo<GoodDTO> dto = goodService.listInfo(condition);
+        Pageable pageable = PageRequest.of(page, 12);
+        return ResultUtil.success(ResultEnum.GET_GOODS_BY_KEY,GoodTransUtils.dtos2vos(dto.getList()));
     }
 }

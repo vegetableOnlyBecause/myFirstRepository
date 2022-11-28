@@ -11,7 +11,7 @@ import java.util.Date;
  * @description:
  */
 @Data
-public class GoodCreateDTO {
+public class GoodOprDTO {
 
     private Integer id;
 
@@ -21,9 +21,9 @@ public class GoodCreateDTO {
 
     private String name; //商品名
 
-    private float price; //价格
+    private Float price; //价格
 
-    private float realPrice; //原价
+    private Float realPrice; //原价
 
     private Date endTime;
 

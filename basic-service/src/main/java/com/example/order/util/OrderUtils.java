@@ -5,6 +5,7 @@ import com.example.model.OrderDO;
 import com.example.order.dto.OrderCreateDTO;
 import com.example.order.dto.OrderDTO;
 import com.example.user.dto.UserDTO;
+import com.example.user.util.UserUtils;
 import org.springframework.beans.BeanUtils;
 
 /**
@@ -28,11 +29,11 @@ public class OrderUtils {
         return dto;
     }
 
-    public static OrderDO dto2do(OrderCreateDTO dto, GoodDTO good) {
+    public static OrderDO dto2do(OrderCreateDTO dto) {
         OrderDO order = new OrderDO();
         BeanUtils.copyProperties(dto, order);
-//        order.setTotalAmount(dto.getGoodsNum() * good.getPrice());
-//        order.setTotalAmount(dto.getGoodsNum() * good.getRealPrice());
+        order.setId(UserUtils.initId());
+        order.setStatus(2);
         return order;
     }
 }

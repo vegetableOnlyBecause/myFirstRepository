@@ -50,13 +50,22 @@ public class UserUtils {
         UserDO userDO = new UserDO();
         BeanUtils.copyProperties(dto, userDO);
         if (null == userDO.getId()) {
-            int userId = (int) ((Math.random() * 9 + 1) * Math.pow(10, 10));
+            int userId = initId();
             userDO.setId(userId);
         }
         if (StringUtils.isNotBlank(dto.getPassword())) {
             userDO.setPassword(MD5Utils.string2MD5(dto.getPassword() + slat));
         }
         return userDO;
+    }
+
+    public static int initId() {
+        StringBuilder str=new StringBuilder();//定义变长字符串
+        Random random=new Random();
+        for(int i=0;i<8;i++){
+            str.append(random.nextInt(10));
+        }
+        return Integer.parseInt(str.toString());
     }
 
 }
