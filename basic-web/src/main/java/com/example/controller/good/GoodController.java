@@ -20,6 +20,7 @@ import com.example.response.ResultEnum;
 import com.example.response.ResultUtil;
 import com.github.pagehelper.PageInfo;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -57,6 +58,16 @@ public class GoodController {
 
     @PostMapping(value = "/delete/{id}")
     public Result deleteGoodsById(@PathVariable("id") Integer id){
+        OrderCondition condition = new OrderCondition();
+        condition.setGoodId(id);
+        PageInfo<OrderDTO> orderDTOPageInfo = orderService.listInfo(condition);
+        List<OrderDTO> orders = orderDTOPageInfo.getList();
+        if (CollectionUtils.isNotEmpty(orders)) {
+            orders.removeIf(x -> 4 == x.getStatus() || 5 == x.getStatus());
+            if (CollectionUtils.isNotEmpty(orders)) {
+                return ResultUtil.error(ResultEnum.DELETE_GOODS_ERROR);
+            }
+        }
         goodService.delById(id);
         return ResultUtil.success(ResultEnum.DELETE_GOODS);
     }
@@ -84,6 +95,8 @@ public class GoodController {
         condition.setPageSize(10);
         PageInfo<GoodDTO> dtos = goodService.listInfo(condition);
         PageInfo<GoodVO> vos = PageInfoUtils.pageInfoTrans(dtos, GoodTransUtils::dto2vo);
+        List<GoodVO> result = vos.getList();
+        result.removeIf(good -> !(good.getNum() > 0));
         return ResultUtil.success(ResultEnum.GET_GOODS_INFO_LIST, vos.getList());
     }
 

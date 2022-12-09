@@ -72,6 +72,21 @@ public class UserServiceImpl implements UserService {
         return UserUtils.do2Dto(user);
     }
 
+    @Override
+    public void operateMoney(Integer salerId, Integer buyerId, float rmb) throws Exception {
+        UserDO saler = userDao.getUserById(salerId);
+        Float salerCoin = saler.getCoin();
+        saler.setCoin(salerCoin + rmb);
+        UserDO buyer = userDao.getUserById(buyerId);
+        Float coin = buyer.getCoin();
+        if (coin < 0) {
+            throw new Exception("gg");
+        }
+        Float buyerCoin = buyer.getCoin();
+        buyer.setCoin(buyerCoin - rmb);
+        userDao.update(saler);
+        userDao.update(buyer);
+    }
 
     @Override
     public PageInfo<UserDTO> listInfo(UserCondition condition){

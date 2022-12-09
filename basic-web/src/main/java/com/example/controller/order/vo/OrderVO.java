@@ -16,28 +16,12 @@ import java.util.Date;
 public class OrderVO implements Serializable {
     private static final long serialVersionUID = 6017659074978481810L;
 
-    private String orderId;
+    private Integer id;
 
-    private String goodsId;
+    private String name;
 
-    private UserVO buyer;
-
-    private UserVO seller;
-
-    private Integer goodsNum;
-
-    private Long totalAmount;
-
-    private Long payAmount;
-
-    private String orderStatus;
-
-    private String orderType;
-
-    private Date payTime;
+    private Float price;
 
     private Date createTime;
-
-    private Date updateTime;
 
 }

@@ -31,9 +31,7 @@ public interface UserService {
 
     UserDTO getUserByUserName(String userName);
 
-
-
-
+    void operateMoney(Integer salerId, Integer buyerId, float rmb) throws Exception;
 
     /**
      * 批量查询用户信息

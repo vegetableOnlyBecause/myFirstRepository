@@ -16,4 +16,6 @@ public interface OrderService {
     Integer save(OrderCreateDTO dto);
 
     PageInfo<OrderDTO> listInfo(OrderCondition condition);
+
+    void del(Integer id);
 }

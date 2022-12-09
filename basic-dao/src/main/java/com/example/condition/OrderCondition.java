@@ -20,6 +20,8 @@ public class OrderCondition extends LocalPageInfo{
 
     private Integer salerId;
 
+    private Integer goodId;
+
     private List<Integer> orderStatus;
 
     private Date startTime;

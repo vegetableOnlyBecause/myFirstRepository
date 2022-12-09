@@ -21,4 +21,6 @@ public interface GoodService {
     Integer save(GoodOprDTO dto);
 
     void update(GoodOprDTO dto);
+
+    void lessInventory(Integer goodId, Integer num);
 }

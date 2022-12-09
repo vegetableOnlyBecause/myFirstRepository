@@ -25,6 +25,8 @@ public class GoodVO implements Serializable {
 
     private Float price;
 
+    private Integer num;
+
     private String imgUrl;
 
     private Float realPrice;

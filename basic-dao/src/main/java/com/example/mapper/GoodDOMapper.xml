@@ -7,6 +7,7 @@
     <result column="type_id" jdbcType="INTEGER" property="typeId" />
     <result column="user_id" jdbcType="INTEGER" property="userId" />
     <result column="price" jdbcType="REAL" property="price" />
+    <result column="num" jdbcType="INTEGER" property="num" />
     <result column="img_url" jdbcType="VARCHAR" property="imgUrl" />
     <result column="real_price" jdbcType="REAL" property="realPrice" />
     <result column="polish_time" jdbcType="TIMESTAMP" property="polishTime" />
@@ -76,8 +77,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, name, type_id, user_id, price, img_url, real_price, polish_time, end_time, description, 
-    comment_num, status, create_time, update_time
+    id, name, type_id, user_id, price, num, img_url, real_price, polish_time, end_time, 
+    description, comment_num, status, create_time, update_time
   </sql>
   <select id="selectByExample" parameterType="com.example.model.GoodDOExample" resultMap="BaseResultMap">
     select
@@ -111,12 +112,12 @@
   </delete>
   <insert id="insert" parameterType="com.example.model.GoodDO">
     insert into goods (id, name, type_id, 
-      user_id, price, img_url, 
+      user_id, price, num, img_url, 
       real_price, polish_time, end_time, 
       description, comment_num, status, 
       create_time, update_time)
     values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{typeId,jdbcType=INTEGER}, 
-      #{userId,jdbcType=INTEGER}, #{price,jdbcType=REAL}, #{imgUrl,jdbcType=VARCHAR}, 
+      #{userId,jdbcType=INTEGER}, #{price,jdbcType=REAL}, #{num,jdbcType=INTEGER}, #{imgUrl,jdbcType=VARCHAR}, 
       #{realPrice,jdbcType=REAL}, #{polishTime,jdbcType=TIMESTAMP}, #{endTime,jdbcType=TIMESTAMP}, 
       #{description,jdbcType=VARCHAR}, #{commentNum,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, 
       #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
@@ -138,6 +139,9 @@
       </if>
       <if test="price != null">
         price,
+      </if>
+      <if test="num != null">
+        num,
       </if>
       <if test="imgUrl != null">
         img_url,
@@ -182,6 +186,9 @@
       </if>
       <if test="price != null">
         #{price,jdbcType=REAL},
+      </if>
+      <if test="num != null">
+        #{num,jdbcType=INTEGER},
       </if>
       <if test="imgUrl != null">
         #{imgUrl,jdbcType=VARCHAR},
@@ -236,6 +243,9 @@
       <if test="record.price != null">
         price = #{record.price,jdbcType=REAL},
       </if>
+      <if test="record.num != null">
+        num = #{record.num,jdbcType=INTEGER},
+      </if>
       <if test="record.imgUrl != null">
         img_url = #{record.imgUrl,jdbcType=VARCHAR},
       </if>
@@ -275,6 +285,7 @@
       type_id = #{record.typeId,jdbcType=INTEGER},
       user_id = #{record.userId,jdbcType=INTEGER},
       price = #{record.price,jdbcType=REAL},
+      num = #{record.num,jdbcType=INTEGER},
       img_url = #{record.imgUrl,jdbcType=VARCHAR},
       real_price = #{record.realPrice,jdbcType=REAL},
       polish_time = #{record.polishTime,jdbcType=TIMESTAMP},
@@ -302,6 +313,9 @@
       </if>
       <if test="price != null">
         price = #{price,jdbcType=REAL},
+      </if>
+      <if test="num != null">
+        num = #{num,jdbcType=INTEGER},
       </if>
       <if test="imgUrl != null">
         img_url = #{imgUrl,jdbcType=VARCHAR},
@@ -339,6 +353,7 @@
       type_id = #{typeId,jdbcType=INTEGER},
       user_id = #{userId,jdbcType=INTEGER},
       price = #{price,jdbcType=REAL},
+      num = #{num,jdbcType=INTEGER},
       img_url = #{imgUrl,jdbcType=VARCHAR},
       real_price = #{realPrice,jdbcType=REAL},
       polish_time = #{polishTime,jdbcType=TIMESTAMP},

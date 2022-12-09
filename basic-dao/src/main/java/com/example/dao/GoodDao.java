@@ -46,6 +46,9 @@ public class GoodDao {
     public PageInfo<GoodDO> listInfo(GoodCondition condition) {
         GoodDOExample example = new GoodDOExample();
         GoodDOExample.Criteria criteria = example.createCriteria();
+        if (null != condition.getUserId()) {
+            criteria.andUserIdEqualTo(condition.getUserId());
+        }
         if (null != condition.getTypeId()) {
             criteria.andTypeIdEqualTo(condition.getTypeId());
         }

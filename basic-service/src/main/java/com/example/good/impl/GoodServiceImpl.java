@@ -62,4 +62,12 @@ public class GoodServiceImpl implements GoodService {
         GoodDO good = GoodUtils.dto2do(dto);
         goodDao.update(good);
     }
+
+    @Override
+    public void lessInventory(Integer goodId, Integer num) {
+        GoodDO good = goodDao.getById(goodId);
+        int stockNum = good.getNum() - num;
+        good.setNum(stockNum);
+        goodDao.update(good);
+    }
 }

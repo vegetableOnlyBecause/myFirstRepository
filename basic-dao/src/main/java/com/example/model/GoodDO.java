@@ -13,6 +13,8 @@ public class GoodDO {
 
     private Float price;
 
+    private Integer num;
+
     private String imgUrl;
 
     private Float realPrice;
@@ -69,6 +71,14 @@ public class GoodDO {
 
     public void setPrice(Float price) {
         this.price = price;
+    }
+
+    public Integer getNum() {
+        return num;
+    }
+
+    public void setNum(Integer num) {
+        this.num = num;
     }
 
     public String getImgUrl() {

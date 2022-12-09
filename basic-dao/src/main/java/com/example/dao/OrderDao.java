@@ -46,6 +46,9 @@ public class OrderDao {
         if (null != condition.getEndTime()) {
             criteria.andCreateTimeLessThanOrEqualTo(condition.getEndTime());
         }
+        if (CollectionUtils.isNotEmpty(condition.getOrderStatus())) {
+            criteria.andStatusIn(condition.getOrderStatus());
+        }
         example.setOrderByClause(condition.getSortField()
                 + " " + condition.getSortType());
         condition.initPageInfo();
@@ -66,6 +69,10 @@ public class OrderDao {
     public Integer save(OrderDO orderDO) {
         orderDOMapper.insertSelective(orderDO);
         return orderDO.getId();
+    }
+
+    public void del(Integer id) {
+        orderDOMapper.deleteByPrimaryKey(id);
     }
 
 }

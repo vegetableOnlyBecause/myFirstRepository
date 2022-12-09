@@ -16,11 +16,11 @@ public class OrderDTO {
 
     private Integer id;
 
-    private Integer salerId;
-
-    private Integer buyerId;
-
     private Integer goodsId;
+
+    private String name;
+
+    private Float price;
 
     private Integer status;
 
