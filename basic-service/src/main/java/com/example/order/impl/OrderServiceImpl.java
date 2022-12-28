@@ -1,11 +1,11 @@
 package com.example.order.impl;
 
+import com.example.common.utils.OprUtils;
+import com.example.condition.OrderCondition;
+import com.example.dao.OrderDao;
 import com.example.good.GoodService;
 import com.example.good.dto.GoodDTO;
 import com.example.good.util.PageInfoUtils;
-import com.example.condition.OrderCondition;
-import com.example.dao.OrderDao;
-import com.example.enums.OrderStatusEnums;
 import com.example.model.OrderDO;
 import com.example.order.OrderService;
 import com.example.order.dto.OrderCreateDTO;
@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.function.Consumer;
 
 /**
  * @title:
@@ -33,11 +34,12 @@ public class OrderServiceImpl implements OrderService {
 
 
     @Override
-    public Integer save(OrderCreateDTO dto) {
-        GoodDTO good = goodService.getById(dto.getGoodsId());
-        // todo:如果商品不存在则抛错
-        OrderDO orderDO = OrderUtils.dto2do(dto);
-        return orderDao.save(orderDO);
+    public void save(OrderCreateDTO dto) throws Exception {
+        Consumer<GoodDTO> consumer = good -> {
+            OrderDO orderDO = OrderUtils.dto2do(dto);
+            orderDao.save(orderDO);
+        };
+        OprUtils.checkAndDeal(goodService.getById(dto.getGoodsId()), consumer);
     }
 
     @Override
@@ -48,7 +50,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     @Transactional
-    public void del(Integer id) {
+    public void del(Integer id) throws Exception {
         OrderDO order = orderDao.getById(id);
         orderDao.del(id);
         goodService.lessInventory(order.getGoodsId(), -1);

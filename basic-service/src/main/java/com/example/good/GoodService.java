@@ -22,5 +22,5 @@ public interface GoodService {
 
     void update(GoodOprDTO dto);
 
-    void lessInventory(Integer goodId, Integer num);
+    void lessInventory(Integer goodId, Integer num) throws Exception;
 }

@@ -54,8 +54,7 @@ public class OrderDao {
         condition.initPageInfo();
         PageHelper.startPage(condition.getPage(), condition.getPageSize());
         List<OrderDO> dos = orderDOMapper.selectByExample(example);
-//        return new PageInfo<>(Optional.ofNullable(dos).orElse(Collections.emptyList()));
-        return new PageInfo<>(CollectionUtils.isNotEmpty(dos) ? dos : Collections.emptyList());
+       return new PageInfo<>(CollectionUtils.isNotEmpty(dos) ? dos : Collections.emptyList());
     }
 
     public OrderDO getById(Integer orderId) {
@@ -63,7 +62,7 @@ public class OrderDao {
         OrderDOExample.Criteria criteria = example.createCriteria();
         criteria.andIdEqualTo(orderId);
         List<OrderDO> dos = orderDOMapper.selectByExample(example);
-        return Optional.ofNullable(dos.get(0)).orElse(null);
+        return CollectionUtils.isNotEmpty(dos) ? dos.get(0) : null;
     }
 
     public Integer save(OrderDO orderDO) {

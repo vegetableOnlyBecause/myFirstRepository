@@ -7,14 +7,15 @@ import com.example.condition.UserCondition;
 import com.example.dao.UserDao;
 import com.example.model.UserDO;
 import com.example.user.UserService;
-import com.example.user.dto.UserOprParamDTO;
 import com.example.user.dto.UserDTO;
+import com.example.user.dto.UserOprParamDTO;
 import com.example.user.util.UserUtils;
 import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.function.Consumer;
 
 /**
  * @title: 用户信息查询实现类
@@ -34,9 +35,6 @@ public class UserServiceImpl implements UserService {
     @Override
     public Integer save(UserOprParamDTO create) {
         UserDO userDO = UserUtils.dto2do(create);
-        if (null == userDO) {
-            // 抛错;
-        }
         userDao.save(userDO);
         return userDO.getId();
     }
@@ -53,10 +51,12 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean update(UserOprParamDTO param) {
         UserDO user = userDao.getUserById(param.getId());
-        if (null == user) {
+        Consumer<UserDO> consumer = userDO -> userDao.update(UserUtils.dto2do(param));
+        try {
+            OprUtils.checkAndDeal(user, consumer);
+        } catch (Exception e) {
             return false;
         }
-        userDao.update(UserUtils.dto2do(param));
         return true;
     }
 
@@ -79,12 +79,11 @@ public class UserServiceImpl implements UserService {
         Float salerCoin = saler.getCoin();
         saler.setCoin(salerCoin + rmb);
         UserDO buyer = userDao.getUserById(buyerId);
-        Float coin = buyer.getCoin();
+        float coin = buyer.getCoin() - rmb;
         if (coin < 0) {
-            throw new Exception("gg");
+            throw new Exception("钱不够啊,铁子");
         }
-        Float buyerCoin = buyer.getCoin();
-        buyer.setCoin(buyerCoin - rmb);
+        buyer.setCoin(coin);
         userDao.update(saler);
         userDao.update(buyer);
     }

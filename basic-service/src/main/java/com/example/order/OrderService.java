@@ -13,9 +13,9 @@ import com.github.pagehelper.PageInfo;
  */
 public interface OrderService {
 
-    Integer save(OrderCreateDTO dto);
+    void save(OrderCreateDTO dto) throws Exception;
 
     PageInfo<OrderDTO> listInfo(OrderCondition condition);
 
-    void del(Integer id);
+    void del(Integer id) throws Exception;
 }

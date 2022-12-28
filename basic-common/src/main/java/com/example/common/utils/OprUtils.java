@@ -6,6 +6,8 @@ import org.apache.commons.collections4.CollectionUtils;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
+import java.util.function.Consumer;
 import java.util.function.Function;
 
 /**
@@ -30,5 +32,13 @@ public class OprUtils {
         return result;
     }
 
+    public static <T> void checkAndDeal(T model, Consumer<T> consumer) throws Exception {
+        T oprModel = checkModel(model);
+        consumer.accept(oprModel);
+    }
+
+    public static <T> T checkModel(T model) throws Exception {
+        return Optional.ofNullable(model).orElseThrow(() -> new Exception("信息不存在:" + model.getClass()));
+    }
 
 }

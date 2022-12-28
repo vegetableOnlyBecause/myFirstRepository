@@ -46,19 +46,17 @@ public class UserController {
      * @return Result
      */
     @PostMapping(value = "/update/info")
-    public Result updateUserByName(UserOprParam param) {
+    public Result updateUserByName(UserOprParam param) throws Exception {
         boolean flag = userService.update(UserTransUtils.vo2dto(param));
-        if (!flag) {
-            ResultUtil.error(ResultEnum.UPDATE_USER_ERROR);
-        }
-        return ResultUtil.success(ResultEnum.UPDATE_USER);
+        return !flag ? ResultUtil.error(ResultEnum.UPDATE_USER_ERROR)
+                : ResultUtil.success(ResultEnum.UPDATE_USER);
     }
 
     @Transactional
     @PostMapping(value = "/update/password")
     public Result updatePassword(@RequestParam("username") String username,
                                  @RequestParam("oldpd") String oldpd,
-                                 @RequestParam("password") String password){
+                                 @RequestParam("password") String password) throws Exception {
         UserDTO user = userService.getUserByUserName(username);
         if (user == null){
             return ResultUtil.error(ResultEnum.USER_MISSED);
@@ -108,10 +106,9 @@ public class UserController {
     @GetMapping(value = "/info/{username}")
     public Result<UserVO> getUserInfo(@PathVariable("username") String username){
         UserDTO user = userService.getUserByUserName(username);
-        if (user == null){
-            return ResultUtil.error(ResultEnum.USER_MISSED);
-        }
-        return ResultUtil.success(ResultEnum.GET_ONE_USER_INFO, UserTransUtils.dto2vo(user));
+        return null == user ?
+                ResultUtil.error(ResultEnum.USER_MISSED) :
+                ResultUtil.success(ResultEnum.GET_ONE_USER_INFO, UserTransUtils.dto2vo(user));
     }
 
     /**
@@ -124,6 +121,4 @@ public class UserController {
         UserDTO user = userService.getUserById(id);
         return ResultUtil.success(ResultEnum.GET_ONE_USER_INFO, UserTransUtils.dto2vo(user));
     }
-
-
 }

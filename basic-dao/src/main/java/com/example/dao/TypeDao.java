@@ -54,7 +54,7 @@ public class TypeDao {
         condition.initPageInfo();
         PageHelper.startPage(condition.getPage(), condition.getPageSize());
         List<TypeDO> dos = typeDOMapper.selectByExample(example);
-        return new PageInfo<>(Optional.ofNullable(dos).orElse(Collections.emptyList()));
+        return new PageInfo<>(CollectionUtils.isNotEmpty(dos) ? dos : Collections.emptyList());
     }
 
     public List<TypeDO> all(){

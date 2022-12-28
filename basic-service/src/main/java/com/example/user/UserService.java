@@ -21,7 +21,7 @@ public interface UserService {
      */
     void delUserById(Integer userId);
 
-    boolean update(UserOprParamDTO param);
+    boolean update(UserOprParamDTO param) throws Exception;
 
     /**
      * 根据用户Id查询用户信息

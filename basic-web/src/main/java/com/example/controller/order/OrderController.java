@@ -61,7 +61,7 @@ public class OrderController {
     @PostMapping(value = "/add/{salerId}/{buyerId}/{goodsId}")
     public Result addTrade(@PathVariable("salerId") Integer salerId,
                            @PathVariable("buyerId") Integer buyerId,
-                           @PathVariable("goodsId") Integer goodsId){
+                           @PathVariable("goodsId") Integer goodsId) throws Exception {
         OrderCreateDTO create = new OrderCreateDTO();
         create.setSalerId(salerId);
         create.setBuyerId(buyerId);
@@ -98,7 +98,7 @@ public class OrderController {
 
     @Transactional
     @PostMapping(value = "/delete/{orderId}")
-    public Result deleteTradeByGoodsId(@PathVariable("orderId") Integer orderId){
+    public Result deleteTradeByGoodsId(@PathVariable("orderId") Integer orderId) throws Exception {
         orderService.del(orderId);
         return ResultUtil.success(ResultEnum.DROP_TRADE);
     }
