@@ -1,7 +1,7 @@
 package com.example.controller.good;
 
+import com.example.common.utils.OprUtils;
 import com.example.controller.good.util.CommentTransUtils;
-import com.example.controller.good.vo.CommentCreate;
 import com.example.controller.good.vo.CommentVO;
 import com.example.good.CommentService;
 import com.example.good.dto.CommentCreateDTO;
@@ -35,7 +35,8 @@ public class CommentController {
     @GetMapping(value = "/{goodsId}")
     public Result<List<CommentVO>> getGoodsComments(@PathVariable("goodsId") Integer goodsId){
         List<CommentDTO> dtos = commentService.listByGoodId(goodsId);
-        return ResultUtil.success(ResultEnum.GET_GOODS_COMMENTS_LIST, CommentTransUtils.dtos2vos(dtos));
+        return ResultUtil.success(ResultEnum.GET_GOODS_COMMENTS_LIST,
+                OprUtils.models2Models(dtos, CommentTransUtils::dto2vo));
     }
 
     @PostMapping(value = "/add/{goodsId}/{userId}/{comment}")

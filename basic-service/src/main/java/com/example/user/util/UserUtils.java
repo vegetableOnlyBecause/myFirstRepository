@@ -29,20 +29,6 @@ public class UserUtils {
         return dto;
     }
 
-    public static List<UserDTO> dos2Dtos(List<UserDO> dos){
-        if (CollectionUtils.isEmpty(dos)){
-            return Collections.emptyList();
-        }
-        List<UserDTO> dtos = new ArrayList<>();
-        for (UserDO userDO : dos){
-            UserDTO dto = do2Dto(userDO);
-            if (null != dto){
-                dtos.add(dto);
-            }
-        }
-        return dtos;
-    }
-
     public static UserDO dto2do(UserOprParamDTO dto){
         if (null == dto) {
             return null;

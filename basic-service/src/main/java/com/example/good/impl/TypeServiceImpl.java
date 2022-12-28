@@ -1,5 +1,6 @@
 package com.example.good.impl;
 
+import com.example.common.utils.OprUtils;
 import com.example.dao.GoodDao;
 import com.example.good.TypeService;
 import com.example.good.dto.TypeCreateDTO;
@@ -48,7 +49,7 @@ public class TypeServiceImpl implements TypeService {
 
     @Override
     public List<TypeDTO> all() {
-        return TypeUtils.dos2dtos(typeDao.all());
+        return OprUtils.models2Models(typeDao.all(), TypeUtils::do2dto);
     }
 
     @Override

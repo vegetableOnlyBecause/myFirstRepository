@@ -35,18 +35,4 @@ public class CommentUtils {
         BeanUtils.copyProperties(dto, comment);
         return comment;
     }
-
-    public static List<CommentDTO> dos2dtos(List<CommentDO> dos) {
-        if (CollectionUtils.isEmpty(dos)) {
-            return Collections.emptyList();
-        }
-        List<CommentDTO> dtos = new ArrayList<>();
-        for (CommentDO comment : dos) {
-            CommentDTO dto = do2dto(comment);
-            if (null != dto) {
-                dtos.add(dto);
-            }
-        }
-        return dtos;
-    }
 }

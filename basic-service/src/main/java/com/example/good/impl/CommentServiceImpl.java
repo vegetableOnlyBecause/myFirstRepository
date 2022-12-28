@@ -1,5 +1,6 @@
 package com.example.good.impl;
 
+import com.example.common.utils.OprUtils;
 import com.example.dao.CommentDao;
 import com.example.good.CommentService;
 import com.example.good.dto.CommentCreateDTO;
@@ -26,7 +27,7 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public List<CommentDTO> listByGoodId(Integer goodId) {
         List<CommentDO> dos = commentDao.listByGoodId(goodId);
-        return CommentUtils.dos2dtos(dos);
+        return OprUtils.models2Models(dos, CommentUtils::do2dto);
     }
 
     @Override

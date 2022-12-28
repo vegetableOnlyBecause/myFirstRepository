@@ -5,6 +5,7 @@ import com.example.controller.order.util.OrderTransUtils;
 import com.example.controller.order.vo.OrderVO;
 import com.example.good.GoodService;
 import com.example.good.dto.GoodDTO;
+import com.example.model.TypeDO;
 import com.example.order.OrderService;
 import com.example.order.dto.OrderCreateDTO;
 import com.example.order.dto.OrderDTO;
@@ -15,7 +16,6 @@ import com.example.user.UserService;
 import com.github.pagehelper.PageInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
-import org.springframework.beans.BeanUtils;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 

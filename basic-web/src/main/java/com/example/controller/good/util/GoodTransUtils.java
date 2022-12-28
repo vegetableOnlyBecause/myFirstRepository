@@ -39,18 +39,4 @@ public class GoodTransUtils {
         vo.setUpdateTime(CommentTransUtils.date2String(dto.getUpdateTime()));
         return vo;
     }
-
-    public static List<GoodVO> dtos2vos(List<GoodDTO> dtos) {
-        if (CollectionUtils.isEmpty(dtos)) {
-            return Collections.emptyList();
-        }
-        List<GoodVO> vos = new ArrayList<>();
-        for (GoodDTO dto : dtos) {
-            GoodVO vo = dto2vo(dto);
-            if (null != vo) {
-                vos.add(vo);
-            }
-        }
-        return vos;
-    }
 }

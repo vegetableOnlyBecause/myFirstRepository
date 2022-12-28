@@ -1,5 +1,6 @@
 package com.example.good.impl;
 
+import com.example.common.utils.OprUtils;
 import com.example.dao.CartDao;
 import com.example.good.CartService;
 import com.example.good.dto.CartDTO;
@@ -26,7 +27,7 @@ public class CartServiceImpl implements CartService {
     @Override
     public List<CartDTO> listByUserId(Integer userId) {
         List<CartDO> dos = cartDao.listByUserId(userId);
-        return CartUtils.dos2dtos(dos);
+        return OprUtils.models2Models(dos, CartUtils::do2dto);
     }
 
     @Override

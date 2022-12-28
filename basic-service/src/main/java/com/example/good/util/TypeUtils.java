@@ -27,22 +27,6 @@ public class TypeUtils {
         return dto;
     }
 
-    public static List<TypeDTO> dos2dtos(List<TypeDO> dos) {
-        if (CollectionUtils.isEmpty(dos)) {
-            return Collections.emptyList();
-        }
-        List<TypeDTO> dtos = new ArrayList<>();
-        for (TypeDO type : dos) {
-            TypeDTO dto = do2dto(type);
-            if (null != dto) {
-                dtos.add(dto);
-            }
-        }
-        return dtos;
-    }
-
-
-
     public static TypeDO dto2do(TypeCreateDTO dto) {
         if (null == dto) {
             return null;

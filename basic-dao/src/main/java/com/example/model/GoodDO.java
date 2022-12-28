@@ -1,5 +1,8 @@
 package com.example.model;
 
+import reactor.util.function.Tuple3;
+import reactor.util.function.Tuple5;
+
 import java.util.Date;
 
 public class GoodDO {

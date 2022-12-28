@@ -29,20 +29,6 @@ public class TypeTransUtils {
         return vo;
     }
 
-    public static List<TypeVO> dtos2vos(List<TypeDTO> dtos) {
-        if (CollectionUtils.isEmpty(dtos)) {
-            return Collections.emptyList();
-        }
-        List<TypeVO> vos = new ArrayList<>();
-        for (TypeDTO dto : dtos) {
-            TypeVO vo = dto2vo(dto);
-            if (null != vo) {
-                vos.add(vo);
-            }
-        }
-        return vos;
-    }
-
     public static TypeCreateDTO vo2dto(TypeCreate create) {
         if (null == create) {
             return null;

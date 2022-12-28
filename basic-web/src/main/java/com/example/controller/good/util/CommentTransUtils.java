@@ -34,20 +34,6 @@ public class CommentTransUtils {
         return vo;
     }
 
-    public static List<CommentVO> dtos2vos(List<CommentDTO> dtos) {
-        if (CollectionUtils.isEmpty(dtos)) {
-            return Collections.emptyList();
-        }
-        List<CommentVO> vos = new ArrayList<>();
-        for (CommentDTO dto : dtos) {
-            CommentVO vo = dto2vo(dto);
-            if (null != vo) {
-                vos.add(vo);
-            }
-        }
-        return vos;
-    }
-
     public static CommentCreateDTO vo2dto(CommentCreate create) {
         if (null == create) {
             return null;

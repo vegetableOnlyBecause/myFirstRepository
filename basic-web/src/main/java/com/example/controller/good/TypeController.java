@@ -1,6 +1,7 @@
 package com.example.controller.good;
 
 import com.alibaba.fastjson.JSON;
+import com.example.common.utils.OprUtils;
 import com.example.controller.good.vo.TypeVO;
 import com.example.good.TypeService;
 import com.example.good.dto.TypeDTO;
@@ -61,7 +62,7 @@ public class TypeController {
     @GetMapping(value = "/types")
     public Result<List<TypeVO>> getAllTypes(){
         List<TypeDTO> all = typeService.all();
-        return ResultUtil.success(ResultEnum.GET_TYPES, TypeTransUtils.dtos2vos(all));
+        return ResultUtil.success(ResultEnum.GET_TYPES, OprUtils.models2Models(all, TypeTransUtils::dto2vo));
     }
 
     @GetMapping(value = "/count/{type}")

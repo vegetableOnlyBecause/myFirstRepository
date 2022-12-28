@@ -1,6 +1,7 @@
 package com.example.controller.good;
 
 import com.alibaba.fastjson.JSON;
+import com.example.common.utils.OprUtils;
 import com.example.condition.GoodCondition;
 import com.example.condition.OrderCondition;
 import com.example.controller.good.util.GoodTransUtils;
@@ -21,9 +22,6 @@ import com.example.response.ResultUtil;
 import com.github.pagehelper.PageInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -130,7 +128,8 @@ public class GoodController {
         GoodCondition condition = new GoodCondition();
         condition.setUserId(userId);
         PageInfo<GoodDTO> dtoPageInfo = goodService.listInfo(condition);
-        return ResultUtil.success(ResultEnum.GET_USER_GOODS_LIST,GoodTransUtils.dtos2vos(dtoPageInfo.getList()));
+        return ResultUtil.success(ResultEnum.GET_USER_GOODS_LIST,
+                OprUtils.models2Models(dtoPageInfo.getList(), GoodTransUtils::dto2vo));
     }
 
 
@@ -152,7 +151,7 @@ public class GoodController {
         condition.setPageSize(10);
         condition.setName(key);
         PageInfo<GoodDTO> dto = goodService.listInfo(condition);
-        Pageable pageable = PageRequest.of(page, 12);
-        return ResultUtil.success(ResultEnum.GET_GOODS_BY_KEY,GoodTransUtils.dtos2vos(dto.getList()));
+        return ResultUtil.success(ResultEnum.GET_GOODS_BY_KEY,
+                OprUtils.models2Models(dto.getList(), GoodTransUtils::dto2vo));
     }
 }

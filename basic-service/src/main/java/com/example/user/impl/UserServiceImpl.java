@@ -2,6 +2,7 @@ package com.example.user.impl;
 
 import com.example.aop.CacheAopEnums;
 import com.example.common.redis.RedisOperator;
+import com.example.common.utils.OprUtils;
 import com.example.condition.UserCondition;
 import com.example.dao.UserDao;
 import com.example.model.UserDO;
@@ -92,7 +93,7 @@ public class UserServiceImpl implements UserService {
     public PageInfo<UserDTO> listInfo(UserCondition condition){
         PageInfo<UserDO> doPage = userDao.listInfo(condition);
         List<UserDO> dos = doPage.getList();
-        List<UserDTO> dtos = UserUtils.dos2Dtos(dos);
+        List<UserDTO> dtos = OprUtils.models2Models(dos, UserUtils::do2Dto);
         return new PageInfo<>(dtos);
     }
 }

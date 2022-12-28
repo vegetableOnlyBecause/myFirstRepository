@@ -28,20 +28,6 @@ public class GoodUtils {
         return dto;
     }
 
-    public static List<GoodDTO> dos2dtos(List<GoodDO> dos) {
-        if (CollectionUtils.isEmpty(dos)) {
-            return Collections.emptyList();
-        }
-        List<GoodDTO> dtos = new ArrayList<>();
-        for (GoodDO goodDO : dos) {
-            GoodDTO dto = do2dto(goodDO);
-            if (null != dto) {
-                dtos.add(dto);
-            }
-        }
-        return dtos;
-    }
-
     public static GoodDO dto2do(GoodOprDTO dto) {
         if (null == dto) {
             return null;
