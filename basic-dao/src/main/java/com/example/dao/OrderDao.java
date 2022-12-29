@@ -31,6 +31,9 @@ public class OrderDao {
     public PageInfo<OrderDO> listInfo(OrderCondition condition) {
         OrderDOExample example = new OrderDOExample();
         OrderDOExample.Criteria criteria = example.createCriteria();
+        if (null != condition.getGoodId()) {
+            criteria.andGoodsIdEqualTo(condition.getGoodId());
+        }
         if (null != condition.getOrderId()) {
             criteria.andBuyerIdEqualTo(condition.getOrderId());
         }

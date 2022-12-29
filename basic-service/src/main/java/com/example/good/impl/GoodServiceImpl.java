@@ -12,16 +12,16 @@ import com.example.good.util.PageInfoUtils;
 import com.example.model.GoodDO;
 import com.example.model.TypeDO;
 import com.github.pagehelper.PageInfo;
-import com.google.common.base.Function;
-import com.google.common.base.Supplier;
 import org.springframework.stereotype.Service;
+import org.springframework.util.FileCopyUtils;
 
 import javax.annotation.Resource;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.InputStream;
 import java.util.Date;
 import java.util.List;
-import java.util.function.IntConsumer;
 import java.util.stream.Collectors;
-import java.util.zip.DataFormatException;
 
 /**
  * @title: 商品操作实现类
@@ -36,6 +36,9 @@ public class GoodServiceImpl implements GoodService {
     private GoodDao goodDao;
     @Resource
     private TypeDao typeDao;
+
+    private static String save_path = "D:\\IdeaProjects\\MyFirstVue\\market-front\\src\\dist\\";
+    private static String upload_path = "D:\\图片\\";
 
     @Override
     public GoodDTO getById(Integer id) {
@@ -61,7 +64,8 @@ public class GoodServiceImpl implements GoodService {
     }
 
     @Override
-    public Integer save(GoodOprDTO dto) {
+    public Integer save(GoodOprDTO dto) throws Exception {
+        savePic(dto.getImgUrl());
         GoodDO good = GoodUtils.dto2do(dto);
         goodDao.save(good);
         TypeDO type = typeDao.getById(dto.getTypeId());
@@ -87,5 +91,13 @@ public class GoodServiceImpl implements GoodService {
         }
         good.setNum(inventory);
         goodDao.update(good);
+    }
+
+    private void savePic(String picName) throws Exception {
+        String savePath = save_path + picName;
+        String uploadPath = upload_path + picName;
+        InputStream input = new FileInputStream(uploadPath);
+        FileOutputStream output = new FileOutputStream(savePath);
+        FileCopyUtils.copy(input, output);
     }
 }

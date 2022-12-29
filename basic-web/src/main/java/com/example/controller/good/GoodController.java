@@ -49,7 +49,7 @@ public class GoodController {
     private OrderService orderService;
 
     @PostMapping(value="/add")
-    public Result<Object> add(@Validated @RequestBody GoodCreate params) {
+    public Result<Object> add(@Validated @RequestBody GoodCreate params) throws Exception {
         Integer id = goodService.save(GoodTransUtils.vo2dto(params));
         return ResultUtil.success(ResultEnum.ADD_GOODS, id);
     }

@@ -18,7 +18,7 @@ public interface GoodService {
 
     PageInfo<GoodDTO> listInfo(GoodCondition condition);
 
-    Integer save(GoodOprDTO dto);
+    Integer save(GoodOprDTO dto) throws Exception;
 
     void update(GoodOprDTO dto);
 
