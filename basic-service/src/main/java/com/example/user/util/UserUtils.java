@@ -1,14 +1,14 @@
 package com.example.user.util;
 
 import com.example.common.utils.MD5Utils;
+import com.example.common.utils.OprUtils;
 import com.example.model.UserDO;
 import com.example.user.dto.UserOprParamDTO;
 import com.example.user.dto.UserDTO;
-import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.BeanUtils;
 
 import java.util.*;
+import java.util.function.Consumer;
 
 /**
  * @title: 用户工具类
@@ -21,28 +21,20 @@ public class UserUtils {
     public static final String slat = "luan_ma";
 
     public static UserDTO do2Dto(UserDO userDO){
-        if (null == userDO) {
-            return null;
-        }
-        UserDTO dto = new UserDTO();
-        BeanUtils.copyProperties(userDO, dto);
-        return dto;
+        return OprUtils.copyModel2Model(userDO, new UserDTO());
     }
 
     public static UserDO dto2do(UserOprParamDTO dto){
-        if (null == dto) {
-            return null;
-        }
-        UserDO userDO = new UserDO();
-        BeanUtils.copyProperties(dto, userDO);
-        if (null == userDO.getId()) {
-            int userId = initId();
-            userDO.setId(userId);
-        }
-        if (StringUtils.isNotBlank(dto.getPassword())) {
-            userDO.setPassword(MD5Utils.string2MD5(dto.getPassword() + slat));
-        }
-        return userDO;
+        Consumer<UserDO> consumer =  user -> {
+            if (null == user.getId()) {
+                int userId = initId();
+                user.setId(userId);
+            }
+            if (StringUtils.isNotBlank(dto.getPassword())) {
+                user.setPassword(MD5Utils.string2MD5(dto.getPassword() + slat));
+            }
+        };
+        return OprUtils.model2Model(dto, new UserDO(), consumer);
     }
 
     public static int initId() {

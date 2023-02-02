@@ -1,6 +1,7 @@
 package com.example.common.utils;
 
 import org.apache.commons.collections4.CollectionUtils;
+import org.springframework.beans.BeanUtils;
 
 
 import java.util.ArrayList;
@@ -17,6 +18,22 @@ import java.util.function.Function;
  * @description:
  */
 public class OprUtils {
+
+    public static <T, U> U copyModel2Model(T model, U result){
+        if (null == model) {
+            return null;
+        }
+        BeanUtils.copyProperties(model, result);
+        return result;
+    }
+
+    public static <T, U> U model2Model(T model, U value, Consumer<U> consumer){
+        U result = copyModel2Model(model, value);
+        if (null != result && null != consumer) {
+            consumer.accept(result);
+        }
+        return result;
+    }
 
     public static <T, U> List<U> models2Models(List<T> models, Function<T, U> function) {
         if (CollectionUtils.isEmpty(models)) {

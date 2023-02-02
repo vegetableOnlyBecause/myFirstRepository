@@ -1,19 +1,14 @@
 package com.example.controller.good.util;
 
+import com.example.common.utils.OprUtils;
 import com.example.controller.good.vo.CommentCreate;
 import com.example.controller.good.vo.CommentVO;
 import com.example.good.dto.CommentCreateDTO;
 import com.example.good.dto.CommentDTO;
-import org.apache.commons.collections4.CollectionUtils;
-import org.checkerframework.checker.units.qual.C;
-import org.springframework.beans.BeanUtils;
 
-import javax.print.DocFlavor;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
-import java.util.List;
+import java.util.function.Consumer;
 
 /**
  * @title:
@@ -24,23 +19,13 @@ import java.util.List;
 public class CommentTransUtils {
 
     public static CommentVO dto2vo(CommentDTO dto) {
-        if (null == dto) {
-            return null;
-        }
-        CommentVO vo = new CommentVO();
-        BeanUtils.copyProperties(dto, vo);
         SimpleDateFormat format = new SimpleDateFormat("yyyy年MM月dd日 HH时mm分ss秒");
-        vo.setCreateTime(format.format(dto.getCreateTime()));
-        return vo;
+        Consumer<CommentVO> consumer = vo -> vo.setCreateTime(format.format(dto.getCreateTime()));
+        return OprUtils.model2Model(dto, new CommentVO(), consumer);
     }
 
     public static CommentCreateDTO vo2dto(CommentCreate create) {
-        if (null == create) {
-            return null;
-        }
-        CommentCreateDTO dto = new CommentCreateDTO();
-        BeanUtils.copyProperties(create, dto);
-        return dto;
+        return OprUtils.copyModel2Model(create, new CommentCreateDTO());
     }
 
     public static String date2String(Date date) {

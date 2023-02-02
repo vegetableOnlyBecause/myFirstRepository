@@ -1,14 +1,9 @@
 package com.example.good.util;
 
+import com.example.common.utils.OprUtils;
 import com.example.good.dto.CommentCreateDTO;
 import com.example.good.dto.CommentDTO;
 import com.example.model.CommentDO;
-import org.apache.commons.collections4.CollectionUtils;
-import org.springframework.beans.BeanUtils;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 /**
  * @title:
@@ -18,21 +13,11 @@ import java.util.List;
  */
 public class CommentUtils {
 
-    public static CommentDTO do2dto(CommentDO comment) {
-        if (null == comment) {
-            return null;
-        }
-        CommentDTO dto = new CommentDTO();
-        BeanUtils.copyProperties(comment, dto);
-        return dto;
+    public static CommentDTO do2dto(CommentDO comment){
+        return OprUtils.copyModel2Model(comment, new CommentDTO());
     }
 
     public static CommentDO dto2do(CommentCreateDTO dto) {
-        if (null == dto) {
-            return null;
-        }
-        CommentDO comment = new CommentDO();
-        BeanUtils.copyProperties(dto, comment);
-        return comment;
+        return OprUtils.copyModel2Model(dto, new CommentDO());
     }
 }

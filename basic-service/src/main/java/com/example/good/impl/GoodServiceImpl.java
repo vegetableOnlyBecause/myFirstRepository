@@ -12,6 +12,8 @@ import com.example.good.util.PageInfoUtils;
 import com.example.model.GoodDO;
 import com.example.model.TypeDO;
 import com.github.pagehelper.PageInfo;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.util.FileCopyUtils;
 
@@ -30,13 +32,14 @@ import java.util.stream.Collectors;
  * @description:
  */
 @Service
+@Slf4j
 public class GoodServiceImpl implements GoodService {
 
     @Resource
     private GoodDao goodDao;
     @Resource
     private TypeDao typeDao;
-
+    // todo: 改地址
     private static String save_path = "D:\\IdeaProjects\\MyFirstVue\\market-front\\src\\dist\\";
     private static String upload_path = "D:\\图片\\";
 
@@ -65,13 +68,15 @@ public class GoodServiceImpl implements GoodService {
 
     @Override
     public Integer save(GoodOprDTO dto) throws Exception {
-        savePic(dto.getImgUrl());
         GoodDO good = GoodUtils.dto2do(dto);
         goodDao.save(good);
         TypeDO type = typeDao.getById(dto.getTypeId());
         Integer number = type.getNumber();
         type.setNumber(number + 1);
         typeDao.update(type);
+        if (StringUtils.isNotBlank(dto.getImgUrl())) {
+            savePic(dto.getImgUrl());
+        }
         return good.getId();
     }
 

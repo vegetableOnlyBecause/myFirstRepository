@@ -1,15 +1,12 @@
 package com.example.controller.good.util;
 
-import com.example.good.dto.TypeCreateDTO;
-import com.example.good.dto.TypeDTO;
+import com.example.common.utils.OprUtils;
 import com.example.controller.good.vo.TypeCreate;
 import com.example.controller.good.vo.TypeVO;
-import org.apache.commons.collections4.CollectionUtils;
-import org.springframework.beans.BeanUtils;
+import com.example.good.dto.TypeCreateDTO;
+import com.example.good.dto.TypeDTO;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.function.Consumer;
 
 /**
  * @title:
@@ -20,21 +17,11 @@ import java.util.List;
 public class TypeTransUtils {
 
     public static TypeVO dto2vo(TypeDTO dto) {
-        if (null == dto) {
-            return null;
-        }
-        TypeVO vo = new TypeVO();
-        BeanUtils.copyProperties(dto, vo);
-        vo.setId(""+dto.getId());
-        return vo;
+        Consumer<TypeVO> consumer = vo -> vo.setId("" + dto.getId());
+        return OprUtils.model2Model(dto, new TypeVO(), consumer);
     }
 
     public static TypeCreateDTO vo2dto(TypeCreate create) {
-        if (null == create) {
-            return null;
-        }
-        TypeCreateDTO dto = new TypeCreateDTO();
-        BeanUtils.copyProperties(create, dto);
-        return dto;
+        return OprUtils.copyModel2Model(create, new TypeCreateDTO());
     }
 }

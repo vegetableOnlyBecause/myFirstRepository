@@ -1,15 +1,12 @@
 package com.example.good.util;
 
-import com.example.good.dto.GoodOprDTO;
+import com.example.common.utils.OprUtils;
 import com.example.good.dto.GoodDTO;
+import com.example.good.dto.GoodOprDTO;
 import com.example.model.GoodDO;
 import com.example.user.util.UserUtils;
-import org.apache.commons.collections4.CollectionUtils;
-import org.springframework.beans.BeanUtils;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.function.Consumer;
 
 /**
  * @title: 商品相关工具类
@@ -20,23 +17,16 @@ import java.util.List;
 public class GoodUtils {
 
     public static GoodDTO do2dto(GoodDO goodDO) {
-        if (null == goodDO) {
-            return null;
-        }
-        GoodDTO dto = new GoodDTO();
-        BeanUtils.copyProperties(goodDO, dto);
-        return dto;
+        return OprUtils.copyModel2Model(goodDO, new GoodDTO());
+
     }
 
     public static GoodDO dto2do(GoodOprDTO dto) {
-        if (null == dto) {
-            return null;
-        }
-        GoodDO good = new GoodDO();
-        BeanUtils.copyProperties(dto, good);
-        if (null == good.getId()) {
-            good.setId(UserUtils.initId());
-        }
-        return good;
+        Consumer<GoodDO> consumer = good -> {
+            if (null == good.getId()) {
+                good.setId(UserUtils.initId());
+            }
+        };
+        return OprUtils.model2Model(dto, new GoodDO(), consumer);
     }
 }
