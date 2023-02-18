@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.List;
-import java.util.function.Consumer;
+import java.util.Objects;
 
 /**
  * @title: 用户信息查询实现类
@@ -51,12 +51,8 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean update(UserOprParamDTO param) {
         UserDO user = userDao.getUserById(param.getId());
-        Consumer<UserDO> consumer = userDO -> userDao.update(UserUtils.dto2do(param));
-        try {
-            OprUtils.checkAndDeal(user, consumer);
-        } catch (Exception e) {
-            return false;
-        }
+        Objects.requireNonNull(user, "用户信息不存在:" + param.getId());
+        userDao.update(UserUtils.dto2do(param));
         return true;
     }
 

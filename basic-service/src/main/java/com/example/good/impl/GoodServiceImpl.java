@@ -23,6 +23,7 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
@@ -88,8 +89,8 @@ public class GoodServiceImpl implements GoodService {
 
     @Override
     public void lessInventory(Integer goodId, Integer num) throws Exception {
-
-        GoodDO good = OprUtils.checkModel(goodDao.getById(goodId));
+        GoodDO good = goodDao.getById(goodId);
+        Objects.requireNonNull(good, "商品信息不存在:" + goodId);
         int inventory = good.getNum() - num;
         if (inventory < 0) {
             throw new Exception("库存不够了");

@@ -1,6 +1,5 @@
 package com.example.order.impl;
 
-import com.example.common.utils.OprUtils;
 import com.example.condition.OrderCondition;
 import com.example.dao.OrderDao;
 import com.example.good.GoodService;
@@ -16,7 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
-import java.util.function.Consumer;
+import java.util.Objects;
 
 /**
  * @title:
@@ -35,11 +34,10 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public void save(OrderCreateDTO dto) throws Exception {
-        Consumer<GoodDTO> consumer = good -> {
-            OrderDO orderDO = OrderUtils.dto2do(dto);
-            orderDao.save(orderDO);
-        };
-        OprUtils.checkAndDeal(goodService.getById(dto.getGoodsId()), consumer);
+        GoodDTO good = goodService.getById(dto.getGoodsId());
+        Objects.requireNonNull(good, "商品信息不存在:" + dto.getGoodsId());
+        OrderDO orderDO = OrderUtils.dto2do(dto);
+        orderDao.save(orderDO);
     }
 
     @Override

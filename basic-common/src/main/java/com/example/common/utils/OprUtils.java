@@ -38,14 +38,4 @@ public class OprUtils {
         });
         return result;
     }
-
-    public static <T> void checkAndDeal(T model, Consumer<T> consumer) throws Exception {
-        checkModel(model);
-        consumer.accept(model);
-    }
-
-    public static <T> void checkModel(T model) throws Exception {
-        Objects.requireNonNull(model, "信息不存在:" + model.getClass());
-    }
-
 }

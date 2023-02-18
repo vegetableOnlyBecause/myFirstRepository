@@ -1,12 +1,12 @@
 package com.example.order.util;
 
-import com.example.good.dto.GoodDTO;
+import com.example.common.utils.OprUtils;
 import com.example.model.OrderDO;
 import com.example.order.dto.OrderCreateDTO;
 import com.example.order.dto.OrderDTO;
-import com.example.user.dto.UserDTO;
 import com.example.user.util.UserUtils;
-import org.springframework.beans.BeanUtils;
+
+import java.util.function.Consumer;
 
 /**
  * @title:
@@ -17,19 +17,14 @@ import org.springframework.beans.BeanUtils;
 public class OrderUtils {
 
     public static OrderDTO do2dto(OrderDO order) {
-        if (null == order) {
-            return null;
-        }
-        OrderDTO dto = new OrderDTO();
-        BeanUtils.copyProperties(order, dto);
-        return dto;
+        return OprUtils.copyModel2Model(order, new OrderDTO());
     }
 
     public static OrderDO dto2do(OrderCreateDTO dto) {
-        OrderDO order = new OrderDO();
-        BeanUtils.copyProperties(dto, order);
-        order.setId(UserUtils.initId());
-        order.setStatus(2);
-        return order;
+        Consumer<OrderDO> consumer = order -> {
+            order.setId(UserUtils.initId());
+            order.setStatus(2);
+        };
+        return OprUtils.model2Model(dto, new OrderDO(), consumer);
     }
 }
