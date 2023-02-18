@@ -14,6 +14,7 @@ import javax.annotation.Resource;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @title: 商品表信息数据库操作类
@@ -46,12 +47,9 @@ public class GoodDao {
     public PageInfo<GoodDO> listInfo(GoodCondition condition) {
         GoodDOExample example = new GoodDOExample();
         GoodDOExample.Criteria criteria = example.createCriteria();
-        if (null != condition.getUserId()) {
-            criteria.andUserIdEqualTo(condition.getUserId());
-        }
-        if (null != condition.getTypeId()) {
-            criteria.andTypeIdEqualTo(condition.getTypeId());
-        }
+        // 设置查询条件
+        Optional.ofNullable(condition.getUserId()).ifPresent(criteria::andUserIdEqualTo);
+        Optional.ofNullable(condition.getTypeId()).ifPresent(criteria::andTypeIdEqualTo);
         if (StringUtils.isNotBlank(condition.getName())) {
             criteria.andNameLike("%" + condition.getName() + "%");
         }

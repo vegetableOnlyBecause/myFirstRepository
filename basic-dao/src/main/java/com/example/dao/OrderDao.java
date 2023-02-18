@@ -31,27 +31,17 @@ public class OrderDao {
     public PageInfo<OrderDO> listInfo(OrderCondition condition) {
         OrderDOExample example = new OrderDOExample();
         OrderDOExample.Criteria criteria = example.createCriteria();
-        if (null != condition.getGoodId()) {
-            criteria.andGoodsIdEqualTo(condition.getGoodId());
-        }
-        if (null != condition.getOrderId()) {
-            criteria.andBuyerIdEqualTo(condition.getOrderId());
-        }
-        if (null != condition.getBuyerId()) {
-            criteria.andBuyerIdEqualTo(condition.getBuyerId());
-        }
-        if (null != condition.getSalerId()) {
-            criteria.andSalerIdEqualTo(condition.getSalerId());
-        }
-        if (null != condition.getStartTime()) {
-            criteria.andCreateTimeGreaterThanOrEqualTo(condition.getStartTime());
-        }
-        if (null != condition.getEndTime()) {
-            criteria.andCreateTimeLessThanOrEqualTo(condition.getEndTime());
-        }
+        // 设置查询条件
+        Optional.ofNullable(condition.getGoodId()).ifPresent(criteria::andGoodsIdEqualTo);
+        Optional.ofNullable(condition.getOrderId()).ifPresent(criteria::andIdEqualTo);
+        Optional.ofNullable(condition.getBuyerId()).ifPresent(criteria::andBuyerIdEqualTo);
+        Optional.ofNullable(condition.getSalerId()).ifPresent(criteria::andSalerIdEqualTo);
+        Optional.ofNullable(condition.getStartTime()).ifPresent(criteria::andCreateTimeGreaterThanOrEqualTo);
+        Optional.ofNullable(condition.getEndTime()).ifPresent(criteria::andCreateTimeLessThanOrEqualTo);
         if (CollectionUtils.isNotEmpty(condition.getOrderStatus())) {
             criteria.andStatusIn(condition.getOrderStatus());
         }
+
         example.setOrderByClause(condition.getSortField()
                 + " " + condition.getSortType());
         condition.initPageInfo();
