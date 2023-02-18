@@ -32,10 +32,7 @@ public class OprUtils {
             return Collections.emptyList();
         }
         List<U> result = new ArrayList<>();
-        models.forEach(model -> {
-            U value = function.apply(model);
-            Optional.ofNullable(value).ifPresent(result::add);
-        });
+        models.forEach(model -> Optional.ofNullable(function.apply(model)).ifPresent(result::add));
         return result;
     }
 }
