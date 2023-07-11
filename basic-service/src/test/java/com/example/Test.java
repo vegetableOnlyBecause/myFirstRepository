@@ -1,15 +1,13 @@
 package com.example;
 
-import org.springframework.stereotype.Service;
-
 /**
  * @title:
  * @author: vegetableOnlyBecause
- * @date 2023/2/15 16:37
+ * @date 2023/7/11 14:36
  * @description:
  */
-@Service
 public class Test {
-
-
+    public static void main(String[] args) {
+        System.out.println("ok");
+    }
 }
