@@ -16,7 +16,9 @@ import java.util.function.Function;
 public class OprUtils {
 
     public static <T, U> U copyModel2Model(T model, U result){
-        Objects.requireNonNull(model);
+        if (null == model) {
+            return null;
+        }
         BeanUtils.copyProperties(model, result);
         return result;
     }

@@ -1,6 +1,5 @@
 package com.example.order.dto;
 
-import com.example.user.dto.UserDTO;
 import lombok.Data;
 
 import java.util.Date;
