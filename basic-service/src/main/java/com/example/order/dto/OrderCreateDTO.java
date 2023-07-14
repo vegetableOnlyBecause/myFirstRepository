@@ -1,10 +1,6 @@
 package com.example.order.dto;
 
-import com.example.enums.OrderStatusEnums;
-import com.example.enums.OrderTypeEnums;
 import lombok.Data;
-
-import java.util.Date;
 
 /**
  * @title:

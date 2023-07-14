@@ -13,6 +13,7 @@ import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @title:
@@ -40,7 +41,8 @@ public class QLExpressServiceImpl implements QlExpressService {
     @Override
     public Object deal(String express, String type, FilterBO filterBO) {
         DefaultContext<String, Object> context = new DefaultContext<>();
-        initContext(context, type, filterBO);
+        Optional.ofNullable(type)
+                .ifPresent(t -> initContext(context, type, filterBO));
         List<String> errorList = new ArrayList<>();
         try {
             return runner.execute(express, context, errorList, true, false);

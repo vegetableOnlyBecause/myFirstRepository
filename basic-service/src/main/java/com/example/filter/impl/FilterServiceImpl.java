@@ -55,7 +55,7 @@ public class FilterServiceImpl implements FilterService {
             }
             content = content.replaceFirst(ruleId, String.valueOf(deal));
         }
-        Object flag = expressService.deal(content, "", filterBO);
+        Object flag = expressService.deal(content, null, filterBO);
         if (null != flag) {
             return (Boolean)flag;
         }
