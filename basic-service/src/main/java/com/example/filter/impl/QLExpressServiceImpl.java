@@ -27,7 +27,11 @@ public class QLExpressServiceImpl implements QlExpressService {
     @Resource
     private JoinOperator joinOperator;
 
+    /**
+     * QLExpression执行器.
+     */
     private static final ExpressRunner runner = new ExpressRunner();
+
 
     @PostConstruct
     public void initRunner() {
@@ -38,21 +42,34 @@ public class QLExpressServiceImpl implements QlExpressService {
         }
     }
 
+
+    @Override
+    public Object deal(String express) {
+        return deal(express, null, null);
+    }
+
+
     @Override
     public Object deal(String express, String type, FilterBO filterBO) {
         DefaultContext<String, Object> context = new DefaultContext<>();
-        Optional.ofNullable(type)
-                .ifPresent(t -> initContext(context, type, filterBO));
+        // 若没有业务类型则不进行上下文填充
+        Optional.ofNullable(type).ifPresent(t -> initContext(context, type, filterBO));
         List<String> errorList = new ArrayList<>();
         try {
             return runner.execute(express, context, errorList, true, false);
         } catch (Exception e) {
-            log.error("规则引擎计算失败, express:{}, exception:{}", express, e.getMessage());
+            log.error("QLExpress计算失败, express:{}, exception:{}", express, e.getMessage());
         }
         return null;
     }
 
 
+    /**
+     * 初始化QLExpression中上下文Map.
+     * @param context 上下文Map
+     * @param type 业务类型
+     * @param filterBO 规则所需对象集合
+     */
     private void initContext(DefaultContext<String, Object> context,
                              String type, FilterBO filterBO) {
         switch (type) {
@@ -66,16 +83,5 @@ public class QLExpressServiceImpl implements QlExpressService {
                 log.error("没有该类型的规则引擎, type:{}", type);
                 break;
         }
-    }
-
-
-    public static void main(String[] args) throws Exception {
-        DefaultContext<String, Object> context = new DefaultContext<>();
-        UserDTO dto = new UserDTO();
-        dto.setCredit(5F);
-        context.put("user",dto);
-        String express = "user.credit>5";
-        Object r = runner.execute(express, context, null, true, false);
-        System.out.println(r);
     }
 }

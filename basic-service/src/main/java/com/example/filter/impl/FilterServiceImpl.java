@@ -11,10 +11,11 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
- * @title:
+ * @title: 规则引擎处理实现类
  * @author: vegetableOnlyBecause
  * @date 2023/7/12 11:02
  * @description:
@@ -22,65 +23,79 @@ import java.util.*;
 @Slf4j
 @Service
 public class FilterServiceImpl implements FilterService {
+
+    /**
+     * 规则Dao.
+     */
     @Resource
     private FilterDao filterDao;
-
+    /**
+     * QLExpression处理Service.
+     */
     @Resource
     private QlExpressService expressService;
+
 
     @Override
     public boolean filter(String filterId, FilterBO filterBO) {
         FilterDO filter = filterDao.getFilterById(filterId);
-        if (null == filter) {
-            return true;
-        }
-        String content = filter.getFilterContent();
-        Map<String, Object> ruleId2Result = new HashMap<>();
-        List<String> ruleIds = queryRuleIds(content);
-        for (String ruleId : ruleIds) {
-            Object deal = ruleId2Result.get(ruleId);
-            if (null == deal) {
-                FilterRuleDO ruleDO = filterDao.getRuleById(ruleId);
-                if (null == ruleDO) {
-                    deal = true;
-                } else {
-                    deal = expressService.deal(ruleDO.getRule(),
-                            ruleDO.getModelType(), filterBO);
-                    if (null == deal) {
-                        log.error(ruleDO.getRule());
-                        return false;
-                    }
-                }
-                ruleId2Result.put(ruleId, deal);
-            }
-            content = content.replaceFirst(ruleId, String.valueOf(deal));
-        }
-        Object flag = expressService.deal(content, null, filterBO);
-        if (null != flag) {
-            return (Boolean)flag;
-        }
-        return false;
+        return null == filter || deal(filter.getFilterContent(), filterBO);
     }
 
 
-    public List<String> queryRuleIds(String content) {
-        List<String> numList = new ArrayList<>();
-        StringBuilder builder = new StringBuilder();
-        for (int i=0; i < content.toCharArray().length; i++) {
-            char c = content.toCharArray()[i];
-            if (Character.isDigit(c)) {
-                builder.append(c);
-                if (i == content.toCharArray().length - 1) {
-                    numList.add(new String(builder));
+    /**
+     * 组合规则处理方法.
+     * @param content 组合规则数据库配置规则
+     * @param filterBO 规则处理所需BO
+     * @return 组合规则处理结果
+     */
+    private boolean deal(String content, FilterBO filterBO) {
+        StringBuilder ruleId = new StringBuilder();
+        // 处理单个rule后获得结果组成的表达式
+        StringBuilder express = new StringBuilder();
+        // 本地缓存, 单次规则结果Map
+        Map<String, Object> ruleId2Result = new HashMap<>();
+        int length = content.toCharArray().length;
+        for (int i = 0; i < length; i++) {
+            char character = content.toCharArray()[i];
+            if (Character.isDigit(character)) {
+                ruleId.append(character);
+                if (i == length - 1) {
+                    express.append(dealSingleRule(ruleId.toString(), filterBO, ruleId2Result));
                 }
             } else {
-                String num = new String(builder);
-                if (StringUtils.isNotBlank(num)) {
-                    numList.add(num);
-                    builder = new StringBuilder();
+                if (StringUtils.isNotBlank(ruleId)) {
+                    express.append(dealSingleRule(ruleId.toString(), filterBO, ruleId2Result));
+                    ruleId = new StringBuilder();
                 }
+                express.append(character);
             }
         }
-        return numList;
+        Object flag = expressService.deal(express.toString(), null, filterBO);
+        return null != flag ? (Boolean)flag : false;
+    }
+
+
+    /**
+     * 单个规则处理方法.
+     * @param ruleId 规则Id
+     * @param filterBO 过滤规则对象
+     * @param ruleId2Result 本地缓存规则结果Map
+     * @return 处理单个规则处理结果
+     */
+    private Object dealSingleRule(String ruleId, FilterBO filterBO,
+                                  Map<String, Object> ruleId2Result) {
+        Object result = ruleId2Result.get(ruleId);
+        if (null == result) {
+            FilterRuleDO ruleDO = filterDao.getRuleById(ruleId);
+            result = null == ruleDO ? true :
+                    expressService.deal(ruleDO.getRule(), ruleDO.getModelType(), filterBO);
+            if (null == result) {
+                log.error("规则处理失败, ruleId:{}", ruleId);
+                return false;
+            }
+            ruleId2Result.put(ruleId, result);
+        }
+        return result;
     }
 }
