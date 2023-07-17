@@ -235,6 +235,76 @@ public class FilterRuleDOExample {
             return (Criteria) this;
         }
 
+        public Criteria andRuleNameIsNull() {
+            addCriterion("rule_name is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andRuleNameIsNotNull() {
+            addCriterion("rule_name is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andRuleNameEqualTo(String value) {
+            addCriterion("rule_name =", value, "ruleName");
+            return (Criteria) this;
+        }
+
+        public Criteria andRuleNameNotEqualTo(String value) {
+            addCriterion("rule_name <>", value, "ruleName");
+            return (Criteria) this;
+        }
+
+        public Criteria andRuleNameGreaterThan(String value) {
+            addCriterion("rule_name >", value, "ruleName");
+            return (Criteria) this;
+        }
+
+        public Criteria andRuleNameGreaterThanOrEqualTo(String value) {
+            addCriterion("rule_name >=", value, "ruleName");
+            return (Criteria) this;
+        }
+
+        public Criteria andRuleNameLessThan(String value) {
+            addCriterion("rule_name <", value, "ruleName");
+            return (Criteria) this;
+        }
+
+        public Criteria andRuleNameLessThanOrEqualTo(String value) {
+            addCriterion("rule_name <=", value, "ruleName");
+            return (Criteria) this;
+        }
+
+        public Criteria andRuleNameLike(String value) {
+            addCriterion("rule_name like", value, "ruleName");
+            return (Criteria) this;
+        }
+
+        public Criteria andRuleNameNotLike(String value) {
+            addCriterion("rule_name not like", value, "ruleName");
+            return (Criteria) this;
+        }
+
+        public Criteria andRuleNameIn(List<String> values) {
+            addCriterion("rule_name in", values, "ruleName");
+            return (Criteria) this;
+        }
+
+        public Criteria andRuleNameNotIn(List<String> values) {
+            addCriterion("rule_name not in", values, "ruleName");
+            return (Criteria) this;
+        }
+
+        public Criteria andRuleNameBetween(String value1, String value2) {
+            addCriterion("rule_name between", value1, value2, "ruleName");
+            return (Criteria) this;
+        }
+
+        public Criteria andRuleNameNotBetween(String value1, String value2) {
+            addCriterion("rule_name not between", value1, value2, "ruleName");
+            return (Criteria) this;
+        }
+
         public Criteria andModelTypeIsNull() {
             addCriterion("model_type is null");
             return (Criteria) this;
@@ -305,73 +375,73 @@ public class FilterRuleDOExample {
             return (Criteria) this;
         }
 
-        public Criteria andRuleIsNull() {
-            addCriterion("rule is null");
+        public Criteria andContentIsNull() {
+            addCriterion("content is null");
             return (Criteria) this;
         }
 
-        public Criteria andRuleIsNotNull() {
-            addCriterion("rule is not null");
+        public Criteria andContentIsNotNull() {
+            addCriterion("content is not null");
             return (Criteria) this;
         }
 
-        public Criteria andRuleEqualTo(String value) {
-            addCriterion("rule =", value, "rule");
+        public Criteria andContentEqualTo(String value) {
+            addCriterion("content =", value, "content");
             return (Criteria) this;
         }
 
-        public Criteria andRuleNotEqualTo(String value) {
-            addCriterion("rule <>", value, "rule");
+        public Criteria andContentNotEqualTo(String value) {
+            addCriterion("content <>", value, "content");
             return (Criteria) this;
         }
 
-        public Criteria andRuleGreaterThan(String value) {
-            addCriterion("rule >", value, "rule");
+        public Criteria andContentGreaterThan(String value) {
+            addCriterion("content >", value, "content");
             return (Criteria) this;
         }
 
-        public Criteria andRuleGreaterThanOrEqualTo(String value) {
-            addCriterion("rule >=", value, "rule");
+        public Criteria andContentGreaterThanOrEqualTo(String value) {
+            addCriterion("content >=", value, "content");
             return (Criteria) this;
         }
 
-        public Criteria andRuleLessThan(String value) {
-            addCriterion("rule <", value, "rule");
+        public Criteria andContentLessThan(String value) {
+            addCriterion("content <", value, "content");
             return (Criteria) this;
         }
 
-        public Criteria andRuleLessThanOrEqualTo(String value) {
-            addCriterion("rule <=", value, "rule");
+        public Criteria andContentLessThanOrEqualTo(String value) {
+            addCriterion("content <=", value, "content");
             return (Criteria) this;
         }
 
-        public Criteria andRuleLike(String value) {
-            addCriterion("rule like", value, "rule");
+        public Criteria andContentLike(String value) {
+            addCriterion("content like", value, "content");
             return (Criteria) this;
         }
 
-        public Criteria andRuleNotLike(String value) {
-            addCriterion("rule not like", value, "rule");
+        public Criteria andContentNotLike(String value) {
+            addCriterion("content not like", value, "content");
             return (Criteria) this;
         }
 
-        public Criteria andRuleIn(List<String> values) {
-            addCriterion("rule in", values, "rule");
+        public Criteria andContentIn(List<String> values) {
+            addCriterion("content in", values, "content");
             return (Criteria) this;
         }
 
-        public Criteria andRuleNotIn(List<String> values) {
-            addCriterion("rule not in", values, "rule");
+        public Criteria andContentNotIn(List<String> values) {
+            addCriterion("content not in", values, "content");
             return (Criteria) this;
         }
 
-        public Criteria andRuleBetween(String value1, String value2) {
-            addCriterion("rule between", value1, value2, "rule");
+        public Criteria andContentBetween(String value1, String value2) {
+            addCriterion("content between", value1, value2, "content");
             return (Criteria) this;
         }
 
-        public Criteria andRuleNotBetween(String value1, String value2) {
-            addCriterion("rule not between", value1, value2, "rule");
+        public Criteria andContentNotBetween(String value1, String value2) {
+            addCriterion("content not between", value1, value2, "content");
             return (Criteria) this;
         }
 

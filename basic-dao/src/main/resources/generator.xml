@@ -47,7 +47,7 @@
         <!-- ============================================================================== -->
         <!--domainObjectName="User"-->
 <!--        <table  tableName="common_user" domainObjectName="UserDO"/>-->
-<!--        <table  tableName="filter" domainObjectName="FilterDO"/>-->
+        <table  tableName="filter" domainObjectName="FilterDO"/>
         <table  tableName="filter_rule" domainObjectName="FilterRuleDO"/>
 <!--        <table  tableName="type" domainObjectName="TypeDO"/>-->
 <!--        <table  tableName="family_order" domainObjectName="OrderDO"/>-->

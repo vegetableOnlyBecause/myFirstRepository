@@ -7,7 +7,9 @@ public class FilterDO {
 
     private String filterId;
 
-    private String filterContent;
+    private String filterName;
+
+    private String content;
 
     private Integer enable;
 
@@ -29,12 +31,20 @@ public class FilterDO {
         this.filterId = filterId == null ? null : filterId.trim();
     }
 
-    public String getFilterContent() {
-        return filterContent;
+    public String getFilterName() {
+        return filterName;
     }
 
-    public void setFilterContent(String filterContent) {
-        this.filterContent = filterContent == null ? null : filterContent.trim();
+    public void setFilterName(String filterName) {
+        this.filterName = filterName == null ? null : filterName.trim();
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content == null ? null : content.trim();
     }
 
     public Integer getEnable() {

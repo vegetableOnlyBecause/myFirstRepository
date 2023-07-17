@@ -4,8 +4,9 @@
   <resultMap id="BaseResultMap" type="com.example.model.FilterRuleDO">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="rule_id" jdbcType="VARCHAR" property="ruleId" />
+    <result column="rule_name" jdbcType="VARCHAR" property="ruleName" />
     <result column="model_type" jdbcType="VARCHAR" property="modelType" />
-    <result column="rule" jdbcType="VARCHAR" property="rule" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
     <result column="enable" jdbcType="INTEGER" property="enable" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
   </resultMap>
@@ -68,7 +69,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, rule_id, model_type, rule, enable, create_time
+    id, rule_id, rule_name, model_type, content, enable, create_time
   </sql>
   <select id="selectByExample" parameterType="com.example.model.FilterRuleDOExample" resultMap="BaseResultMap">
     select
@@ -101,12 +102,12 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.example.model.FilterRuleDO">
-    insert into filter_rule (id, rule_id, model_type, 
-      rule, enable, create_time
-      )
-    values (#{id,jdbcType=INTEGER}, #{ruleId,jdbcType=VARCHAR}, #{modelType,jdbcType=VARCHAR}, 
-      #{rule,jdbcType=VARCHAR}, #{enable,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}
-      )
+    insert into filter_rule (id, rule_id, rule_name, 
+      model_type, content, enable, 
+      create_time)
+    values (#{id,jdbcType=INTEGER}, #{ruleId,jdbcType=VARCHAR}, #{ruleName,jdbcType=VARCHAR}, 
+      #{modelType,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, #{enable,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.example.model.FilterRuleDO">
     insert into filter_rule
@@ -117,11 +118,14 @@
       <if test="ruleId != null">
         rule_id,
       </if>
+      <if test="ruleName != null">
+        rule_name,
+      </if>
       <if test="modelType != null">
         model_type,
       </if>
-      <if test="rule != null">
-        rule,
+      <if test="content != null">
+        content,
       </if>
       <if test="enable != null">
         enable,
@@ -137,11 +141,14 @@
       <if test="ruleId != null">
         #{ruleId,jdbcType=VARCHAR},
       </if>
+      <if test="ruleName != null">
+        #{ruleName,jdbcType=VARCHAR},
+      </if>
       <if test="modelType != null">
         #{modelType,jdbcType=VARCHAR},
       </if>
-      <if test="rule != null">
-        #{rule,jdbcType=VARCHAR},
+      <if test="content != null">
+        #{content,jdbcType=VARCHAR},
       </if>
       <if test="enable != null">
         #{enable,jdbcType=INTEGER},
@@ -166,11 +173,14 @@
       <if test="record.ruleId != null">
         rule_id = #{record.ruleId,jdbcType=VARCHAR},
       </if>
+      <if test="record.ruleName != null">
+        rule_name = #{record.ruleName,jdbcType=VARCHAR},
+      </if>
       <if test="record.modelType != null">
         model_type = #{record.modelType,jdbcType=VARCHAR},
       </if>
-      <if test="record.rule != null">
-        rule = #{record.rule,jdbcType=VARCHAR},
+      <if test="record.content != null">
+        content = #{record.content,jdbcType=VARCHAR},
       </if>
       <if test="record.enable != null">
         enable = #{record.enable,jdbcType=INTEGER},
@@ -187,8 +197,9 @@
     update filter_rule
     set id = #{record.id,jdbcType=INTEGER},
       rule_id = #{record.ruleId,jdbcType=VARCHAR},
+      rule_name = #{record.ruleName,jdbcType=VARCHAR},
       model_type = #{record.modelType,jdbcType=VARCHAR},
-      rule = #{record.rule,jdbcType=VARCHAR},
+      content = #{record.content,jdbcType=VARCHAR},
       enable = #{record.enable,jdbcType=INTEGER},
       create_time = #{record.createTime,jdbcType=TIMESTAMP}
     <if test="_parameter != null">
@@ -201,11 +212,14 @@
       <if test="ruleId != null">
         rule_id = #{ruleId,jdbcType=VARCHAR},
       </if>
+      <if test="ruleName != null">
+        rule_name = #{ruleName,jdbcType=VARCHAR},
+      </if>
       <if test="modelType != null">
         model_type = #{modelType,jdbcType=VARCHAR},
       </if>
-      <if test="rule != null">
-        rule = #{rule,jdbcType=VARCHAR},
+      <if test="content != null">
+        content = #{content,jdbcType=VARCHAR},
       </if>
       <if test="enable != null">
         enable = #{enable,jdbcType=INTEGER},
@@ -219,8 +233,9 @@
   <update id="updateByPrimaryKey" parameterType="com.example.model.FilterRuleDO">
     update filter_rule
     set rule_id = #{ruleId,jdbcType=VARCHAR},
+      rule_name = #{ruleName,jdbcType=VARCHAR},
       model_type = #{modelType,jdbcType=VARCHAR},
-      rule = #{rule,jdbcType=VARCHAR},
+      content = #{content,jdbcType=VARCHAR},
       enable = #{enable,jdbcType=INTEGER},
       create_time = #{createTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}

@@ -7,9 +7,11 @@ public class FilterRuleDO {
 
     private String ruleId;
 
+    private String ruleName;
+
     private String modelType;
 
-    private String rule;
+    private String content;
 
     private Integer enable;
 
@@ -31,6 +33,14 @@ public class FilterRuleDO {
         this.ruleId = ruleId == null ? null : ruleId.trim();
     }
 
+    public String getRuleName() {
+        return ruleName;
+    }
+
+    public void setRuleName(String ruleName) {
+        this.ruleName = ruleName == null ? null : ruleName.trim();
+    }
+
     public String getModelType() {
         return modelType;
     }
@@ -39,12 +49,12 @@ public class FilterRuleDO {
         this.modelType = modelType == null ? null : modelType.trim();
     }
 
-    public String getRule() {
-        return rule;
+    public String getContent() {
+        return content;
     }
 
-    public void setRule(String rule) {
-        this.rule = rule == null ? null : rule.trim();
+    public void setContent(String content) {
+        this.content = content == null ? null : content.trim();
     }
 
     public Integer getEnable() {

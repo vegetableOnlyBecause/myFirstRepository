@@ -3,7 +3,6 @@ package com.example.filter.impl;
 import com.example.filter.QlExpressService;
 import com.example.filter.bo.FilterBO;
 import com.example.filter.opr.JoinOperator;
-import com.example.user.dto.UserDTO;
 import com.ql.util.express.DefaultContext;
 import com.ql.util.express.ExpressRunner;
 import lombok.extern.slf4j.Slf4j;
@@ -36,7 +35,7 @@ public class QLExpressServiceImpl implements QlExpressService {
     @PostConstruct
     public void initRunner() {
         try {
-            runner.addOperator("join", joinOperator);
+            runner.addFunction("join", joinOperator);
         } catch (Exception e) {
             log.error("自定义运算符加载失败, exception:{}", e.getMessage());
         }
@@ -58,7 +57,8 @@ public class QLExpressServiceImpl implements QlExpressService {
         try {
             return runner.execute(express, context, errorList, true, false);
         } catch (Exception e) {
-            log.error("QLExpress计算失败, express:{}, exception:{}", express, e.getMessage());
+            log.error("exception:{}", e.getMessage());
+            log.error("QLExpress计算失败, express:{}, errorList:{}", express, errorList);
         }
         return null;
     }
@@ -74,10 +74,10 @@ public class QLExpressServiceImpl implements QlExpressService {
                              String type, FilterBO filterBO) {
         switch (type) {
             case "user":
-                context.put("user", filterBO.getUserDTO());
+                context.put(type, filterBO.getUserDTO());
                 break;
             case "good":
-                context.put("good", filterBO.getGoodDTO());
+                context.put(type, filterBO.getGoodDTO());
                 break;
             default:
                 log.error("没有该类型的规则引擎, type:{}", type);

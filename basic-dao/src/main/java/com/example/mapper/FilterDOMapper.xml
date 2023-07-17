@@ -4,7 +4,8 @@
   <resultMap id="BaseResultMap" type="com.example.model.FilterDO">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="filter_id" jdbcType="VARCHAR" property="filterId" />
-    <result column="filter_content" jdbcType="VARCHAR" property="filterContent" />
+    <result column="filter_name" jdbcType="VARCHAR" property="filterName" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
     <result column="enable" jdbcType="INTEGER" property="enable" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
   </resultMap>
@@ -67,7 +68,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, filter_id, filter_content, enable, create_time
+    id, filter_id, filter_name, content, enable, create_time
   </sql>
   <select id="selectByExample" parameterType="com.example.model.FilterDOExample" resultMap="BaseResultMap">
     select
@@ -100,10 +101,12 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.example.model.FilterDO">
-    insert into filter (id, filter_id, filter_content, 
-      enable, create_time)
-    values (#{id,jdbcType=INTEGER}, #{filterId,jdbcType=VARCHAR}, #{filterContent,jdbcType=VARCHAR}, 
-      #{enable,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP})
+    insert into filter (id, filter_id, filter_name, 
+      content, enable, create_time
+      )
+    values (#{id,jdbcType=INTEGER}, #{filterId,jdbcType=VARCHAR}, #{filterName,jdbcType=VARCHAR}, 
+      #{content,jdbcType=VARCHAR}, #{enable,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.example.model.FilterDO">
     insert into filter
@@ -114,8 +117,11 @@
       <if test="filterId != null">
         filter_id,
       </if>
-      <if test="filterContent != null">
-        filter_content,
+      <if test="filterName != null">
+        filter_name,
+      </if>
+      <if test="content != null">
+        content,
       </if>
       <if test="enable != null">
         enable,
@@ -131,8 +137,11 @@
       <if test="filterId != null">
         #{filterId,jdbcType=VARCHAR},
       </if>
-      <if test="filterContent != null">
-        #{filterContent,jdbcType=VARCHAR},
+      <if test="filterName != null">
+        #{filterName,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=VARCHAR},
       </if>
       <if test="enable != null">
         #{enable,jdbcType=INTEGER},
@@ -157,8 +166,11 @@
       <if test="record.filterId != null">
         filter_id = #{record.filterId,jdbcType=VARCHAR},
       </if>
-      <if test="record.filterContent != null">
-        filter_content = #{record.filterContent,jdbcType=VARCHAR},
+      <if test="record.filterName != null">
+        filter_name = #{record.filterName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.content != null">
+        content = #{record.content,jdbcType=VARCHAR},
       </if>
       <if test="record.enable != null">
         enable = #{record.enable,jdbcType=INTEGER},
@@ -175,7 +187,8 @@
     update filter
     set id = #{record.id,jdbcType=INTEGER},
       filter_id = #{record.filterId,jdbcType=VARCHAR},
-      filter_content = #{record.filterContent,jdbcType=VARCHAR},
+      filter_name = #{record.filterName,jdbcType=VARCHAR},
+      content = #{record.content,jdbcType=VARCHAR},
       enable = #{record.enable,jdbcType=INTEGER},
       create_time = #{record.createTime,jdbcType=TIMESTAMP}
     <if test="_parameter != null">
@@ -188,8 +201,11 @@
       <if test="filterId != null">
         filter_id = #{filterId,jdbcType=VARCHAR},
       </if>
-      <if test="filterContent != null">
-        filter_content = #{filterContent,jdbcType=VARCHAR},
+      <if test="filterName != null">
+        filter_name = #{filterName,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null">
+        content = #{content,jdbcType=VARCHAR},
       </if>
       <if test="enable != null">
         enable = #{enable,jdbcType=INTEGER},
@@ -203,7 +219,8 @@
   <update id="updateByPrimaryKey" parameterType="com.example.model.FilterDO">
     update filter
     set filter_id = #{filterId,jdbcType=VARCHAR},
-      filter_content = #{filterContent,jdbcType=VARCHAR},
+      filter_name = #{filterName,jdbcType=VARCHAR},
+      content = #{content,jdbcType=VARCHAR},
       enable = #{enable,jdbcType=INTEGER},
       create_time = #{createTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}

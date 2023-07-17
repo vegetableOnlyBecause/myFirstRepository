@@ -39,7 +39,7 @@ public class FilterServiceImpl implements FilterService {
     @Override
     public boolean filter(String filterId, FilterBO filterBO) {
         FilterDO filter = filterDao.getFilterById(filterId);
-        return null == filter || deal(filter.getFilterContent(), filterBO);
+        return null == filter || deal(filter.getContent(), filterBO);
     }
 
 
@@ -53,7 +53,7 @@ public class FilterServiceImpl implements FilterService {
         StringBuilder ruleId = new StringBuilder();
         // 处理单个rule后获得结果组成的表达式
         StringBuilder express = new StringBuilder();
-        // 本地缓存, 单次规则结果Map
+        // 本地缓存, 单次组合规则处理中单个规则结果Map
         Map<String, Object> ruleId2Result = new HashMap<>();
         int length = content.toCharArray().length;
         for (int i = 0; i < length; i++) {
@@ -89,10 +89,10 @@ public class FilterServiceImpl implements FilterService {
         if (null == result) {
             FilterRuleDO ruleDO = filterDao.getRuleById(ruleId);
             result = null == ruleDO ? true :
-                    expressService.deal(ruleDO.getRule(), ruleDO.getModelType(), filterBO);
+                    expressService.deal(ruleDO.getContent(), ruleDO.getModelType(), filterBO);
             if (null == result) {
                 log.error("规则处理失败, ruleId:{}", ruleId);
-                return false;
+                result = false;
             }
             ruleId2Result.put(ruleId, result);
         }

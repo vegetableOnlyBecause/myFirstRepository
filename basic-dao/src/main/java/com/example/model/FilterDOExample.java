@@ -235,73 +235,143 @@ public class FilterDOExample {
             return (Criteria) this;
         }
 
-        public Criteria andFilterContentIsNull() {
-            addCriterion("filter_content is null");
+        public Criteria andFilterNameIsNull() {
+            addCriterion("filter_name is null");
             return (Criteria) this;
         }
 
-        public Criteria andFilterContentIsNotNull() {
-            addCriterion("filter_content is not null");
+        public Criteria andFilterNameIsNotNull() {
+            addCriterion("filter_name is not null");
             return (Criteria) this;
         }
 
-        public Criteria andFilterContentEqualTo(String value) {
-            addCriterion("filter_content =", value, "filterContent");
+        public Criteria andFilterNameEqualTo(String value) {
+            addCriterion("filter_name =", value, "filterName");
             return (Criteria) this;
         }
 
-        public Criteria andFilterContentNotEqualTo(String value) {
-            addCriterion("filter_content <>", value, "filterContent");
+        public Criteria andFilterNameNotEqualTo(String value) {
+            addCriterion("filter_name <>", value, "filterName");
             return (Criteria) this;
         }
 
-        public Criteria andFilterContentGreaterThan(String value) {
-            addCriterion("filter_content >", value, "filterContent");
+        public Criteria andFilterNameGreaterThan(String value) {
+            addCriterion("filter_name >", value, "filterName");
             return (Criteria) this;
         }
 
-        public Criteria andFilterContentGreaterThanOrEqualTo(String value) {
-            addCriterion("filter_content >=", value, "filterContent");
+        public Criteria andFilterNameGreaterThanOrEqualTo(String value) {
+            addCriterion("filter_name >=", value, "filterName");
             return (Criteria) this;
         }
 
-        public Criteria andFilterContentLessThan(String value) {
-            addCriterion("filter_content <", value, "filterContent");
+        public Criteria andFilterNameLessThan(String value) {
+            addCriterion("filter_name <", value, "filterName");
             return (Criteria) this;
         }
 
-        public Criteria andFilterContentLessThanOrEqualTo(String value) {
-            addCriterion("filter_content <=", value, "filterContent");
+        public Criteria andFilterNameLessThanOrEqualTo(String value) {
+            addCriterion("filter_name <=", value, "filterName");
             return (Criteria) this;
         }
 
-        public Criteria andFilterContentLike(String value) {
-            addCriterion("filter_content like", value, "filterContent");
+        public Criteria andFilterNameLike(String value) {
+            addCriterion("filter_name like", value, "filterName");
             return (Criteria) this;
         }
 
-        public Criteria andFilterContentNotLike(String value) {
-            addCriterion("filter_content not like", value, "filterContent");
+        public Criteria andFilterNameNotLike(String value) {
+            addCriterion("filter_name not like", value, "filterName");
             return (Criteria) this;
         }
 
-        public Criteria andFilterContentIn(List<String> values) {
-            addCriterion("filter_content in", values, "filterContent");
+        public Criteria andFilterNameIn(List<String> values) {
+            addCriterion("filter_name in", values, "filterName");
             return (Criteria) this;
         }
 
-        public Criteria andFilterContentNotIn(List<String> values) {
-            addCriterion("filter_content not in", values, "filterContent");
+        public Criteria andFilterNameNotIn(List<String> values) {
+            addCriterion("filter_name not in", values, "filterName");
             return (Criteria) this;
         }
 
-        public Criteria andFilterContentBetween(String value1, String value2) {
-            addCriterion("filter_content between", value1, value2, "filterContent");
+        public Criteria andFilterNameBetween(String value1, String value2) {
+            addCriterion("filter_name between", value1, value2, "filterName");
             return (Criteria) this;
         }
 
-        public Criteria andFilterContentNotBetween(String value1, String value2) {
-            addCriterion("filter_content not between", value1, value2, "filterContent");
+        public Criteria andFilterNameNotBetween(String value1, String value2) {
+            addCriterion("filter_name not between", value1, value2, "filterName");
+            return (Criteria) this;
+        }
+
+        public Criteria andContentIsNull() {
+            addCriterion("content is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andContentIsNotNull() {
+            addCriterion("content is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andContentEqualTo(String value) {
+            addCriterion("content =", value, "content");
+            return (Criteria) this;
+        }
+
+        public Criteria andContentNotEqualTo(String value) {
+            addCriterion("content <>", value, "content");
+            return (Criteria) this;
+        }
+
+        public Criteria andContentGreaterThan(String value) {
+            addCriterion("content >", value, "content");
+            return (Criteria) this;
+        }
+
+        public Criteria andContentGreaterThanOrEqualTo(String value) {
+            addCriterion("content >=", value, "content");
+            return (Criteria) this;
+        }
+
+        public Criteria andContentLessThan(String value) {
+            addCriterion("content <", value, "content");
+            return (Criteria) this;
+        }
+
+        public Criteria andContentLessThanOrEqualTo(String value) {
+            addCriterion("content <=", value, "content");
+            return (Criteria) this;
+        }
+
+        public Criteria andContentLike(String value) {
+            addCriterion("content like", value, "content");
+            return (Criteria) this;
+        }
+
+        public Criteria andContentNotLike(String value) {
+            addCriterion("content not like", value, "content");
+            return (Criteria) this;
+        }
+
+        public Criteria andContentIn(List<String> values) {
+            addCriterion("content in", values, "content");
+            return (Criteria) this;
+        }
+
+        public Criteria andContentNotIn(List<String> values) {
+            addCriterion("content not in", values, "content");
+            return (Criteria) this;
+        }
+
+        public Criteria andContentBetween(String value1, String value2) {
+            addCriterion("content between", value1, value2, "content");
+            return (Criteria) this;
+        }
+
+        public Criteria andContentNotBetween(String value1, String value2) {
+            addCriterion("content not between", value1, value2, "content");
             return (Criteria) this;
         }
 
