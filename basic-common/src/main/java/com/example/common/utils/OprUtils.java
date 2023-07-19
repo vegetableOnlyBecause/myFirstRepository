@@ -71,13 +71,12 @@ public class OprUtils {
         if (StringUtils.isBlank(str)) {
             return null;
         }
-        Date result = null;
         SimpleDateFormat format = new SimpleDateFormat(DATE_STRING);
         try {
-            result = format.parse(str);
+            return format.parse(str);
         } catch (Exception e) {
             log.error("Str 转 Date 方法失败, str:{}", str);
         }
-        return result;
+        return null;
     }
 }
