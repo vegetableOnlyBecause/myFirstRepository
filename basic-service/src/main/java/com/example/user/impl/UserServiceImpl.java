@@ -50,7 +50,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean update(UserOprParamDTO param) {
-        UserDO user = userDao.getUserById(param.getId());
+        UserDO user = userDao.getById(param.getId());
         Objects.requireNonNull(user, "用户信息不存在:" + param.getId());
         userDao.update(UserUtils.dto2do(param));
         return true;
@@ -59,7 +59,7 @@ public class UserServiceImpl implements UserService {
     @Override
 //    @CacheAop(operateEnums = CacheAopEnums.GET_USER_BY_ID)
     public UserDTO getUserById(Integer userId) {
-        UserDO userDO = userDao.getUserById(userId);
+        UserDO userDO = userDao.getById(userId);
         return UserUtils.do2Dto(userDO);
     }
 
@@ -71,10 +71,10 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void operateMoney(Integer salerId, Integer buyerId, float rmb) throws Exception {
-        UserDO saler = userDao.getUserById(salerId);
+        UserDO saler = userDao.getById(salerId);
         Float salerCoin = saler.getCoin();
         saler.setCoin(salerCoin + rmb);
-        UserDO buyer = userDao.getUserById(buyerId);
+        UserDO buyer = userDao.getById(buyerId);
         float coin = buyer.getCoin() - rmb;
         if (coin < 0) {
             throw new Exception("钱不够啊,铁子");

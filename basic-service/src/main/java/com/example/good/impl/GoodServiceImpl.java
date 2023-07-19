@@ -1,6 +1,5 @@
 package com.example.good.impl;
 
-import com.example.common.utils.OprUtils;
 import com.example.condition.GoodCondition;
 import com.example.dao.GoodDao;
 import com.example.dao.TypeDao;

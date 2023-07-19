@@ -13,7 +13,6 @@ import javax.annotation.Resource;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
 /**
  * @title: 用户查询类
@@ -45,7 +44,7 @@ public class UserDao {
         userDOMapper.updateByPrimaryKeySelective(user);
     }
 
-    public UserDO getUserById(int id){
+    public UserDO getById(int id){
         UserDOExample example = new UserDOExample();
         UserDOExample.Criteria criteria = example.createCriteria();
         criteria.andIdEqualTo(id);

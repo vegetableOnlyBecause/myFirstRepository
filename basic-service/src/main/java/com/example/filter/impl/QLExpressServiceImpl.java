@@ -3,6 +3,10 @@ package com.example.filter.impl;
 import com.example.filter.QlExpressService;
 import com.example.filter.bo.FilterBO;
 import com.example.filter.impl.opr.TimeJudgeFunc;
+import com.example.good.GoodService;
+import com.example.good.dto.GoodDTO;
+import com.example.user.UserService;
+import com.example.user.dto.UserDTO;
 import com.ql.util.express.DefaultContext;
 import com.ql.util.express.ExpressRunner;
 import lombok.extern.slf4j.Slf4j;
@@ -28,6 +32,16 @@ public class QLExpressServiceImpl implements QlExpressService {
      */
     @Resource
     private TimeJudgeFunc timeJudgeFunc;
+    /**
+     * 用户接口.
+     */
+    @Resource
+    private UserService userService;
+    /**
+     * 商品接口.
+     */
+    @Resource
+    private GoodService goodService;
 
     /**
      * QLExpression执行器.
@@ -51,7 +65,7 @@ public class QLExpressServiceImpl implements QlExpressService {
             ExpressRunner runner = getRunner();
             runner.addFunction("timeJudge", timeJudgeFunc);
         } catch (Exception e) {
-            log.error("自定义运算符加载失败, exception:{}", e.getMessage());
+            log.error("自定义方法添加失败, exception:{}", e.getMessage());
         }
     }
 
@@ -88,10 +102,16 @@ public class QLExpressServiceImpl implements QlExpressService {
                              DefaultContext<String, Object> context) {
         switch (type) {
             case "user":
-                context.put(type, filterBO.getUserDTO());
+                UserDTO user = Optional.ofNullable(filterBO.getUserDTO())
+                        .orElseGet(() ->userService.getUserById(filterBO.getUserId()));
+                if (null == filterBO.getUserDTO()) filterBO.setUserDTO(user);
+                context.put(type, user);
                 break;
             case "good":
-                context.put(type, filterBO.getGoodDTO());
+                GoodDTO good = Optional.ofNullable(filterBO.getGoodDTO())
+                        .orElseGet(() -> goodService.getById(filterBO.getGoodId()));
+                if (null == filterBO.getGoodDTO()) filterBO.setGoodDTO(good);
+                context.put(type, good);
                 break;
             default:
                 log.error("没有该类型的规则引擎, type:{}", type);

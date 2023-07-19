@@ -15,8 +15,11 @@ import lombok.Data;
 @Builder
 public class FilterBO {
 
+    private Integer userId;
+
     private UserDTO userDTO;
 
-    private GoodDTO goodDTO;
+    private Integer goodId;
 
+    private GoodDTO goodDTO;
 }
