@@ -32,12 +32,23 @@ public class QLExpressServiceImpl implements QlExpressService {
     /**
      * QLExpression执行器.
      */
-    private static final ExpressRunner runner = new ExpressRunner();
+    private static volatile ExpressRunner runner;
 
+    /**
+     * 单例.
+     * @return ExpressRunner对象
+     */
+    public static synchronized ExpressRunner getRunner() {
+        if (runner == null) {
+            runner = new ExpressRunner();
+        }
+        return runner;
+    }
 
     @PostConstruct
     public void initRunner() {
         try {
+            ExpressRunner runner = getRunner();
             runner.addFunction("timeJudge", timeJudgeFunc);
         } catch (Exception e) {
             log.error("自定义运算符加载失败, exception:{}", e.getMessage());
