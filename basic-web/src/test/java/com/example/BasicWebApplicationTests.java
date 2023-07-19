@@ -38,7 +38,7 @@ class BasicWebApplicationTests {
         FilterBO filterBO = FilterBO.builder()
                 .userDTO(user)
                 .build();
-        boolean filter = filterService.filter("1", filterBO);
+        boolean filter = filterService.filter("3", filterBO);
         System.out.println(filter);
     }
 
