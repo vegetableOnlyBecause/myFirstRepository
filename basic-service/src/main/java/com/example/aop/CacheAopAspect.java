@@ -27,19 +27,36 @@ import java.util.Optional;
 @Aspect
 @Component
 public class CacheAopAspect {
+    /**
+     * redis对象.
+     */
     @Resource
     private RedisOperator redisOperator;
+    /**
+     * 本地内存GuavaCache对象.
+     */
     @Resource
     GuavaCache guavaCache;
 
-    private static final String symbol = "#";
-    private static final String info_type_list="list";
+    /**
+     * 分隔符.
+     */
+    public static final String symbol = "#";
 
+    /**
+     * 切点.
+     */
     @Pointcut("@annotation(com.example.aop.CacheAop)")
     public void cacheAopPointCut(){}
 
+    /**
+     * 环绕方法
+     * @param joinPoint joinPoint
+     * @param cacheAop cacheAop
+     * @return 执行结果
+     */
     @Around("cacheAopPointCut() && @annotation(cacheAop)")
-    public Object  cacheAopOprAround(ProceedingJoinPoint joinPoint, CacheAop cacheAop) throws Throwable {
+    public Object cacheAopOprAround(ProceedingJoinPoint joinPoint, CacheAop cacheAop) {
         Object result = null;
         CacheAopEnums enums = cacheAop.type();
         String key = getKey(enums, joinPoint.getArgs());
@@ -96,7 +113,7 @@ public class CacheAopAspect {
         if (StringUtils.isNotBlank(info)) {
             Object result = enums.getFunc().apply(info);
             if (cacheAop.needLocalCache()) {
-                cache.put(key,result);
+                cache.put(key, result);
             }
             return result;
         }

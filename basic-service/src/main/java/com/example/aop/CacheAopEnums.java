@@ -23,6 +23,9 @@ public enum CacheAopEnums {
     GET_USER_BY_ID(str -> JSON.parseObject(str, UserDTO.class)),
     ;
 
+    /**
+     * 缓存转换类型方法.
+     */
     private final Function<String, Object> func;
 
 }

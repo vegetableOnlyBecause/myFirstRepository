@@ -1,6 +1,7 @@
 package com.example.user.impl;
 
 import com.example.aop.CacheAop;
+import com.example.aop.CacheAopAspect;
 import com.example.aop.CacheAopEnums;
 import com.example.common.redis.RedisOperator;
 import com.example.common.utils.OprUtils;
@@ -31,7 +32,6 @@ public class UserServiceImpl implements UserService {
     private UserDao userDao;
     @Resource
     private RedisOperator redisOperator;
-    private static final String symbol = "#";
 
     @Override
     public Integer save(UserOprParamDTO create) {
@@ -42,11 +42,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void delUserById(Integer userId) {
-        if (null == userId) {
-            //抛错
-        }
+        Objects.requireNonNull(userId);
         userDao.del(userId);
-        redisOperator.del(CacheAopEnums.GET_USER_BY_ID + symbol + userId);
+        redisOperator.del(CacheAopEnums.GET_USER_BY_ID + CacheAopAspect.symbol + userId);
     }
 
     @Override
@@ -58,7 +56,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    @CacheAop(type = CacheAopEnums.GET_USER_BY_ID)
+//    @CacheAop(type = CacheAopEnums.GET_USER_BY_ID)
     public UserDTO getUserById(Integer userId) {
         UserDO userDO = userDao.getById(userId);
         return UserUtils.do2Dto(userDO);
