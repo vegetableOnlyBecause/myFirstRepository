@@ -7,6 +7,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.Optional;
 
 /**
  * @title:
@@ -24,32 +25,20 @@ public class TimeJudgeFunc extends Operator {
         String time2Str = (String)list[2];
         // 获取Date类型
         Date time2 = OprUtils.str2Date(time2Str);
-        if (null == time1 || null == time2 || StringUtils.isBlank(judgeType)) {
-            return false;
-        }
-        // 获取枚举类型
-        TimeOprEnums oprType = OprUtils.getEnumFromString(TimeOprEnums.class, judgeType);
-        return getResultByOprType(oprType, time1, time2);
+        return null != time1 && null != time2 && StringUtils.isNotBlank(judgeType)
+                && getResultByOprType(judgeType, time1, time2);
     }
 
-    private boolean getResultByOprType(TimeOprEnums oprType,
-                                       Date time1, Date time2) {
-        if (null == oprType) {
-            return false;
-        }
-        switch (oprType) {
-            case before:
-                return time1.before(time2);
-            case beforeAndEquals:
-                return time1.before(time2) || time1.equals(time2);
-            case after:
-                return time1.after(time2);
-            case afterAndEquals:
-                return time1.after(time2) || time1.equals(time2);
-            case equals:
-                return time1.equals(time2);
-            default:
-                return false;
-        }
+    /**
+     * 根据判断类型获取结果
+     * @param judgeType 判断类型
+     * @param time1 Date1
+     * @param time2 Date2
+     * @return 结果
+     */
+    private boolean getResultByOprType(String judgeType, Date time1, Date time2) {
+        TimeOprEnums oprType = OprUtils.getEnumFromString(TimeOprEnums.class, judgeType);
+        return Optional.ofNullable(oprType)
+                .map(type -> type.getBiFunction().apply(time1, time2)).orElseGet(() -> false);
     }
 }

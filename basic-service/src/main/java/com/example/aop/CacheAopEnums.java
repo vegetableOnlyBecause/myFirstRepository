@@ -1,6 +1,11 @@
 package com.example.aop;
 
+import com.alibaba.fastjson.JSON;
 import com.example.user.dto.UserDTO;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
+import java.util.function.Function;
 
 /**
  * @title: 数据库查询操作枚举
@@ -9,23 +14,15 @@ import com.example.user.dto.UserDTO;
  * @description: 区分不同数据库查询操作
  */
 
+@Getter
+@AllArgsConstructor
 public enum CacheAopEnums {
-    GET_USER_BY_ID(UserDTO.class, "object"),
+    /**
+     * 根据Id获取用户.
+     */
+    GET_USER_BY_ID(str -> JSON.parseObject(str, UserDTO.class)),
     ;
 
-    private Class<?> clazz; // 相应的类信息
-    private String infoType; // 相应信息类型, 目前支持object/list
+    private final Function<String, Object> func;
 
-    CacheAopEnums(Class<?> clazz, String infoType) {
-        this.clazz = clazz;
-        this.infoType = infoType;
-    }
-
-    public Class<?> getClazz() {
-        return clazz;
-    }
-
-    public String getInfoType() {
-        return infoType;
-    }
 }

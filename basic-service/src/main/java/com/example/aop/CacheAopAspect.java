@@ -13,6 +13,9 @@ import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
+import java.util.Arrays;
+import java.util.Iterator;
+import java.util.Optional;
 
 /**
  * @title: 缓存处理切面操作
@@ -37,49 +40,90 @@ public class CacheAopAspect {
 
     @Around("cacheAopPointCut() && @annotation(cacheAop)")
     public Object  cacheAopOprAround(ProceedingJoinPoint joinPoint, CacheAop cacheAop) throws Throwable {
-        Object result;
-        CacheAopEnums enums = cacheAop.operateEnums();
-        String key = getKey(enums, joinPoint);
+        Object result = null;
+        CacheAopEnums enums = cacheAop.type();
+        String key = getKey(enums, joinPoint.getArgs());
         // 本地缓存操作
         Cache<String, Object> cache = guavaCache.getCache();
         if (cacheAop.needLocalCache()){
-            result = cache.getIfPresent(key);
-            if (null != result){
-                return result;
-            }
+            result = getValueByLocal(key, cache);
         }
         // redis缓存操作
+        result = Optional.ofNullable(result)
+                .orElseGet(() -> getValueByRedis(key, cacheAop, cache));
+        // 数据库操作
+        result = null != result ? result :
+                getValueByDB(key, cacheAop, joinPoint, cache);
+        return result;
+    }
+
+    /**
+     * 获取缓存key
+     * @param type 操作类型
+     * @param args 参数列表
+     * @return 缓存key
+     */
+    private String getKey(CacheAopEnums type, Object[] args) {
+        StringBuilder key = new StringBuilder(type.toString());
+        Iterator<Object> iterator = Arrays.stream(args).iterator();
+        while (iterator.hasNext()) {
+            key.append(symbol).append(iterator.next());
+        }
+        return key.toString();
+    }
+
+    /**
+     * 根据本地缓存获取值
+     * @param key 缓存key
+     * @param cache 本地缓存对象
+     * @return 值
+     */
+    private Object getValueByLocal(String key, Cache<String, Object> cache) {
+        return  cache.getIfPresent(key);
+    }
+
+    /**
+     * 根据redis获取值
+     * @param key 缓存key
+     * @param cacheAop 切面aop
+     * @param cache 本地缓存对象
+     * @return 值
+     */
+    private Object getValueByRedis(String key, CacheAop cacheAop,
+                                   Cache<String, Object> cache) {
         String info = redisOperator.get(key);
-        if (StringUtils.isNotBlank(info)){
-            result = info_type_list.equals(enums.getInfoType()) ?
-                    JSON.parseArray(info, enums.getClazz()) :
-                    JSON.parseObject(info, enums.getClazz())
-                    ;
-            if (cacheAop.needLocalCache()){
+        CacheAopEnums enums = cacheAop.type();
+        if (StringUtils.isNotBlank(info)) {
+            Object result = enums.getFunc().apply(info);
+            if (cacheAop.needLocalCache()) {
                 cache.put(key,result);
             }
             return result;
         }
-        // 数据库操作
-        result = joinPoint.proceed();
-        info = JSON.toJSONString(result);
-        redisOperator.set(key, info, cacheAop.expireTime());
-        if (cacheAop.needLocalCache()){
-            cache.put(key,result);
-        }
-        return result;
+        return null;
     }
 
-    private String getKey(CacheAopEnums enums, ProceedingJoinPoint joinPoint){
-        Object[] args = joinPoint.getArgs();
-        StringBuffer key = new StringBuffer(enums.toString());
-        key.append(symbol);
-        for (int i=0; i<args.length; i++){
-            key.append(""+args[i]);
-            if (i != args.length -1){
-                key.append(symbol);
+    /**
+     * 根据数据库获取值
+     * @param key 缓存key
+     * @param cacheAop  切面aop
+     * @param joinPoint joinPoint
+     * @param cache 本地缓存对象
+     * @return 值
+     */
+    private Object getValueByDB(String key, CacheAop cacheAop,
+                                ProceedingJoinPoint joinPoint,
+                                Cache<String, Object> cache) {
+        Object result = null;
+        try {
+            result = joinPoint.proceed();
+            redisOperator.set(key, JSON.toJSONString(result), cacheAop.expireTime());
+            if (cacheAop.needLocalCache()){
+                cache.put(key,result);
             }
+        } catch (Throwable e) {
+            log.error("缓存切面执行失败, e:{}", e.toString());
         }
-        return key.toString();
+        return result;
     }
 }

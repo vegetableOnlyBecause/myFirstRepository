@@ -14,7 +14,7 @@ import java.lang.annotation.Target;
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface CacheAop {
-    CacheAopEnums operateEnums();
+    CacheAopEnums type();
     boolean needLocalCache() default false;
     long expireTime() default 300;
 }

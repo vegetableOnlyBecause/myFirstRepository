@@ -1,5 +1,6 @@
 package com.example.user.impl;
 
+import com.example.aop.CacheAop;
 import com.example.aop.CacheAopEnums;
 import com.example.common.redis.RedisOperator;
 import com.example.common.utils.OprUtils;
@@ -57,7 +58,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-//    @CacheAop(operateEnums = CacheAopEnums.GET_USER_BY_ID)
+    @CacheAop(type = CacheAopEnums.GET_USER_BY_ID)
     public UserDTO getUserById(Integer userId) {
         UserDO userDO = userDao.getById(userId);
         return UserUtils.do2Dto(userDO);
