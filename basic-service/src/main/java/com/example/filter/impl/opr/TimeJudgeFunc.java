@@ -22,9 +22,7 @@ public class TimeJudgeFunc extends Operator {
     public Object executeInner(Object[] list) {
         Date time1 = (Date) list[0];
         String judgeType = (String)list[1];
-        String time2Str = (String)list[2];
-        // 获取Date类型
-        Date time2 = OprUtils.str2Date(time2Str);
+        Date time2 = OprUtils.str2Date((String)list[2]);
         return null != time1 && null != time2 && StringUtils.isNotBlank(judgeType)
                 && getResultByOprType(judgeType, time1, time2);
     }
@@ -37,7 +35,7 @@ public class TimeJudgeFunc extends Operator {
      * @return 结果
      */
     private boolean getResultByOprType(String judgeType, Date time1, Date time2) {
-        TimeOprEnums oprType = OprUtils.getEnumFromString(TimeOprEnums.class, judgeType);
+        TimeOprEnums oprType = OprUtils.getEnumByName(TimeOprEnums.class, judgeType);
         return Optional.ofNullable(oprType)
                 .map(type -> type.getBiFunction().apply(time1, time2)).orElseGet(() -> false);
     }

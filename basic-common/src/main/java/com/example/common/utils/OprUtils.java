@@ -51,7 +51,7 @@ public class OprUtils {
      * @param <T> 枚举类
      * @return 具体枚举类型
      */
-    public static <T extends Enum<T>> T getEnumFromString(Class<T> enumsClass, String string) {
+    public static <T extends Enum<T>> T getEnumByName(Class<T> enumsClass, String string) {
         if (null != enumsClass && StringUtils.isNotBlank(string)) {
             try {
                 return Enum.valueOf(enumsClass, string.trim());

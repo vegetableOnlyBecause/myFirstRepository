@@ -50,11 +50,15 @@ public class FilterServiceImpl implements FilterService {
      * @return 组合规则处理结果
      */
     private boolean deal(String content, FilterBO filterBO) {
+        if (StringUtils.isBlank(content)) {
+            return false;
+        }
         StringBuilder ruleId = new StringBuilder();
         // 处理单个rule后获得结果组成的表达式
         StringBuilder express = new StringBuilder();
         // 本地缓存, 单次组合规则处理中单个规则结果Map
         Map<String, Object> ruleId2Result = new HashMap<>();
+        // 处理每个rule并拼接成最终express进行处理
         int length = content.toCharArray().length;
         for (int i = 0; i < length; i++) {
             char character = content.toCharArray()[i];

@@ -26,10 +26,15 @@ public class FilterDao {
     @Resource
     private FilterRuleDOMapper filterRuleDOMapper;
 
+    /**
+     * 开启标志.
+     */
+    private static final Integer OPEN_FLAG = 1;
+
     public FilterDO getFilterById(String id) {
         FilterDOExample example = new FilterDOExample();
         FilterDOExample.Criteria criteria = example.createCriteria();
-        criteria.andFilterIdEqualTo(id).andEnableEqualTo(1);;
+        criteria.andFilterIdEqualTo(id).andEnableEqualTo(OPEN_FLAG);;
         List<FilterDO> dos = filterDOMapper.selectByExample(example);
         return CollectionUtils.isNotEmpty(dos) ? dos.get(0) : null;
     }
@@ -37,7 +42,7 @@ public class FilterDao {
     public FilterRuleDO getRuleById(String id) {
         FilterRuleDOExample example = new FilterRuleDOExample();
         FilterRuleDOExample.Criteria criteria = example.createCriteria();
-        criteria.andRuleIdEqualTo(id).andEnableEqualTo(1);
+        criteria.andRuleIdEqualTo(id).andEnableEqualTo(OPEN_FLAG);
         List<FilterRuleDO> dos = filterRuleDOMapper.selectByExample(example);
         return CollectionUtils.isNotEmpty(dos) ? dos.get(0) : null;
     }
