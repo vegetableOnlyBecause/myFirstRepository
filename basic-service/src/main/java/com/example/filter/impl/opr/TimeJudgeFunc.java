@@ -10,7 +10,7 @@ import java.util.Date;
 import java.util.Optional;
 
 /**
- * @title:
+ * @title: 时间判断自定义方法
  * @author: vegetableOnlyBecause
  * @date 2023/7/12 17:03
  * @description:
@@ -37,6 +37,6 @@ public class TimeJudgeFunc extends Operator {
     private boolean getResultByOprType(String judgeType, Date time1, Date time2) {
         TimeOprEnums oprType = OprUtils.getEnumByName(TimeOprEnums.class, judgeType);
         return Optional.ofNullable(oprType)
-                .map(type -> type.getBiFunction().apply(time1, time2)).orElseGet(() -> false);
+                .map(type -> type.getBiFunction().apply(time1, time2)).orElse(false);
     }
 }
