@@ -22,9 +22,7 @@ public class OprUtils {
     private static final String DATE_STRING = "yyyy-MM-dd HH:mm:ss";
 
     public static <T, U> U copyModel2Model(T model, U result){
-        if (null == model) {
-            return null;
-        }
+        if (null == model) return null;
         BeanUtils.copyProperties(model, result);
         return result;
     }
@@ -36,9 +34,7 @@ public class OprUtils {
     }
 
     public static <T, U> List<U> models2Models(List<T> models, Function<T, U> function) {
-        if (CollectionUtils.isEmpty(models)) {
-            return Collections.emptyList();
-        }
+        if (CollectionUtils.isEmpty(models)) return Collections.emptyList();
         List<U> result = new ArrayList<>();
         models.forEach(model -> Optional.ofNullable(function.apply(model)).ifPresent(result::add));
         return result;
@@ -68,9 +64,7 @@ public class OprUtils {
      * @return Date
      */
     public static Date str2Date(String str) {
-        if (StringUtils.isBlank(str)) {
-            return null;
-        }
+        if (StringUtils.isBlank(str)) return null;
         SimpleDateFormat format = new SimpleDateFormat(DATE_STRING);
         try {
             return format.parse(str);

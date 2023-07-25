@@ -1,10 +1,8 @@
 package com.example.user.impl;
 
-import com.example.aop.CacheAop;
-import com.example.aop.CacheAopAspect;
-import com.example.aop.CacheAopEnums;
-import com.example.common.redis.RedisOperator;
+import com.example.common.constant.RedisKeyConstants;
 import com.example.common.utils.OprUtils;
+import com.example.common.utils.RedisUtils;
 import com.example.condition.UserCondition;
 import com.example.dao.UserDao;
 import com.example.model.UserDO;
@@ -30,8 +28,6 @@ public class UserServiceImpl implements UserService {
 
     @Resource
     private UserDao userDao;
-    @Resource
-    private RedisOperator redisOperator;
 
     @Override
     public Integer save(UserOprParamDTO create) {
@@ -42,9 +38,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void delUserById(Integer userId) {
-        Objects.requireNonNull(userId);
+        Objects.requireNonNull(userId, "用户id为空");
         userDao.del(userId);
-        redisOperator.del(CacheAopEnums.GET_USER_BY_ID + CacheAopAspect.symbol + userId);
+        RedisUtils.del(RedisKeyConstants.USER + userId);
     }
 
     @Override
@@ -52,20 +48,23 @@ public class UserServiceImpl implements UserService {
         UserDO user = userDao.getById(param.getId());
         Objects.requireNonNull(user, "用户信息不存在:" + param.getId());
         userDao.update(UserUtils.dto2do(param));
+        RedisUtils.del(RedisKeyConstants.USER + user.getId());
         return true;
     }
 
     @Override
 //    @CacheAop(type = CacheAopEnums.GET_USER_BY_ID)
     public UserDTO getUserById(Integer userId) {
-        UserDO userDO = userDao.getById(userId);
-        return UserUtils.do2Dto(userDO);
+        String key = RedisKeyConstants.USER + userId;
+        return RedisUtils.get(key, UserDTO.class, RedisKeyConstants.HALF_MINUTE,
+                () -> UserUtils.do2Dto(userDao.getById(userId)));
     }
 
     @Override
     public UserDTO getUserByUserName(String userName) {
-        UserDO user = userDao.getUserByName(userName);
-        return UserUtils.do2Dto(user);
+        String key = RedisKeyConstants.USER + userName;
+        return RedisUtils.get(key, UserDTO.class, RedisKeyConstants.HALF_MINUTE,
+                () -> UserUtils.do2Dto(userDao.getUserByName(userName)));
     }
 
     @Override

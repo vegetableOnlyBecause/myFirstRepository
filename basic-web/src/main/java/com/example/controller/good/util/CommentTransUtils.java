@@ -25,7 +25,7 @@ public class CommentTransUtils {
     }
 
     public static CommentCreateDTO vo2dto(CommentCreate create) {
-        return OprUtils.copyModel2Model(create, new CommentCreateDTO());
+        return OprUtils.copyModel2Model(create, CommentCreateDTO.builder().build());
     }
 
     public static String date2String(Date date) {

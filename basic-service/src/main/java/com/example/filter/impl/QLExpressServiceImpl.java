@@ -103,7 +103,7 @@ public class QLExpressServiceImpl implements QlExpressService {
         switch (type) {
             case "user":
                 UserDTO user = Optional.ofNullable(filterBO.getUserDTO())
-                        .orElseGet(() ->userService.getUserById(filterBO.getUserId()));
+                        .orElseGet(() -> userService.getUserById(filterBO.getUserId()));
                 if (null == filterBO.getUserDTO()) filterBO.setUserDTO(user);
                 context.put(type, user);
                 break;

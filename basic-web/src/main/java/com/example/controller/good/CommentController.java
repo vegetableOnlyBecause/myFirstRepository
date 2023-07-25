@@ -10,7 +10,6 @@ import com.example.response.Result;
 import com.example.response.ResultEnum;
 import com.example.response.ResultUtil;
 import com.example.user.UserService;
-import com.example.user.dto.UserDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
@@ -43,12 +42,9 @@ public class CommentController {
     public Result addGoodsComments(@PathVariable("goodsId") Integer goodsId,
                                    @PathVariable("userId") Integer userId,
                                    @PathVariable("comment") String comment){
-        CommentCreateDTO comments = new CommentCreateDTO();
-        comments.setGoodsId(goodsId);
-        comments.setUserId(userId);
-        comments.setComments(comment);
-        UserDTO user = userService.getUserById(userId);
-        comments.setUserName(user.getUserName());
+        CommentCreateDTO comments = CommentCreateDTO.builder()
+                .goodsId(goodsId).userId(userId).comments(comment)
+                .userName(userService.getUserById(userId).getUserName()).build();
         commentService.save(comments);
         return ResultUtil.success(ResultEnum.ADD_GOODS_COMMENT);
     }

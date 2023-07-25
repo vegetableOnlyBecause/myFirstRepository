@@ -1,5 +1,6 @@
 package com.example.good.dto;
 
+import lombok.Builder;
 import lombok.Data;
 
 /**
@@ -9,6 +10,7 @@ import lombok.Data;
  * @description:
  */
 @Data
+@Builder
 public class CommentCreateDTO {
 
     private Integer goodsId;
