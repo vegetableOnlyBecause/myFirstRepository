@@ -1,5 +1,7 @@
 package com.example.dao;
 
+import com.example.common.constant.RedisKeyConstants;
+import com.example.common.utils.RedisUtils;
 import com.example.condition.UserCondition;
 import com.example.mapper.UserDOMapper;
 import com.example.model.UserDO;
@@ -42,6 +44,7 @@ public class UserDao {
     public void update(UserDO user) {
         user.setUpdateTime(new Date());
         userDOMapper.updateByPrimaryKeySelective(user);
+        RedisUtils.del(RedisKeyConstants.USER + user.getId());
     }
 
     public UserDO getById(int id){

@@ -48,7 +48,6 @@ public class UserServiceImpl implements UserService {
         UserDO user = userDao.getById(param.getId());
         Objects.requireNonNull(user, "用户信息不存在:" + param.getId());
         userDao.update(UserUtils.dto2do(param));
-        RedisUtils.del(RedisKeyConstants.USER + user.getId());
         return true;
     }
 
@@ -56,14 +55,14 @@ public class UserServiceImpl implements UserService {
 //    @CacheAop(type = CacheAopEnums.GET_USER_BY_ID)
     public UserDTO getUserById(Integer userId) {
         String key = RedisKeyConstants.USER + userId;
-        return RedisUtils.get(key, UserDTO.class, RedisKeyConstants.HALF_MINUTE,
+        return RedisUtils.get(key, UserDTO.class, RedisKeyConstants.ONE_DAY,
                 () -> UserUtils.do2Dto(userDao.getById(userId)));
     }
 
     @Override
     public UserDTO getUserByUserName(String userName) {
         String key = RedisKeyConstants.USER + userName;
-        return RedisUtils.get(key, UserDTO.class, RedisKeyConstants.HALF_MINUTE,
+        return RedisUtils.get(key, UserDTO.class, RedisKeyConstants.ONE_DAY,
                 () -> UserUtils.do2Dto(userDao.getUserByName(userName)));
     }
 

@@ -46,7 +46,7 @@ public class UserController {
      * @return Result
      */
     @PostMapping(value = "/update/info")
-    public Result updateUserByName(UserOprParam param) throws Exception {
+    public Result updateUserByName(UserOprParam param) {
         boolean flag = userService.update(UserTransUtils.vo2dto(param));
         return !flag ? ResultUtil.error(ResultEnum.UPDATE_USER_ERROR)
                 : ResultUtil.success(ResultEnum.UPDATE_USER);

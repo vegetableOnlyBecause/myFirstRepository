@@ -1,5 +1,7 @@
 package com.example.filter.impl;
 
+import com.example.common.constant.RedisKeyConstants;
+import com.example.common.utils.RedisUtils;
 import com.example.dao.FilterDao;
 import com.example.filter.FilterService;
 import com.example.filter.QlExpressService;
@@ -35,10 +37,9 @@ public class FilterServiceImpl implements FilterService {
     @Resource
     private QlExpressService expressService;
 
-
     @Override
     public boolean filter(String filterId, FilterBO filterBO) {
-        FilterDO filter = filterDao.getFilterById(filterId);
+        FilterDO filter = getFilterById(filterId);
         return null == filter || deal(filter.getContent(), filterBO);
     }
 
@@ -91,7 +92,7 @@ public class FilterServiceImpl implements FilterService {
                                   Map<String, Object> ruleId2Result) {
         Object result = ruleId2Result.get(ruleId);
         if (null == result) {
-            FilterRuleDO ruleDO = filterDao.getRuleById(ruleId);
+            FilterRuleDO ruleDO = getRuleById(ruleId);
             result = null == ruleDO ? true :
                     expressService.deal(ruleDO.getContent(), ruleDO.getModelType(), filterBO);
             if (null == result) {
@@ -101,5 +102,17 @@ public class FilterServiceImpl implements FilterService {
             ruleId2Result.put(ruleId, result);
         }
         return result;
+    }
+
+    private FilterDO getFilterById(String id) {
+        String key = RedisKeyConstants.FILTER + id;
+        return RedisUtils.get(key, FilterDO.class, RedisKeyConstants.ONE_DAY,
+                () -> filterDao.getFilterById(id));
+    }
+
+    private FilterRuleDO getRuleById(String id) {
+        String key = RedisKeyConstants.RULE + id;
+        return RedisUtils.get(key, FilterRuleDO.class, RedisKeyConstants.ONE_DAY,
+                () -> filterDao.getRuleById(id));
     }
 }

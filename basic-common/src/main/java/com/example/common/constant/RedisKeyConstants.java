@@ -8,7 +8,7 @@ package com.example.common.constant;
  */
 public class RedisKeyConstants {
 
-    public static final long HALF_MINUTE = 30;
+    public static final long ONE_DAY = 86400;
 
     public static final String USER = "user#";
 
