@@ -1,6 +1,7 @@
 package com.example.common.utils;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.TypeReference;
 import com.example.common.redis.RedisOperator;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.stereotype.Repository;
@@ -19,6 +20,9 @@ import java.util.function.Supplier;
 @Repository
 public class RedisUtils {
 
+    /**
+     * redisOpr.
+     */
     private static RedisOperator redisOpr;
 
     @Resource
@@ -101,6 +105,6 @@ public class RedisUtils {
      */
     public static <T> List<T> list(String key, Class<T> clazz) {
         return Optional.ofNullable(redisOpr.get(key))
-                .map(v -> JSON.parseArray(v, clazz)).orElse(null);
+                .map(v -> JSON.parseObject(v, new TypeReference<List<T>>(clazz){})).orElse(null);
     }
 }

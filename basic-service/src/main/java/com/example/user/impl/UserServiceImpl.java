@@ -12,6 +12,7 @@ import com.example.user.dto.UserOprParamDTO;
 import com.example.user.util.UserUtils;
 import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -30,6 +31,7 @@ public class UserServiceImpl implements UserService {
     private UserDao userDao;
 
     @Override
+    @Transactional
     public Integer save(UserOprParamDTO create) {
         UserDO userDO = UserUtils.dto2do(create);
         userDao.save(userDO);

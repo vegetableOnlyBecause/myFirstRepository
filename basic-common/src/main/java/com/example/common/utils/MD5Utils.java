@@ -67,12 +67,11 @@ public class MD5Utils {
 
 
     // 测试主函数
-    public static void main(String args[]) {
+    public static void main(String[] args) {
         String s = new String("123456");
         log.info("原始：" + s);
         log.info("MD5后：" + string2MD5(s));
         log.info("密码是否一致：" + passwordIsTrue("123456","e10adc3949ba59abbe56e057f20f883e"));
-
     }
 
 }
