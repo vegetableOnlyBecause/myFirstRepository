@@ -50,7 +50,7 @@ public class OrderServiceImpl implements OrderService {
     @Transactional
     public void del(Integer id) throws Exception {
         OrderDO order = orderDao.getById(id);
-        orderDao.del(id);
+        orderDao.removeById(id);
         goodService.lessInventory(order.getGoodsId(), -1);
     }
 }

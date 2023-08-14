@@ -55,7 +55,7 @@ public class TypeController {
     @GetMapping(value = "/types/name")
     public Result<List<String>> getAllTypesName(){
         List<TypeDTO> all = typeService.all();
-        List<String> allTypeNames = all.stream().map(x -> x.getName()).collect(Collectors.toList());
+        List<String> allTypeNames = all.stream().map(TypeDTO::getName).collect(Collectors.toList());
         return ResultUtil.success(ResultEnum.GET_TYPES, allTypeNames);
     }
 

@@ -1,14 +1,14 @@
 package com.example.good.impl;
 
 import com.example.common.utils.OprUtils;
-import com.example.dao.GoodDao;
+import com.example.dao.TypeDao;
+import com.example.dao.impl.GoodDaoImpl;
 import com.example.good.TypeService;
 import com.example.good.dto.TypeCreateDTO;
 import com.example.good.dto.TypeDTO;
 import com.example.good.util.TypeUtils;
 import com.example.good.util.PageInfoUtils;
 import com.example.condition.TypeCondition;
-import com.example.dao.TypeDao;
 import com.example.model.TypeDO;
 import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Service;
@@ -28,10 +28,10 @@ public class TypeServiceImpl implements TypeService {
     @Resource
     private TypeDao typeDao;
     @Resource
-    private GoodDao goodDao;
+    private GoodDaoImpl goodDaoImpl;
 
     @Override
-    public Integer save(TypeCreateDTO create) {
+    public boolean save(TypeCreateDTO create) {
         return typeDao.save(TypeUtils.dto2do(create));
     }
 
@@ -58,6 +58,6 @@ public class TypeServiceImpl implements TypeService {
         if (null == type) {
             return 0;
         }
-        return goodDao.listByType(type.getId()).size();
+        return goodDaoImpl.listByType(type.getId()).size();
     }
 }

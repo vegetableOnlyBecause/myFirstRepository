@@ -2,6 +2,7 @@ package com.example.good.impl;
 
 import com.example.condition.GoodCondition;
 import com.example.dao.GoodDao;
+import com.example.dao.impl.GoodDaoImpl;
 import com.example.model.GoodDO;
 import com.github.pagehelper.PageInfo;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -31,7 +32,7 @@ public class GoodSchedule {
         for (GoodDO good : goods) {
             if (new Date().after(good.getEndTime())) {
                 good.setStatus(0);
-                goodDao.update(good);
+                goodDao.updateById(good);
             }
         }
     }

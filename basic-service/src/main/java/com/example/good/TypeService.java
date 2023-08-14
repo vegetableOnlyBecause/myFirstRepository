@@ -15,7 +15,7 @@ import java.util.List;
  */
 public interface TypeService {
 
-    Integer save(TypeCreateDTO create);
+    boolean save(TypeCreateDTO create);
 
     PageInfo<TypeDTO> listInfo(TypeCondition condition);
 

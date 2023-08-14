@@ -2,6 +2,7 @@ package com.example.good.impl;
 
 import com.example.common.utils.OprUtils;
 import com.example.dao.CommentDao;
+import com.example.dao.impl.CommentDaoImpl;
 import com.example.good.CommentService;
 import com.example.good.dto.CommentCreateDTO;
 import com.example.good.dto.CommentDTO;
@@ -34,6 +35,4 @@ public class CommentServiceImpl implements CommentService {
     public void save(CommentCreateDTO create) {
         commentDao.save(CommentUtils.dto2do(create));
     }
-
-
 }

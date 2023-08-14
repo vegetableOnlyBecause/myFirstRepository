@@ -1,21 +1,17 @@
 package com.example.user.impl;
 
 import com.example.common.constant.RedisKeyConstants;
-import com.example.common.utils.OprUtils;
 import com.example.common.utils.RedisUtils;
-import com.example.condition.UserCondition;
 import com.example.dao.UserDao;
 import com.example.model.UserDO;
 import com.example.user.UserService;
 import com.example.user.dto.UserDTO;
 import com.example.user.dto.UserOprParamDTO;
 import com.example.user.util.UserUtils;
-import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
-import java.util.List;
 import java.util.Objects;
 
 /**
@@ -41,7 +37,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public void delUserById(Integer userId) {
         Objects.requireNonNull(userId, "用户id为空");
-        userDao.del(userId);
+        userDao.removeById(userId);
         RedisUtils.del(RedisKeyConstants.USER + userId);
     }
 
@@ -81,13 +77,5 @@ public class UserServiceImpl implements UserService {
         buyer.setCoin(coin);
         userDao.update(saler);
         userDao.update(buyer);
-    }
-
-    @Override
-    public PageInfo<UserDTO> listInfo(UserCondition condition){
-        PageInfo<UserDO> doPage = userDao.listInfo(condition);
-        List<UserDO> dos = doPage.getList();
-        List<UserDTO> dtos = OprUtils.models2Models(dos, UserUtils::do2Dto);
-        return new PageInfo<>(dtos);
     }
 }

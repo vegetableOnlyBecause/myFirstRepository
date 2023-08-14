@@ -1,49 +1,15 @@
 package com.example.dao;
 
-import com.example.mapper.FilterDOMapper;
-import com.example.mapper.FilterRuleDOMapper;
+import com.baomidou.mybatisplus.extension.service.IService;
 import com.example.model.FilterDO;
-import com.example.model.FilterDOExample;
-import com.example.model.FilterRuleDO;
-import com.example.model.FilterRuleDOExample;
-import org.apache.commons.collections4.CollectionUtils;
-import org.springframework.stereotype.Repository;
-
-import javax.annotation.Resource;
-import java.util.List;
 
 /**
- * @title: 过滤规则Dao
+ * @title:
  * @author: vegetableOnlyBecause
- * @date 2023/7/12 10:56
- * @description: 过滤规则数据库查询方法集合
+ * @date 2023/8/8 17:29
+ * @description:
  */
-@Repository
-public class FilterDao {
-    @Resource
-    private FilterDOMapper filterDOMapper;
+public interface FilterDao extends IService<FilterDO> {
 
-    @Resource
-    private FilterRuleDOMapper filterRuleDOMapper;
-
-    /**
-     * 开启标志.
-     */
-    private static final Integer OPEN_FLAG = 1;
-
-    public FilterDO getFilterById(String id) {
-        FilterDOExample example = new FilterDOExample();
-        FilterDOExample.Criteria criteria = example.createCriteria();
-        criteria.andFilterIdEqualTo(id).andEnableEqualTo(OPEN_FLAG);;
-        List<FilterDO> dos = filterDOMapper.selectByExample(example);
-        return CollectionUtils.isNotEmpty(dos) ? dos.get(0) : null;
-    }
-
-    public FilterRuleDO getRuleById(String id) {
-        FilterRuleDOExample example = new FilterRuleDOExample();
-        FilterRuleDOExample.Criteria criteria = example.createCriteria();
-        criteria.andRuleIdEqualTo(id).andEnableEqualTo(OPEN_FLAG);
-        List<FilterRuleDO> dos = filterRuleDOMapper.selectByExample(example);
-        return CollectionUtils.isNotEmpty(dos) ? dos.get(0) : null;
-    }
+    FilterDO getById(String id);
 }

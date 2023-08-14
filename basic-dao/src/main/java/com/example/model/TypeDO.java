@@ -1,9 +1,14 @@
 package com.example.model;
 
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
+import lombok.Data;
+
 import java.util.Date;
-
+@Data
+@TableName("type")
 public class TypeDO {
-
+    @TableId
     private Integer id;
 
     private String name;

@@ -51,7 +51,7 @@ public class GoodServiceImpl implements GoodService {
 
     @Override
     public void delById(Integer id) {
-        goodDao.del(id);
+        goodDao.removeById(id);
     }
 
     @Override
@@ -73,7 +73,7 @@ public class GoodServiceImpl implements GoodService {
         TypeDO type = typeDao.getById(dto.getTypeId());
         Integer number = type.getNumber();
         type.setNumber(number + 1);
-        typeDao.update(type);
+        typeDao.updateById(type);
         if (StringUtils.isNotBlank(dto.getImgUrl())) {
             savePic(dto.getImgUrl());
         }
@@ -83,7 +83,7 @@ public class GoodServiceImpl implements GoodService {
     @Override
     public void update(GoodOprDTO dto) {
         GoodDO good = GoodUtils.dto2do(dto);
-        goodDao.update(good);
+        goodDao.updateById(good);
     }
 
     @Override
@@ -95,7 +95,7 @@ public class GoodServiceImpl implements GoodService {
             throw new Exception("库存不够了");
         }
         good.setNum(inventory);
-        goodDao.update(good);
+        goodDao.updateById(good);
     }
 
     private void savePic(String picName) throws Exception {

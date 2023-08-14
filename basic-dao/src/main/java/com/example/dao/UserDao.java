@@ -1,76 +1,17 @@
 package com.example.dao;
 
-import com.example.common.constant.RedisKeyConstants;
-import com.example.common.utils.RedisUtils;
-import com.example.condition.UserCondition;
-import com.example.mapper.UserDOMapper;
+import com.baomidou.mybatisplus.extension.service.IService;
 import com.example.model.UserDO;
-import com.example.model.UserDOExample;
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
-import org.apache.commons.collections4.CollectionUtils;
-import org.springframework.stereotype.Repository;
-
-import javax.annotation.Resource;
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
 
 /**
- * @title: 用户查询类
+ * @title:
  * @author: vegetableOnlyBecause
- * @date 2022/9/26 14:19
+ * @date 2023/8/8 17:08
  * @description:
  */
-@Repository
-public class UserDao {
+public interface UserDao extends IService<UserDO> {
 
-    @Resource
-    private UserDOMapper userDOMapper;
+    void update(UserDO user);
 
-    public void save(UserDO user){
-        user.setCreateTime(new Date());
-        user.setUpdateTime(new Date());
-        userDOMapper.insertSelective(user);
-    }
-
-    public void del(int id){
-        UserDOExample example = new UserDOExample();
-        UserDOExample.Criteria criteria = example.createCriteria();
-        criteria.andIdEqualTo(id);
-        userDOMapper.deleteByExample(example);
-    }
-
-    public void update(UserDO user) {
-        user.setUpdateTime(new Date());
-        userDOMapper.updateByPrimaryKeySelective(user);
-        RedisUtils.del(RedisKeyConstants.USER + user.getId());
-    }
-
-    public UserDO getById(int id){
-        UserDOExample example = new UserDOExample();
-        UserDOExample.Criteria criteria = example.createCriteria();
-        criteria.andIdEqualTo(id);
-        List<UserDO> dos = userDOMapper.selectByExample(example);
-        return CollectionUtils.isNotEmpty(dos) ? dos.get(0) : null;
-    }
-
-    public UserDO getUserByName(String userName){
-        UserDOExample example = new UserDOExample();
-        UserDOExample.Criteria criteria = example.createCriteria();
-        criteria.andUserNameEqualTo(userName);
-        List<UserDO> dos = userDOMapper.selectByExample(example);
-        return CollectionUtils.isNotEmpty(dos) ? dos.get(0) : null;
-    }
-
-    public PageInfo<UserDO> listInfo(UserCondition condition){
-        UserDOExample example = new UserDOExample();
-        UserDOExample.Criteria criteria = example.createCriteria();
-        example.setOrderByClause(condition.getSortField()
-                + " " + condition.getSortType());
-        condition.initPageInfo();
-        PageHelper.startPage(condition.getPage(), condition.getPageSize());
-        List<UserDO> dos = userDOMapper.selectByExample(example);
-        return new PageInfo<>(CollectionUtils.isNotEmpty(dos) ? dos : Collections.emptyList());
-    }
+    UserDO getUserByName(String userName);
 }

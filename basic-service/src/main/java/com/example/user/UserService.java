@@ -55,11 +55,4 @@ public interface UserService {
      * @throws Exception 钱不够的时候抛错
      */
     void operateMoney(Integer salerId, Integer buyerId, float rmb) throws Exception;
-
-    /**
-     * 批量查询用户信息
-     * @param condition 查询条件
-     * @return 用户信息列表
-     */
-    PageInfo<UserDTO> listInfo(UserCondition condition);
 }

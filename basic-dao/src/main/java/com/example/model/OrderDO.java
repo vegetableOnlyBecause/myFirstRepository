@@ -1,7 +1,12 @@
 package com.example.model;
 
+import com.baomidou.mybatisplus.annotation.TableName;
+import lombok.Data;
+
 import java.util.Date;
 
+@Data
+@TableName("trade")
 public class OrderDO {
     private Integer id;
 

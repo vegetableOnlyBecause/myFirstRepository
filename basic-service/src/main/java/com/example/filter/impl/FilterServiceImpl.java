@@ -3,6 +3,7 @@ package com.example.filter.impl;
 import com.example.common.constant.RedisKeyConstants;
 import com.example.common.utils.RedisUtils;
 import com.example.dao.FilterDao;
+import com.example.dao.FilterRuleDao;
 import com.example.filter.FilterService;
 import com.example.filter.QlExpressService;
 import com.example.filter.bo.FilterBO;
@@ -31,6 +32,11 @@ public class FilterServiceImpl implements FilterService {
      */
     @Resource
     private FilterDao filterDao;
+    /**
+     * filterRuleDao.
+     */
+    @Resource
+    private FilterRuleDao ruleDao;
     /**
      * QLExpression处理Service.
      */
@@ -107,12 +113,12 @@ public class FilterServiceImpl implements FilterService {
     private FilterDO getFilterById(String id) {
         String key = RedisKeyConstants.FILTER + id;
         return RedisUtils.get(key, FilterDO.class, RedisKeyConstants.ONE_DAY,
-                () -> filterDao.getFilterById(id));
+                () -> filterDao.getById(id));
     }
 
     private FilterRuleDO getRuleById(String id) {
         String key = RedisKeyConstants.RULE + id;
         return RedisUtils.get(key, FilterRuleDO.class, RedisKeyConstants.ONE_DAY,
-                () -> filterDao.getRuleById(id));
+                () -> ruleDao.getById(id));
     }
 }

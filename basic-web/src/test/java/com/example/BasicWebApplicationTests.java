@@ -1,9 +1,14 @@
 package com.example;
 
+import com.example.common.redis.RedisOperator;
+import com.example.common.utils.RedisUtils;
+import com.example.dao.CartDao;
 import com.example.filter.FilterService;
 import com.example.filter.bo.FilterBO;
+import com.example.model.CartDO;
 import com.example.user.UserService;
 import com.example.user.dto.UserDTO;
+import lombok.Data;
 import org.apache.commons.pool2.impl.GenericObjectPool;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -20,6 +25,10 @@ class BasicWebApplicationTests {
 
     @Resource
     private UserService userService;
+    @Resource
+    private RedisTemplate<String, String> redisTemplate;
+    @Resource
+    private CartDao cartDao;
 
     @Test
     public void testPool() throws Exception {
