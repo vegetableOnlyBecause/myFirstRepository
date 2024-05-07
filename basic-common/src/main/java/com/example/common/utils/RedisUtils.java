@@ -7,6 +7,7 @@ import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.stereotype.Repository;
 
 import javax.annotation.Resource;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Supplier;
@@ -105,6 +106,8 @@ public class RedisUtils {
      */
     public static <T> List<T> list(String key, Class<T> clazz) {
         return Optional.ofNullable(redisOpr.get(key))
-                .map(v -> JSON.parseObject(v, new TypeReference<List<T>>(clazz){})).orElse(null);
+                .map(v -> JSON.parseObject(v, new TypeReference<List<T>>(clazz){}))
+                .orElse(Collections.emptyList());
     }
 }
+
